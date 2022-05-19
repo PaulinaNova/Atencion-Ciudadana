@@ -1,0 +1,95 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: montserrat, sans-serif;
+}
+.error {
+  color: white;
+  font-size: 10px;
+}
+
+input,
+button {
+  appearance: none;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+.log {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #630404;
+}
+
+form {
+  display: block;
+  position: relative;
+}
+
+form .form-inner {
+  position: relative;
+  display: block;
+  background-color: #721717;
+  padding: 80px;
+  z-index: 2;
+  border-radius: 10px;
+}
+
+.login {
+  width: 120px;
+  height: 120px;
+  margin-bottom: 80px;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  margin-left: 70px;
+  margin-top: 10px;
+  margin-right: 70px;
+}
+.form-inner .form-group label {
+  display: block;
+  color: white;
+  font-size: 25px;
+  margin-bottom: 5px;
+  transition: 0.4s;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+.form-inner .form-group:focus-within label {
+  color: rgb(56, 8, 8);
+}
+
+form .form-inner .form-group input {
+  display: block;
+  font-size: 20px;
+  width: 100%;
+  padding: 10px 15px;
+  background-color: gainsboro;
+  border-radius: 8px;
+  transition: 0.4s;
+}
+
+form .form-inner input[type="submit"] {
+  display: inline-block;
+  padding-left: 2px;
+  padding-top: 20px;
+  border-radius: 8px;
+  background-image: linear-gradient(to right, #ffce00 50%, #ffce00 50% #fe4880);
+  background-size: 200%;
+  background-position: 0%;
+  transition: 0.4s;
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+form .form-inner input[type="submit"]:hover,
+.welcome button:hover {
+  background-position: 10% 0%;
+}

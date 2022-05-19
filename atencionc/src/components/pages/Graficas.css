@@ -1,0 +1,49 @@
+.chart-container {
+  margin-top: 5vh;
+  margin-left: 60vh;
+  width: 750px;
+  background-color: rgba(128, 128, 128, 0.192);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5vh;
+}
+
+.chart {
+  width: 400px;
+}
+
+.inp {
+  height: 45px;
+  width: 59vh;
+  padding: 15px;
+  font-size: 1.2rem;
+  border-radius: 20px;
+  color: rgb(92, 88, 88);
+  background-color: rgba(128, 128, 128, 0.315);
+  border: none;
+}
+
+.slc {
+  height: 45px;
+  width: 59vh;
+  padding: 10px;
+  font-size: 1.2rem;
+  border-radius: 20px;
+  color: rgb(92, 88, 88);
+  background-color: rgba(128, 128, 128, 0.315);
+  border: none;
+}
+
+.filtros {
+  margin-left: 60vh;
+  margin-top: 5vh;
+  width: 750px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+}
+
+.btngraficas {
+  margin-left: 104vh;
+}

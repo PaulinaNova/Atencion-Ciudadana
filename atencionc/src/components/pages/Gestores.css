@@ -1,0 +1,46 @@
+.CGestor{
+    margin-left: 50vh;
+    
+  }
+  
+  .wrapper{
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(3, 45vh);
+  }
+  
+  .inpG {
+    width: 40vh;
+    position: relative;
+    height: 45px;
+    padding: 15px;
+    font-size: 1.2rem;
+    border-radius: 20px;
+    border: 2px solid #630404;
+    color: #630404;
+    background-color: white;
+    margin-top: 2vh;
+    
+  }
+
+  input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    }
+  
+  label {
+    color: #630404;
+    font-weight: bold;
+    font-size: 20px;
+    display: inline-flex;
+  }
+  
+  .btnG {
+    margin-left: 92vh;
+    margin-top: 2vh;
+  }
+  
+  .btnG .btn {
+    width: 40vh;
+  }

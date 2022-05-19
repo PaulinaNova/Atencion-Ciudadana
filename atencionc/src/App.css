@@ -1,0 +1,34 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Lato", sans-serif;
+}
+
+.buscar,
+.seguimiento,
+.graficas,
+.reportes,
+.pendientes,
+.gestores {
+    margin: 7vh;
+}
+
+.btn {
+  height: 45px;
+  width: 35vh;
+  font-size: 1.2rem;
+  border-radius: 20px;
+  color: rgb(255, 255, 255);
+  background-color: #630404;
+  border: none;
+  margin-left: 3vh;
+  margin-top: 3vh;
+}
+
+.buscar table {
+  margin-top: 5vh;
+  margin-left: 45vh;
+}
