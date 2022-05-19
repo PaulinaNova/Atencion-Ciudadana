@@ -1,6 +1,10 @@
 import mongoose from 'mongoose'
 import userModel from '../models/usersModel.js'
+import gestionModel from '../models/gestionModel.js'
+import procedenciaModel from '../models/procedenciaModel.js'
+import dependenciaModel from '../models/dependenciaModel.js'
 import ciudadanoModel from '../models/ciudadanoModel.js'
+import gestorModel from '../models/gestorModel.js'
 
 const connectDB = async () => {
     try {
