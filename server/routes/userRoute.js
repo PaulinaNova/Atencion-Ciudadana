@@ -1,7 +1,7 @@
 import { getUsers, getUserById } from "../controllers/userController.js";
 import express from 'express'
 const router = express.Router()
-///NUEVO CAMBIOOOOOO
+///NUEVO CAMBIOOOOOO X2
 
 
 // express router method to create route for getting all users
