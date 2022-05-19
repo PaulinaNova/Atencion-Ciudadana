@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 import userModel from '../models/usersModel.js'
+import ciudadanoModel from '../models/ciudadanoModel.js'
 
 const connectDB = async () => {
     try {

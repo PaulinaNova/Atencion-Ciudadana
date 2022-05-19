@@ -1,6 +1,8 @@
 import connectDB from './config/db.js'
 import dotenv  from 'dotenv'
 import userRoutes from '../server/routes/userRoute.js'
+import ciudadanoRoutes from '../server/routes/ciudadanoRoute.js'
+import gestorRoutes from '../server/routes/gestorRoute.js'
 import express from 'express'
 
 connectDB()
@@ -10,6 +12,8 @@ const app = express()
 
 //Creating API for user
 app.use('/api/users', userRoutes)
+app.use('/api/ciudadano', ciudadanoRoutes)
+app.use('/api/gestor', ciudadanoRoutes)
 
 const PORT = process.env.PORT || 5000
 
