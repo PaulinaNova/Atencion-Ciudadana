@@ -7,18 +7,17 @@ const Gestores = () =>{
   
   const [values,setValues]= useState({
 
+    rfc:"",
+    dependencia:"",
+    curp:"",
     nombre:"",
     ape_paterno:"",
     ape_materno:"",
-    rfc:"",
-    fecha_naci:"",
     telefono:"",
-    calle:"",
-    colonia:"",
-    caracteristica_g:"",
-    localidad:"",
     municipio:"",
-    dependencia:""
+    localidad:"",
+    colonia:"",
+    calle:""
   });
  
   const inputs = [
@@ -26,6 +25,30 @@ const Gestores = () =>{
     {
       className:"inpG",
       id:1,
+      name:"rfc",
+      type:"text",
+      placeholder:"RFC",
+      label:"RFC",    
+    },
+    {
+      className:"inpG",
+      id:2,
+      name:"curp",
+      type:"text",
+      placeholder:"CURP",
+      label:"CURP",    
+    },
+    {
+      className:"inpG",
+      id:3,
+      name:"dependencia",
+      type:"text",
+      placeholder:"DEPENDENCIA",
+      label:"DEPENDENCIA",      
+    },
+    {
+      className:"inpG",
+      id:4,
       name:"nombre",
       type:"text",
       placeholder:"NOMBRE(S)",
@@ -34,7 +57,7 @@ const Gestores = () =>{
 
     {
       className:"inpG",
-      id:2,
+      id:5,
       name:"ape_paterno",
       type:"text",
       placeholder:"APELLIDO PATERNO",
@@ -43,7 +66,7 @@ const Gestores = () =>{
 
     {
       className:"inpG",
-      id:3,
+      id:6,
       name:"ape_materno",
       type:"text",
       placeholder:"APELLIDO MATERNO",
@@ -52,25 +75,7 @@ const Gestores = () =>{
 
     {
       className:"inpG",
-      id:4,
-      name:"rfc",
-      type:"text",
-      placeholder:"RFC",
-      label:"RFC",    
-    },
-
-    {
-      className:"inpG",
-      id:5,
-      name:"fecha_naci",
-      type:"date",
-      placeholder:"FECHA NACIMIENTO",
-      label:"FECHA NACIMIENTO",      
-    },
-
-    {
-      className:"inpG",
-      id:6,
+      id:7,
       name:"telefono",
       type:"number",
       placeholder:"TELÉFONO",
@@ -79,43 +84,7 @@ const Gestores = () =>{
 
     {
       className:"inpG",
-      id:7,
-      name:"calle",
-      type:"text",
-      placeholder:"CALLE Y NUMERO",
-      label:"CALLE Y NÚMERO",     
-    },
-
-    {
-      className:"inpG",
       id:8,
-      name:"colonia",
-      type:"text",
-      placeholder:"COLONIA",
-      label:"COLONIA",      
-    },
-
-    {
-      className:"inpG",
-      id:9,
-      name:"caracteristica_g",
-      type:"text",
-      placeholder:"CARACTERÍSTICA",
-      label:"CARACTERÍSTICA",      
-    },
-
-    {
-      className:"inpG",
-      id:10,
-      name:"localidad",
-      type:"text",
-      placeholder:"LOCALIDAD",
-      label:"LOCALIDAD",     
-    },
-
-    {
-      className:"inpG",
-      id:11,
       name:"municipio",
       type:"text",
       placeholder:"MUNICIPIO",
@@ -124,12 +93,29 @@ const Gestores = () =>{
 
     {
       className:"inpG",
-      id:12,
-      name:"dependencia",
+      id:9,
+      name:"localidad",
       type:"text",
-      placeholder:"DEPENDENCIA",
-      label:"DEPENDENCIA",      
+      placeholder:"LOCALIDAD",
+      label:"LOCALIDAD",     
     },
+    {
+      className:"inpG",
+      id:10,
+      name:"colonia",
+      type:"text",
+      placeholder:"COLONIA",
+      label:"COLONIA",      
+    },
+    {
+      className:"inpG",
+      id:11,
+      name:"calle",
+      type:"text",
+      placeholder:"CALLE Y NUMERO",
+      label:"CALLE Y NÚMERO",     
+    },
+
   ];
 
   const handleSubmit = (e)=>{

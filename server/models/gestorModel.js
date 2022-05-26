@@ -1,6 +1,12 @@
 import mongoose from 'mongoose'
 
 const gestorSchema = mongoose.Schema({
+    
+    
+    dependencia: {
+        type: String,
+        required: true
+    },
     rfc: {
         type: String,
         required: true,
@@ -48,15 +54,11 @@ const gestorSchema = mongoose.Schema({
         type: String,
         required: true
     },
-        localidad: {
+    municipio: {
         type: String,
         required: true
     },
-        municipio: {
-        type: String,
-        required: true
-    },
-        dependencia: {
+    localidad: {
         type: String,
         required: true
     },
