@@ -6,6 +6,7 @@ import ciudadanoRoutes from '../server/routes/ciudadanoRoute.js'
 import gestorRoutes from '../server/routes/gestorRoute.js'
 import procedenciaRoutes from '../server/routes/procedenciaRoute.js'
 import dependenciaRoutes from '../server/routes/dependenciaRoute.js'
+import seguimientoRoutes from '../server/routes/seguimientoRoute.js'
 import express from 'express'
 
 connectDB()
@@ -25,6 +26,8 @@ app.use('/api/gestor', gestorRoutes)
 app.use('/api/dependencia', dependenciaRoutes)
 //Creating API for procedencia
 app.use('/api/procedencia', procedenciaRoutes)
+//Creating API for seguimiento
+app.use('/api/seguimiento', seguimientoRoutes)
 
 const PORT = process.env.PORT || 5000
 
