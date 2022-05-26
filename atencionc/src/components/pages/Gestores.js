@@ -16,8 +16,12 @@ const Gestores = () =>{
     telefono:"",
     municipio:"",
     localidad:"",
+    codigo_Postal:"",
     colonia:"",
-    calle:""
+    calle:"",
+    correo:"",
+    usuario:"",
+    contra:"" 
   });
  
   const inputs = [
@@ -99,9 +103,19 @@ const Gestores = () =>{
       placeholder:"LOCALIDAD",
       label:"LOCALIDAD",     
     },
+
     {
       className:"inpG",
       id:10,
+      name:"codigo_Postal",
+      type:"number",
+      placeholder:"CÓDIGO POSTAL",
+      label:"CÓDIGO POSTAL",      
+    },
+
+    {
+      className:"inpG",
+      id:11,
       name:"colonia",
       type:"text",
       placeholder:"COLONIA",
@@ -109,13 +123,38 @@ const Gestores = () =>{
     },
     {
       className:"inpG",
-      id:11,
+      id:12,
       name:"calle",
       type:"text",
       placeholder:"CALLE Y NUMERO",
       label:"CALLE Y NÚMERO",     
     },
 
+    {
+      className:"inpG",
+      id:13,
+      name:"correo",
+      type:"email",
+      placeholder:"CORREO ELECTRÓNICO",
+      label:"CORREO ELECTRÓNICO",     
+    },
+
+    {
+      className:"inpG",
+      id:14,
+      name:"usuario",
+      type:"text",
+      placeholder:"NOMBRE DE USUARIO",
+      label:"NOMBRE DE USUARIO",     
+    },
+    {
+      className:"inpG",
+      id:15,
+      name:"contra",
+      type:"password",
+      placeholder:"CONTRASEÑA",
+      label:"CONTRASEÑA",     
+    },
   ];
 
   const handleSubmit = (e)=>{

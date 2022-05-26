@@ -3,14 +3,20 @@ import mongoose from 'mongoose'
 const gestorSchema = mongoose.Schema({
     
     
-    dependencia: {
-        type: String,
-        required: true
-    },
     rfc: {
         type: String,
         required: true,
         unique:true
+    },
+    curp: {
+        type: String,
+        required: true,
+        unique:true
+    },
+    dependencia: {
+        type: String,
+        required: true,
+        
     },
     nombre: {
         type: String,
@@ -22,23 +28,14 @@ const gestorSchema = mongoose.Schema({
     apellidoMaterno:{
         type: String
     },
-    fechaNacimiento: {
-        type: Date,
-        required: true
-    },
     telefono: {
         type: String
     },
-    email: {
+    municipio: {
         type: String,
-        required: true,
-        unique:true
-    },
-    codigoPostal: {
-        type: Number,
         required: true
     },
-    calle: {
+    localidad: {
         type: String,
         required: true
     },
@@ -50,18 +47,16 @@ const gestorSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    caracteristica: {
+    calle: {
         type: String,
         required: true
     },
-    municipio: {
+    email: {
         type: String,
-        required: true
+        required: true,
+        unique:true
     },
-    localidad: {
-        type: String,
-        required: true
-    },
+    
     userName: {
         type: String,
         required: true,

@@ -9,8 +9,22 @@ import Graficas from './components/pages/Graficas';
 import Reportes from './components/pages/Reportes';
 import Pendientes from './components/pages/Pendientes';
 import LoginForm from './components/Login/LoginForm';
+/*import {Modal, TextField, Button} from '@material-ui/core';
+import {makeStyles} from '@material-ui/core/styles';
 
-
+const useStyles=makeStyles((them)=>({
+  modal:{
+    position: 'absolute',
+    width:400,
+    backgroundColor:'white',
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2,4,3),
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+  }
+}))*/
 
 function App() {
   const adminUser ={
