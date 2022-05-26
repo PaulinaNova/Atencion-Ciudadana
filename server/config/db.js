@@ -5,6 +5,7 @@ import procedenciaModel from '../models/procedenciaModel.js'
 import dependenciaModel from '../models/dependenciaModel.js'
 import ciudadanoModel from '../models/ciudadanoModel.js'
 import gestorModel from '../models/gestorModel.js'
+import seguimientoModel from '../models/seguimientoModel.js'
 
 const connectDB = async () => {
     try {
