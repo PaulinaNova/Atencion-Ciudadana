@@ -25,7 +25,6 @@ const Gestores = () =>{
   });
  
   const inputs = [
-    
     {
       className:"inpG",
       id:1,
@@ -172,21 +171,18 @@ const Gestores = () =>{
           <form onSubmit={handleSubmit}>
             <div className='wrapper'>
             {inputs.map((input) => (
-              <FormInput 
-              key={input.id}
+              <FormInput key={input.id}
               {...input} 
               value={values[input.name]}
               onChange={onChange}
               />
             ))}
             </div>
-
             <div className='btnG'>
-              <button className='btn'>AGREGAR GESTOR</button>
-          
-          </div>     
+              <button className='btn' type='submit'>AGREGAR GESTOR</button>
+            </div>     
           </form>
-          </div>
+        </div>
     </div>
   )
 }

@@ -16,7 +16,7 @@ const dependenciaSchema = mongoose.Schema({
     },
 
 }, {
-    timestamps: true
+    timestamps: false
 })
 
 const Dependencia = mongoose.model('Dependencia', dependenciaSchema)

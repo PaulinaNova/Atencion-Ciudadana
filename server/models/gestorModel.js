@@ -5,22 +5,22 @@ const gestorSchema = mongoose.Schema({
     
     rfc: {
         type: String,
-        required: true,
+        //required: true,
         unique:true
     },
     curp: {
         type: String,
-        required: true,
+        //required: true,
         unique:true
     },
     dependencia: {
         type: String,
-        required: true,
+        //required: true,
         
     },
     nombre: {
         type: String,
-        required: true
+        //required: true
     },
     apellidoPaterno:{
         type: String
@@ -33,46 +33,46 @@ const gestorSchema = mongoose.Schema({
     },
     municipio: {
         type: String,
-        required: true
+        //required: true
     },
     localidad: {
         type: String,
-        required: true
+        //required: true
     },
     codigoPostal: {
         type: Number,
-        required: true
+        //required: true
     },
     colonia: {
         type: String,
-        required: true
+        //required: true
     },
     calle: {
         type: String,
-        required: true
+        //required: true
     },
     email: {
         type: String,
-        required: true,
+        //required: true,
         unique:true
     },
     
     userName: {
         type: String,
-        required: true,
+        //required: true,
         unique:true
     },
     password: {
         type: String,
-        required: true
+        //required: true
     },
     isAdmin: {
         type: Boolean,
-        required: true,
+        //required: true,
         defualt: false
     }
 }, {
-    timestamps: true
+    timestamps: false
 })
 
 const Gestor = mongoose.model('Gestor', gestorSchema)

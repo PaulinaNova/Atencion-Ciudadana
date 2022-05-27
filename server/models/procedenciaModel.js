@@ -16,7 +16,7 @@ const procedenciaSchema = mongoose.Schema({
     },
 
 }, {
-    timestamps: true
+    timestamps: false
 })
 
 const Procedencia = mongoose.model('Procedencia', procedenciaSchema)

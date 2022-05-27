@@ -57,7 +57,7 @@ const ciudadanoSchema = mongoose.Schema({
         required: true
     }
 }, {
-    timestamps: true
+    timestamps: false
 })
 
 const Ciudadano = mongoose.model('Ciudadano', ciudadanoSchema)

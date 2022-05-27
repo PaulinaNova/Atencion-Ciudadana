@@ -93,7 +93,7 @@ const gestionSchema = mongoose.Schema({
     },
 
 }, {
-    timestamps: true
+    timestamps: false
 })
 
 const Gestion = mongoose.model('Gestion', gestionSchema)
