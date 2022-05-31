@@ -248,5 +248,4 @@ const [values,setValues]= useState({
     </div>
   );
 }
-
 export default Buscar

@@ -26,7 +26,7 @@ const seguimientoSchema = mongoose.Schema({
         type: Number
     }
 }, {
-    timestamps: true
+    timestamps: false
 })
 
 const Seguimiento = mongoose.model('Seguimiento', seguimientoSchema)

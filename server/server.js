@@ -8,11 +8,16 @@ import procedenciaRoutes from '../server/routes/procedenciaRoute.js'
 import dependenciaRoutes from '../server/routes/dependenciaRoute.js'
 import seguimientoRoutes from '../server/routes/seguimientoRoute.js'
 import express from 'express'
+import bodyParser from 'body-parser'
+
 
 connectDB()
 dotenv.config()
+const app = express(); 
 
-const app = express()
+ 
+// create application/json parser
+app.use(bodyParser.json());
 
 //Creating API for user
 app.use('/api/users', userRoutes)
@@ -22,6 +27,7 @@ app.use('/api/gestions', gestionRoutes)
 app.use('/api/ciudadano', ciudadanoRoutes)
 //Creating API for gestor
 app.use('/api/gestor', gestorRoutes)
+app.use('/api/gestor/addGestor', gestorRoutes)
 //Creating API for dependencia
 app.use('/api/dependencia', dependenciaRoutes)
 //Creating API for procedencia

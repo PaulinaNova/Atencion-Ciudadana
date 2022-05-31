@@ -10,8 +10,6 @@ import Reportes from './components/pages/Reportes';
 import Pendientes from './components/pages/Pendientes';
 import LoginForm from './components/Login/LoginForm';
 
-
-
 function App() {
   const adminUser ={
 

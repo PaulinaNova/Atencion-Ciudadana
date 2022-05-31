@@ -1,12 +1,12 @@
-import React, { } from 'react'
+import React, {useState} from 'react'
 import FormInput from '../../elementos/FormInput';
 import "./Gestores.css"
-import {useState} from "react";
+import axios from 'axios'
+import 'react-notifications/lib/notifications.css';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 const Gestores = () =>{
-  
   const [values,setValues]= useState({
-
     rfc:"",
     dependencia:"",
     curp:"",
@@ -19,19 +19,46 @@ const Gestores = () =>{
     codigo_Postal:"",
     colonia:"",
     calle:"",
-    correo:"",
-    usuario:"",
-    contra:"" 
+    email:"",
+    userName:"",
+    password:"",
+    isAdmin: false 
   });
+
+  function createPost() {
+    axios
+      .post('/api/gestor/addGestor', {
+            rfc:values.rfc,
+            dependencia:values.dependencia,
+            curp:values.curp,
+            nombre:values.nombre,
+            ape_paterno:values.ape_paterno,
+            ape_materno:values.ape_materno,
+            telefono:values.telefono,
+            municipio:values.municipio,
+            localidad:values.localidad,
+            codigo_Postal:values.codigo_Postal,
+            colonia:values.colonia,
+            calle:values.calle,
+            email:values.email,
+            userName:values.userName,
+            password:values.password,
+            isAdmin: false
+      })
+      .then((response) => {
+        setValues(response.data);
+        NotificationManager.success('El gestor fue agregado correctamente', 'Exito');
+      });
+  }
+
  
   const inputs = [
-    
     {
       className:"inpG",
       id:1,
       name:"rfc",
       type:"text",
-      placeholder:"RFC",
+      placeholder:"PELJ850625",
       label:"RFC",    
     },
     {
@@ -39,7 +66,7 @@ const Gestores = () =>{
       id:2,
       name:"curp",
       type:"text",
-      placeholder:"CURP",
+      placeholder:"PELJ850625HNTVRL05",
       label:"CURP",    
     },
     {
@@ -47,7 +74,7 @@ const Gestores = () =>{
       id:3,
       name:"dependencia",
       type:"text",
-      placeholder:"DEPENDENCIA",
+      placeholder:"SEP",
       label:"DEPENDENCIA",      
     },
     {
@@ -55,7 +82,7 @@ const Gestores = () =>{
       id:4,
       name:"nombre",
       type:"text",
-      placeholder:"NOMBRE(S)",
+      placeholder:"Juan Armando",
       label:"NOMBRE(S)",   
     },
 
@@ -64,7 +91,7 @@ const Gestores = () =>{
       id:5,
       name:"ape_paterno",
       type:"text",
-      placeholder:"APELLIDO PATERNO",
+      placeholder:"Pérez",
       label:"APELLIDO PATERNO",      
     },
 
@@ -73,7 +100,7 @@ const Gestores = () =>{
       id:6,
       name:"ape_materno",
       type:"text",
-      placeholder:"APELLIDO MATERNO",
+      placeholder:"López",
       label:"APELLIDO MATERNO",      
     },
 
@@ -82,7 +109,7 @@ const Gestores = () =>{
       id:7,
       name:"telefono",
       type:"number",
-      placeholder:"TELÉFONO",
+      placeholder:"3117464442",
       label:"TELÉFONO",      
     },
 
@@ -91,7 +118,7 @@ const Gestores = () =>{
       id:8,
       name:"municipio",
       type:"text",
-      placeholder:"MUNICIPIO",
+      placeholder:"Tepic",
       label:"MUNICIPIO",      
     },
 
@@ -100,7 +127,7 @@ const Gestores = () =>{
       id:9,
       name:"localidad",
       type:"text",
-      placeholder:"LOCALIDAD",
+      placeholder:"Tepic",
       label:"LOCALIDAD",     
     },
 
@@ -109,7 +136,7 @@ const Gestores = () =>{
       id:10,
       name:"codigo_Postal",
       type:"number",
-      placeholder:"CÓDIGO POSTAL",
+      placeholder:"63175",
       label:"CÓDIGO POSTAL",      
     },
 
@@ -118,7 +145,7 @@ const Gestores = () =>{
       id:11,
       name:"colonia",
       type:"text",
-      placeholder:"COLONIA",
+      placeholder:"Valle Alto",
       label:"COLONIA",      
     },
     {
@@ -126,33 +153,33 @@ const Gestores = () =>{
       id:12,
       name:"calle",
       type:"text",
-      placeholder:"CALLE Y NUMERO",
+      placeholder:"Lucio Cabañas #107",
       label:"CALLE Y NÚMERO",     
     },
 
     {
       className:"inpG",
       id:13,
-      name:"correo",
+      name:"email",
       type:"email",
-      placeholder:"CORREO ELECTRÓNICO",
+      placeholder:"juanperez@hotmail.com",
       label:"CORREO ELECTRÓNICO",     
     },
 
     {
       className:"inpG",
       id:14,
-      name:"usuario",
+      name:"userName",
       type:"text",
-      placeholder:"NOMBRE DE USUARIO",
+      placeholder:"juanperez",
       label:"NOMBRE DE USUARIO",     
     },
     {
       className:"inpG",
       id:15,
-      name:"contra",
+      name:"password",
       type:"password",
-      placeholder:"CONTRASEÑA",
+      placeholder:"******",
       label:"CONTRASEÑA",     
     },
   ];
@@ -172,21 +199,19 @@ const Gestores = () =>{
           <form onSubmit={handleSubmit}>
             <div className='wrapper'>
             {inputs.map((input) => (
-              <FormInput 
-              key={input.id}
+              <FormInput key={input.id}
               {...input} 
               value={values[input.name]}
               onChange={onChange}
               />
             ))}
             </div>
-
             <div className='btnG'>
-              <button className='btn'>AGREGAR GESTOR</button>
-          
-          </div>     
+              <button className='btn' onClick={createPost} type='submit'>AGREGAR GESTOR</button> 
+              <NotificationContainer/>
+            </div>   
           </form>
-          </div>
+        </div>
     </div>
   )
 }
