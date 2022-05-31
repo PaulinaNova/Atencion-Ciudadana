@@ -1,12 +1,12 @@
 import BasicTable from '../Table/BasicTable'
 /*import * as IoIcons from "react-icons/io";
 import * as AiIcons from "react-icons/ai";*/
-import {Modal, TextField, Button} from '@material-ui/core';
+import {Modal} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import React, {useState} from 'react'
 import FormInput from '../../elementos/FormInput';
 
-{/*----------CREAR EL FONDO DE LA PANTALLA----------- */}
+/*----------CREAR EL FONDO DE LA PANTALLA----------- */
 
 const useStyles=makeStyles((theme)=>({
   modal:{
@@ -30,7 +30,7 @@ function Buscar() {
 
 const styles = useStyles();
 
-{/*----------CONSTANTES PARA ABRIL LA PANTALLA----------- */}
+/*----------CONSTANTES PARA ABRIL LA PANTALLA----------- */
 
 const [modal, setModal]=useState(false);
 
@@ -39,7 +39,7 @@ const abrirCerrarModal =()=>{
 }
 
 
-{/*----------DECLARAR LOS VALORES DE LOS CAMPOS----------- */}
+/*----------DECLARAR LOS VALORES DE LOS CAMPOS----------- */
 const [values,setValues]= useState({
 
   curp:"",
@@ -183,7 +183,7 @@ const [values,setValues]= useState({
     },
     ];
     
-    {/*-------------------------------------------------- */}
+    /*-------------------------------------------------- */
 
     const handleSubmit = (e)=>{
     e.preventDefault();
@@ -195,7 +195,7 @@ const [values,setValues]= useState({
     
     console.log(values);
 
-    {/*------------CREAR FORMULARIO INTERNO------------- */}
+    /*------------CREAR FORMULARIO INTERNO------------- */
 
       const body=(
         <div className={styles.modal}>
