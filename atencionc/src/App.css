@@ -26,9 +26,23 @@
   border: none;
   margin-left: 3vh;
   margin-top: 3vh;
+  
 }
 
 .buscar table {
   margin-top: 5vh;
   margin-left: 45vh;
+}
+
+.btn:hover {
+  height: 45px;
+  width: 35vh;
+  font-size: 1.2rem;
+  border-radius: 20px;
+  color: rgb(255, 255, 255);
+  background-color: #350707;
+  border: none;
+  margin-left: 3vh;
+  margin-top: 3vh;
+  cursor: pointer;
 }

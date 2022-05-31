@@ -24,7 +24,6 @@ export const getGestorById  = asyncHandler(async(req, res) => {
  // To Add New Gestor
  export const addGestor = asyncHandler(async(req, res) => {
     const gestor = await Gestor.create(req.body) 
-    console.log(req.body)
 
     //if user id match param id send gestor else throw error
     gestor.save().then(()=>{

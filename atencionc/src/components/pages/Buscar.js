@@ -15,5 +15,4 @@ function Buscar() {
     </div>
   )
 }
-
 export default Buscar

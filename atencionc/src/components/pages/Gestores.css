@@ -44,3 +44,16 @@
   .btnG .btn {
     width: 40vh;
   }
+
+  .btnG .btn:hover {
+      height: 45px;
+      width: 40vh;
+      font-size: 1.2rem;
+      border-radius: 20px;
+      color: rgb(255, 255, 255);
+      background-color: #350707;
+      border: none;
+      margin-left: 3vh;
+      margin-top: 3vh;
+      cursor: pointer;
+    }
