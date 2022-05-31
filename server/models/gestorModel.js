@@ -56,7 +56,6 @@ const gestorSchema = mongoose.Schema({
         required: true,
         unique:true
     },
-    
     userName: {
         type: String,
         required: true,

@@ -1,14 +1,12 @@
 import mongoose from 'mongoose'
 
 const ciudadanoSchema = mongoose.Schema({
-    claveElector: {
+    curp: {
         type: String,
-        required: true,
         unique:true
     },
     nombre: {
-        type: String,
-        required: true
+        type: String
     },
     apellidoPaterno:{
         type: String
@@ -17,27 +15,18 @@ const ciudadanoSchema = mongoose.Schema({
         type: String
     },
     fechaNacimiento: {
-        type: Date,
-        required: true
+        type: Date
     },
     telefono: {
         type: String
     },
-    email: {
-        type: String,
-        required: true,
-        unique:true
-    },
+    
     codigoPostal: {
         type: Number,
         required: true
     },
     calle: {
         type: String,
-        required: true
-    },
-    codigoPostal: {
-        type: Number,
         required: true
     },
     colonia: {
@@ -55,6 +44,10 @@ const ciudadanoSchema = mongoose.Schema({
         municipio: {
         type: String,
         required: true
+    },
+    email: {
+        type: String,
+        unique:true
     }
 }, {
     timestamps: true

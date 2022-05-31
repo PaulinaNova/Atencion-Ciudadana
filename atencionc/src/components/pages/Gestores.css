@@ -39,6 +39,13 @@
   .btnG {
     margin-left: 92vh;
     margin-top: 2vh;
+
+  }
+  .btnB {
+    margin-left: 59vh;
+    margin-top: 2vh;
+    display:inline-flex;
+
   }
   
   .btnG .btn {

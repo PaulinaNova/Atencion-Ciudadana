@@ -1,75 +1,62 @@
 import mongoose from 'mongoose'
 
 const gestionSchema = mongoose.Schema({
+    
     folio: {
         type: Number,
-        required: true,
+        unique:true
+    },
+    nombre_ciudadano: {
+        type: String
+    },
+    curp: {
+        type: String,
         unique:true
     },
     descripcion:{
-        type: String,
-        required: true,
+        type: String
     },
     fecha: {
-        type: Date,
-        required: true
-    },
-    nombre_ciudadano: {
-        type: String,
-        required: true
-    },
-    clave_lector: {
-        type: String,
-        required: true,
-        unique:true
+        type: Date
     },
     procedencia: {
-        type: String,
-        required: true
+        type: String
     },
     periodo: {
-        type: String,
-        required: true
+        type: String
     },
     prioridad: {
-        type: String,
-        required: true
+        type: String
     },
     tipo: {
-        type: String,
-        required: true
+        type: String
     },
     dependencia: {
-        type: String,
-        required: true
+        type: String
     },
     registra: {
-        type: String,
-        required: true
+        type: String
     },
     vencimiento: {
-        type: Date,
-        required: true
+        type: Date
+    },
+    periodico: {
+        type: String
     },
     folio_interno: {
-        type: String,
-        required: true
+        type: String
     },
     cant_familias_benef: {
-        type: Number,
-        required: true
+        type: Number
     },
     cant_personas_benef: {
-        type: Number,
-        required: true
+        type: Number
     },
     evento: {
-        type: String,
-        required: true
+        type: String
     },
     estado: {
-        type: String,
-        required: true
+        type: String
     },
     presupuesto: {
         type: Number
@@ -79,21 +66,18 @@ const gestionSchema = mongoose.Schema({
     },
     seguimiento: {
         fecha_seguimiento:{
-            type:Date,
-            require:true
+            type:Date
         },
         descripcion_seguimiento:{
-            type:String,
-            require:true
+            type:String
         },
         gestor:{
-            type:String,
-            require:true
+            type:String
         }
     },
 
 }, {
-    timestamps: true
+    timestamps: false
 })
 
 const Gestion = mongoose.model('Gestion', gestionSchema)
