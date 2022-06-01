@@ -1,5 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
+import BasicTableSeguimiento from '../TableSeguimiento/TableSeguimiento'
+import TableSeguimiento from '../TableSeguimiento/TableSeguimiento'
+
 
 function Seguimiento() {
   const [users, setUsers] = useState([])
@@ -14,8 +17,16 @@ function Seguimiento() {
 
   return (
     <div className='seguimiento'>
-      {users.map(u => <h4 key={u._id}>userName : {u.userName}</h4>)}
-    </div>
+      <div className='inpsegui'>
+    <input className='intbl2' placeholder='Paulina Nova'></input>
+    <input className='intbl2' placeholder='NOVA928492OVDLD23'></input>
+      </div>
+
+    <div className='tblsegui'>
+    <TableSeguimiento/>
+      
+      </div>
+    </div> 
   )
 }
 

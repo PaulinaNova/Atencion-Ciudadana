@@ -55,6 +55,27 @@ table td {
   border: none;
 }
 
+.intbl2 {
+  height: 45px;
+  width: 66vh;
+  margin-left: 5vh;
+  padding: 15px;
+  font-size: 1.2rem;
+  border-radius: 20px;
+  color: rgb(92, 88, 88);
+  background-color: rgba(128, 128, 128, 0.315);
+  border: none;
+  display: inline-flex;
+  margin-bottom: 3vh;
+}
+
+.inpsegui{
+  margin-left: 35vh;
+}
+.tblsegui{
+  margin-left: 40vh;
+}
+
 .btnbuscar {
   margin-left: 144vh;
 }
