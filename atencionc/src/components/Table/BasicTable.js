@@ -9,6 +9,7 @@ import { GlobalFilter } from './GlobalFilter'
 import {Modal} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import FormInput from '../../elementos/FormInput';
+import { useNavigate } from 'react-router-dom'
 
 
 /*----------CREAR EL FONDO DE LA PANTALLA----------- */
@@ -202,9 +203,9 @@ const [values,setValues]= useState({
     
     console.log(values);
 
+    const navigate = useNavigate()
 
     /*------------CREAR FORMULARIO INTERNO------------- */
-
     const body=(
         <div className={styles.modal}>
         <div>
@@ -274,16 +275,14 @@ const [values,setValues]= useState({
                             return  <td {...cell.getCellProps()}>{cell.render('Cell')}</td>      
                         })}     
                         <td>
-                        <button className='btntbl' onClick={()=>abrirCerrarModal()}><AiIcons.AiOutlineSetting/></button>
-                           
-                            <button className='btntbl' onClick={()=>abrirCerrarModal()}><AiIcons.AiOutlineHistory /></button>
-                            <button className='btntbl'><IoIcons.IoIosAddCircleOutline /></button>
-                            
-                            <Modal
-        open={modal}
-        onClose={abrirCerrarModal}>
-          {body}
-      </Modal>
+                        <button className='btntbl' title='Modificar ciudadano' onClick={()=>abrirCerrarModal()}><AiIcons.AiOutlineSetting/></button>
+                        <button className='btntbl' title='Historial' onClick={()=>abrirCerrarModal()}><AiIcons.AiOutlineHistory /></button>
+                        <button className='btntbl' title='Agregar gestion' onClick={()=>navigate("/gestion")}><IoIcons.IoIosAddCircleOutline /></button>                        
+                        <Modal
+                          open={modal}
+                          onClose={abrirCerrarModal}>
+                            {body}
+                        </Modal>
                         </td>      
                     </tr>
                 )     

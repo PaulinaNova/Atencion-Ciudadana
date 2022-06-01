@@ -8,6 +8,7 @@ import Seguimiento from './components/pages/Seguimiento';
 import Graficas from './components/pages/Graficas';
 import Reportes from './components/pages/Reportes';
 import Pendientes from './components/pages/Pendientes';
+import Gestion from './components/pages/Gestion';
 import LoginForm from './components/Login/LoginForm';
 
 function App() {
@@ -55,6 +56,7 @@ function App() {
                       <Route path='/reportes' element={<Reportes/>}/>
                       <Route path='/' exact element={<Pendientes/>}/>
                       <Route path='/gestores' element={<Gestores/>}/>
+                      <Route path='/gestion' element={<Gestion/>}/>
                     </Routes>   
                    {/*<button onClick={Logout}>Logout</button>*/}
                 </Router>
