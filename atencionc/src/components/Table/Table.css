@@ -30,6 +30,18 @@ table td {
   color: rgb(92, 88, 88);
 }
 
+.btntbl:hover {
+  font-size: 2rem;
+  height: 2rem;
+  width: 2rem;
+  background: none;
+  border: 0ch;
+  margin-left: 5px;
+  color: rgb(92, 88, 88);
+  cursor: pointer;
+}
+
+
 .intbl {
   height: 45px;
   width: 137vh;

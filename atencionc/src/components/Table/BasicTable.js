@@ -274,9 +274,11 @@ const [values,setValues]= useState({
                             return  <td {...cell.getCellProps()}>{cell.render('Cell')}</td>      
                         })}     
                         <td>
-                            <button className='btntbl' onClick={()=>abrirCerrarModal()}><AiIcons.AiOutlineSetting/></button>
+                        <button className='btntbl' onClick={()=>abrirCerrarModal()}><AiIcons.AiOutlineSetting/></button>
+                           
                             <button className='btntbl' onClick={()=>abrirCerrarModal()}><AiIcons.AiOutlineHistory /></button>
                             <button className='btntbl'><IoIcons.IoIosAddCircleOutline /></button>
+                            
                             <Modal
         open={modal}
         onClose={abrirCerrarModal}>

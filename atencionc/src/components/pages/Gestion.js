@@ -197,7 +197,7 @@ const Gestion = () =>{
             </div>
 
             <div className='btnG'>
-              <button className='btn'>AGREGAR GESTOR</button>
+              <button className='btn'>AGREGAR GESTION</button>
           
           </div>     
           </form>
