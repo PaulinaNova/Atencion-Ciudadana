@@ -261,7 +261,7 @@ const [values,setValues]= useState({
        <BasicTable/>
        <div className='btnbuscar'>
        <div >   
-       <button className='btn' onClick={()=>abrirCerrarModal()}>Agregar ciudadano</button>
+       <button className='btn' onClick={()=>abrirCerrarModal()}>Agregar2 ciudadano</button>
       
        <Modal
         open={modal}

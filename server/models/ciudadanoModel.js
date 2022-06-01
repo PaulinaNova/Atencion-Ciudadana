@@ -20,34 +20,28 @@ const ciudadanoSchema = mongoose.Schema({
     telefono: {
         type: String
     },
-    
-    codigoPostal: {
-        type: Number,
-        required: true
-    },
-    calle: {
-        type: String,
-        required: true
-    },
-    colonia: {
-        type: String,
-        required: true
-    },
-    caracteristica: {
-        type: String,
-        required: true
-    },
-        localidad: {
-        type: String,
-        required: true
-    },
-        municipio: {
-        type: String,
-        required: true
-    },
     email: {
         type: String,
         unique:true
+    },
+    codigoPostal: {
+        type: Number
+    },
+    municipio: {
+        type: String
+    },
+    localidad: {
+    type: String
+    },
+    colonia: {
+        type: String
+    }
+    ,
+    calle: {
+        type: String
+    },
+    caracteristica: {
+        type: String
     }
 }, {
     timestamps: false
