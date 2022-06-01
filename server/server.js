@@ -23,8 +23,10 @@ app.use(bodyParser.json());
 app.use('/api/users', userRoutes)
 //Creating API for gestion
 app.use('/api/gestions', gestionRoutes)
+app.use('/api/gestions/addGestion', gestionRoutes)
 //Creating API for ciudadano
 app.use('/api/ciudadano', ciudadanoRoutes)
+app.use('/api/ciudadano/addCiudadano', ciudadanoRoutes)
 //Creating API for gestor
 app.use('/api/gestor', gestorRoutes)
 app.use('/api/gestor/addGestor', gestorRoutes)

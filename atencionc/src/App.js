@@ -56,7 +56,7 @@ function App() {
                       <Route path='/reportes' element={<Reportes/>}/>
                       <Route path='/' exact element={<Pendientes/>}/>
                       <Route path='/gestores' element={<Gestores/>}/>
-                      <Route path='/gestion' element={<Gestion/>}/>
+                      <Route path='/gestions' element={<Gestion/>}/>
                     </Routes>   
                    {/*<button onClick={Logout}>Logout</button>*/}
                 </Router>

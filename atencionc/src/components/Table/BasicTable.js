@@ -9,6 +9,7 @@ import { GlobalFilter } from './GlobalFilter'
 import {Modal} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import FormInput from '../../elementos/FormInput';
+import { useNavigate } from 'react-router-dom'
 
 
 
@@ -278,8 +279,7 @@ const [values,setValues]= useState({
                         <td>
                             <button className='btntbl' title='Modificar Ciudadano' onClick={()=>abrirCerrarModal()}><AiIcons.AiOutlineSetting/></button>
                             <button className='btntbl' title='Historial'><AiIcons.AiOutlineHistory /></button>
-                            
-                            <button className='btntbl' onClick={()=>navigate("/gestion")}><IoIcons.IoIosAddCircleOutline /></button>
+                            <button className='btntbl' onClick={()=>navigate("/gestions")}><IoIcons.IoIosAddCircleOutline /></button>
                             <Modal
         open={modal}
         onClose={abrirCerrarModal}>

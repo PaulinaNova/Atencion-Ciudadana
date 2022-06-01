@@ -2,6 +2,9 @@ import React, { } from 'react'
 import FormInput from '../../elementos/FormInput';
 import "./Gestores.css"
 import {useState} from "react";
+import axios from 'axios'
+import 'react-notifications/lib/notifications.css';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 const Gestion = () =>{
   
@@ -28,6 +31,41 @@ const Gestion = () =>{
     notas:"",
 
   });
+
+  function createPost() {
+    axios
+      .post('/api/gestions/addGestion', {
+          folio: values.folio,
+          nombre_ciudadano: values.nombre_ciudadano,
+          curp:values.curp,
+          descripcion:values.descripcion,
+          fecha:values.fecha,
+          procedencia:values.procedencia,
+          periodo:values.periodo,
+          prioridad:values.prioridad,
+          tipo:values.tipo,
+          dependencia:values.dependencia,
+          registra:values.registra,
+          vencimiento:values.vencimiento,
+          periodico:values.periodico,
+          folio_interno:values.folio_interno,
+          cant_benef:values.cant_benef,
+          evento:values.evento, 
+          estado:values.estado,
+          presupuesto:values.presupuesto,
+          notas:values.notas,
+          seguimiento: {
+            fecha_seguimiento:"",
+            descripcion_seguimiento:"",
+            gestor:""
+          }
+    
+      })
+      .then((response) => {
+        setValues(response.data);
+        NotificationManager.success('La fue agregada correctamente', 'Exito');
+      });
+  }
  
   const inputs = [
     
@@ -189,8 +227,8 @@ const Gestion = () =>{
             </div>
 
             <div className='btnG'>
-              <button className='btn'>AGREGAR GESTION</button>
-          
+              <button className='btn' onClick={createPost} type='submit'>AGREGAR GESTION</button>
+              <NotificationContainer/>
           </div>     
           </form>
           </div>
