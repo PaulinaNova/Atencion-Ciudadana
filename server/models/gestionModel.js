@@ -46,10 +46,7 @@ const gestionSchema = mongoose.Schema({
     folio_interno: {
         type: String
     },
-    cant_familias_benef: {
-        type: Number
-    },
-    cant_personas_benef: {
+    cant_benef: {
         type: Number
     },
     evento: {
