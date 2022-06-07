@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
-import BasicTableSeguimiento from '../TableSeguimiento/TableSeguimiento'
 import TableSeguimiento from '../TableSeguimiento/TableSeguimiento'
 
 

@@ -20,3 +20,16 @@ export const getCiudadanoById  = asyncHandler(async(req, res) => {
         throw new Error('No se encontró este ciudadano')
     }
 })
+
+ // To Add New Ciudadano
+ export const addCiudadano = asyncHandler(async(req, res) => {
+    const ciudadano = await Ciudadano.create(req.body) 
+    //if user id match param id send ciudadano else throw error
+    ciudadano.save().then(()=>{
+    res.json("Gestion añadida")
+    }).catch((err)=>{
+        console.log(err);
+        res.json(err)
+        console.log("reg err");
+    })
+});

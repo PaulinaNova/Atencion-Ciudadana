@@ -20,6 +20,7 @@ table td {
   border-color: rgb(112, 108, 108);
 }
 
+
 .btntbl {
   font-size: 2rem;
   height: 2rem;
@@ -29,7 +30,6 @@ table td {
   margin-left: 5px;
   color: rgb(92, 88, 88);
 }
-
 
 .btntbl:hover {
   font-size: 2rem;

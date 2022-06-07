@@ -20,3 +20,16 @@ export const getGestionById  = asyncHandler(async(req, res) => {
         throw new Error('Gestion no encontrada')
     }
 })
+
+ // To Add New Gestion
+ export const addGestion = asyncHandler(async(req, res) => {
+    const gestion = await Gestion.create(req.body) 
+    //if user id match param id send gestion else throw error
+    gestion.save().then(()=>{
+    res.json("Gestion añadida")
+    }).catch((err)=>{
+        console.log(err);
+        res.json(err)
+        console.log("reg err");
+    })
+});

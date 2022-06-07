@@ -5,6 +5,9 @@ import {Modal} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import React, {useState} from 'react'
 import FormInput from '../../elementos/FormInput';
+import axios from 'axios'
+import 'react-notifications/lib/notifications.css';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 /*----------CREAR EL FONDO DE LA PANTALLA----------- */
 
@@ -49,14 +52,37 @@ const [values,setValues]= useState({
   ape_materno:"",
   fecha_nacimiento:"",
   telefono:"",
-  correo:"",
-  codigo_Postal:"",
+  email:"",
+  codigoPostal:"",
   municipio:"",
   localidad:"",
   colonia:"",
   calle:"",
   caracteristica:""
   });
+
+    function createPost() {
+    axios
+      .post('/api/ciudadano/addCiudadano', {
+            curp:values.curp,
+            nombre:values.nombre,
+            ape_paterno:values.ape_paterno,
+            ape_materno:values.ape_materno,
+            fecha_nacimiento:values.fecha_nacimiento,
+            telefono:values.telefono,
+            email:values.email,
+            codigoPostal:values.codigoPostal,
+            municipio:values.municipio,
+            localidad:values.localidad,
+            colonia:values.colonia,
+            calle:values.calle,
+            caracteristica:values.caracteristica
+      })
+      .then((response) => {
+        setValues(response.data);
+        NotificationManager.success('El ciudadano fue agregado correctamente', 'Exito');
+      });
+  }
 
   const inputs = [
 
@@ -127,7 +153,7 @@ const [values,setValues]= useState({
     {
       className:"inpG",
       id:14,
-      name:"correo",
+      name:"email",
       type:"email",
       placeholder:"CORREO ELECTRÓNICO",
       label:"CORREO ELECTRÓNICO",     
@@ -135,7 +161,7 @@ const [values,setValues]= useState({
     {
       className:"inpG",
       id:9,
-      name:"codigo_Postal",
+      name:"codigoPostal",
       type:"number",
       placeholder:"CÓDIGO POSTAL",
       label:"CÓDIGO POSTAL",      
@@ -217,7 +243,8 @@ const [values,setValues]= useState({
         </div>
 
         <div className='btnB' >
-        <button className='btn'>AGREGAR CIUDADANO</button>
+        <button className='btn' onClick={createPost} type='submit'>AGREGAR CIUDADANO</button>
+        <NotificationContainer/>
         <button className='btn' onClick={()=>abrirCerrarModal()}>CANCELAR</button>
           
           
@@ -235,7 +262,7 @@ const [values,setValues]= useState({
        <BasicTable/>
        <div className='btnbuscar'>
        <div >   
-       <button className='btn' onClick={()=>abrirCerrarModal()}>Agregar2 ciudadano</button>
+       <button className='btn' onClick={()=>abrirCerrarModal()}>Agregar ciudadano</button>
       
        <Modal
         open={modal}
