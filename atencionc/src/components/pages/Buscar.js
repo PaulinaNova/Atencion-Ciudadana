@@ -244,6 +244,7 @@ const [values,setValues]= useState({
 
         <div className='btnB' >
         <button className='btn' onClick={createPost} type='submit'>AGREGAR CIUDADANO</button>
+        <NotificationContainer/>
         <button className='btn' onClick={()=>abrirCerrarModal()}>CANCELAR</button>
           
           
@@ -261,7 +262,7 @@ const [values,setValues]= useState({
        <BasicTable/>
        <div className='btnbuscar'>
        <div >   
-       <button className='btn' onClick={()=>abrirCerrarModal()}>Agregar2 ciudadano</button>
+       <button className='btn' onClick={()=>abrirCerrarModal()}>Agregar ciudadano</button>
       
        <Modal
         open={modal}
