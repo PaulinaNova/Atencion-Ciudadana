@@ -43,7 +43,7 @@ function TableSeguimiento () {
          {rows.map((row) => {
                 prepareRow(row)
                 return ( 
-                <tr {...row.getRowProps()}>
+                <tr {...row.getRowProps()} onClick={() => console.log(row.original.folio)}>
                         {row.cells.map((cell) => {
                             return  <td {...cell.getCellProps()}>{cell.render('Cell')}</td>      
                         })}   
