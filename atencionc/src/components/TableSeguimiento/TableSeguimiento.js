@@ -2,7 +2,7 @@ import React, {useMemo} from 'react'
 import {useTable, useGlobalFilter} from 'react-table'
 import MOCK_DATA from '../TableSeguimiento/MOCK_DATA.json'
 import {COLUMNS} from './ColumnsSeguimiento'
-import '../Table/Table.css'
+import './TableSeguimiento.css'
 
 
 /*----------CREAR EL FONDO DE LA PANTALLA----------- */
@@ -18,9 +18,7 @@ function TableSeguimiento () {
         getTableBodyProps,
         headerGroups,
         rows,
-        prepareRow,
-        state,
-        setGlobalFilter
+        prepareRow
     } =  useTable({
       columns,
       data
@@ -28,7 +26,6 @@ function TableSeguimiento () {
 
   return (
     <>
-    
     <table {...getTableProps()}>
          <thead>
              {headerGroups.map((headerGroup)=> (
@@ -52,7 +49,7 @@ function TableSeguimiento () {
             })}
 
          </tbody>
-    </table>
+    </table> 
     </>
   )
 }

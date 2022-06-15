@@ -31,7 +31,7 @@ const useStyles=makeStyles((theme)=>({
 
 function Buscar() {
 
-const styles = useStyles();
+const [styles] = useStyles();
 
 /*----------CONSTANTES PARA ABRIL LA PANTALLA----------- */
 

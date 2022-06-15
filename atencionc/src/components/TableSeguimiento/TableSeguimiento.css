@@ -1,0 +1,137 @@
+table {
+  width: 137vh;
+  font-size: 1rem;
+  border: 1px solid;
+  border-collapse: collapse;
+  border-color: rgb(112, 108, 108);
+  color: rgb(92, 88, 88);
+  background-color: rgba(128, 128, 128, 0.315);
+}
+
+table th {
+  padding: 10px 15px 10px 15px;
+  border: 1px solid;
+  border-color: rgb(112, 108, 108);
+}
+
+table td {
+  padding: 10px 15px 10px 15px;
+  border: 1px solid;
+  border-color: rgb(112, 108, 108);
+}
+
+
+.btntbl {
+  font-size: 2rem;
+  height: 2rem;
+  width: 2rem;
+  background: none;
+  border: 0ch;
+  margin-left: 5px;
+  color: rgb(92, 88, 88);
+}
+
+.btntbl:hover {
+  font-size: 2rem;
+  height: 2rem;
+  width: 2rem;
+  background: none;
+  border: 0ch;
+  margin-left: 5px;
+  color: rgb(92, 88, 88);
+  cursor: pointer;
+}
+
+
+.intbl {
+  height: 45px;
+  width: 137vh;
+  margin-left: 42.5vh;
+  padding: 15px;
+  font-size: 1.2rem;
+  border-radius: 20px;
+  color: rgb(92, 88, 88);
+  background-color: rgba(128, 128, 128, 0.315);
+  border: none;
+}
+
+.intbl2 {
+  height: 45px;
+  width: 137vh;
+  margin-left: 5vh;
+  padding: 15px;
+  font-size: 1.2rem;
+  border-radius: 20px;
+  color: rgb(92, 88, 88);
+  background-color: rgba(128, 128, 128, 0.315);
+  border: none;
+  display: inline-flex;
+  margin-bottom: 3vh;
+}
+
+.inpsegui{
+  margin-left: 35vh;
+}
+.tblsegui{
+  margin-left: 40vh;
+}
+
+.btnbuscar {
+  margin-left: 144vh;
+}
+
+.bm-item {
+  display: inline-block;
+  text-decoration: none;
+  margin-bottom: 10px;
+  color: #d1d1d1;
+  transition: color 0.2s;
+}
+
+.bm-item:hover {
+  color: white;
+}
+
+.bm-burger-button {
+  position: fixed;
+  width: 36px;
+  height: 30px;
+  right: 0%;
+  top: 36px;
+}
+
+.bm-burger-bars {
+  background: #373a47;
+}
+
+.bm-cross-button {
+  height: 24px;
+  width: 24px;
+}
+
+.bm-cross {
+  background: #bdc3c7;
+}
+
+.bm-menu {
+  background: #373a47;
+  padding: 2.5em 1.5em 0;
+  font-size: 1.15em;
+}
+
+.bm-morph-shape {
+  fill: #373a47;
+}
+
+.bm-item-list {
+  color: #b8b7ad;
+}
+
+.bm-overlay {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.sidebar{
+  margin-left: 100%;
+  margin-top: 0%;
+}

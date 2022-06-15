@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
-import TableSeguimiento from '../TableSeguimiento/TableSeguimiento'
+import TableSeguimiento from '../TableSeguimiento/TableSeguimiento';
+import '../TableSeguimiento/TableSeguimiento.css'
 
 
 function Seguimiento() {
@@ -17,12 +18,11 @@ function Seguimiento() {
   return (
     <div className='seguimiento'>
       <div className='inpsegui'>
-    <input className='intbl2' placeholder='0001'></input>
+        <input className='intbl2' placeholder='0001'></input>
       </div>
 
-    <div className='tblsegui'>
-    <TableSeguimiento/>
-      
+      <div className='tblsegui'>
+        <TableSeguimiento/>
       </div>
     </div> 
   )
