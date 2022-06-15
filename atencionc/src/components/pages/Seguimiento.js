@@ -18,7 +18,7 @@ function Seguimiento() {
     <div className='seguimiento'>
       <div className='inpsegui'>
     <input className='intbl2' placeholder='0001'></input>
-      </div>
+    </div>
 
     <div className='tblsegui'>
     <TableSeguimiento/>
