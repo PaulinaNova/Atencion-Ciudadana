@@ -241,9 +241,10 @@ const [values,setValues]= useState({
           />
         ))}
         </div>
+        
 
         <div className='btnB' >
-        <button className='btn' onClick={createPost} type='submit'>AGREGAR CIUDADANO</button>
+        <button className='btn' onClick={()=>{createPost();}} type='submit'>AGREGAR CIUDADANO</button>
         <NotificationContainer/>
         <button className='btn' onClick={()=>abrirCerrarModal()}>CANCELAR</button>
           
