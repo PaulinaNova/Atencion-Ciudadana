@@ -277,14 +277,12 @@ const [values,setValues]= useState({
                             return  <td {...cell.getCellProps()}>{cell.render('Cell')}</td>      
                         })}     
                         <td>
-                            <button className='btntbl' title='Modificar Ciudadano' onClick={()=>abrirCerrarModal()}><AiIcons.AiOutlineSetting/></button>
+                            <button className='btntbl' title='Modificar Ciudadano' /*</td>onClick={()=>abrirCerrarModal()}*/><AiIcons.AiOutlineSetting/></button>
                             <button className='btntbl' title='Historial'><AiIcons.AiOutlineHistory /></button>
                             <button className='btntbl' onClick={()=>navigate("/gestions")}><IoIcons.IoIosAddCircleOutline /></button>
-                            <Modal
-        open={modal}
-        onClose={abrirCerrarModal}>
-          {body}
-      </Modal>
+                            <Modal open={modal} onClose={abrirCerrarModal}>
+                              {body}
+                            </Modal>
                         </td>      
                     </tr>
                 )     

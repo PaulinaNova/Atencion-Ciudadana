@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 import TableSeguimiento from '../TableSeguimiento/TableSeguimiento';
-import '../TableSeguimiento/TableSeguimiento.css'
 
 
 function Seguimiento() {

@@ -31,7 +31,7 @@ const useStyles=makeStyles((theme)=>({
 
 function Buscar() {
 
-const [styles] = useStyles();
+const styles = useStyles();
 
 /*----------CONSTANTES PARA ABRIL LA PANTALLA----------- */
 
@@ -61,7 +61,7 @@ const [values,setValues]= useState({
   caracteristica:""
   });
 
-    function createPost() {
+  function createPost() {
     axios
       .post('/api/ciudadano/addCiudadano', {
             curp:values.curp,
