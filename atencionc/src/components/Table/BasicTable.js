@@ -257,7 +257,7 @@ const [values,setValues]= useState({
   return (
     <>
     <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
-    <table {...getTableProps()}>
+    <table className='tbl' {...getTableProps()}>
          <thead>
              {headerGroups.map((headerGroup)=> (
                 <tr {...headerGroup.getHeaderGroupProps}>  

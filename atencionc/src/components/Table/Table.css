@@ -1,4 +1,4 @@
-table {
+.tbl {
   width: 137vh;
   font-size: 1rem;
   border: 1px solid;
@@ -8,13 +8,13 @@ table {
   background-color: rgba(128, 128, 128, 0.315);
 }
 
-table th {
+.tbl th {
   padding: 10px 15px 10px 15px;
   border: 1px solid;
   border-color: rgb(112, 108, 108);
 }
 
-table td {
+.tbl td {
   padding: 10px 15px 10px 15px;
   border: 1px solid;
   border-color: rgb(112, 108, 108);
