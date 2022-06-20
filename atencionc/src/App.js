@@ -33,9 +33,9 @@ function App() {
 
       }else{
         console.log("Los datos no coinciden");
-        <div className="error">
+        /*<div className="error">
         setError("Usuario no reconocido");
-        </div>
+        </div>*/
       }
   }
 

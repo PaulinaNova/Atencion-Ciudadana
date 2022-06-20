@@ -18,9 +18,7 @@ function TableSeguimiento () {
         getTableBodyProps,
         headerGroups,
         rows,
-        prepareRow,
-        state,
-        setGlobalFilter
+        prepareRow
     } =  useTable({
       columns,
       data
