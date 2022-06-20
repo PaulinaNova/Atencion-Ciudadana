@@ -1,20 +1,21 @@
-.tbl {
+.tseg{
   width: 137vh;
   font-size: 1rem;
   border: 1px solid;
   border-collapse: collapse;
   border-color: rgb(112, 108, 108);
+  margin-left: 12vh;
   color: rgb(92, 88, 88);
   background-color: rgba(128, 128, 128, 0.315);
 }
 
-.tbl th {
+.tseg th {
   padding: 10px 15px 10px 15px;
   border: 1px solid;
   border-color: rgb(112, 108, 108);
 }
 
-.tbl td {
+.tseg td {
   padding: 10px 15px 10px 15px;
   border: 1px solid;
   border-color: rgb(112, 108, 108);
@@ -43,22 +44,23 @@
 }
 
 
-.intbl {
+/*.intbl {
   height: 45px;
   width: 137vh;
   margin-left: 42.5vh;
+  margin-top: 9vh;
   padding: 15px;
   font-size: 1.2rem;
   border-radius: 20px;
   color: rgb(92, 88, 88);
   background-color: rgba(128, 128, 128, 0.315);
   border: none;
-}
+}*/
 
 .intbl2 {
   height: 45px;
   width: 137vh;
-  margin-left: 5vh;
+  margin-top: 7vh;
   padding: 15px;
   font-size: 1.2rem;
   border-radius: 20px;
@@ -67,32 +69,82 @@
   border: none;
   display: inline-flex;
   margin-bottom: 3vh;
-}
-
-.inpsegui{
-  margin-left: 35vh;
-}
-.tblsegui{
-  margin-left: 40vh;
+  margin-left: 12vh;
 }
 
 .btnbuscar {
   margin-left: 144vh;
 }
 
-.pendientes h3 {
-  background-color: #63040470;
-  font-size: 1.2rem;
-  color: rgb(255, 255, 255);
-  padding: 10px;
-  border-radius: 10px;
-  margin-bottom: 3vh;
-  width: 137vh;
+.bm-item {
+  display: inline-block;
+  text-decoration: none;
+  margin-bottom: 10px;
+  color: black;
+  transition: color 0.2s;
 }
 
-.urgentes,
-.vencidas,
-.pendiente {
-  margin-left: 45vh;
-  margin-top: 3vh;
+.bm-item:hover {
+  color: black;
+}
+
+.bm-burger-button {
+  position: fixed;
+  width: 36px;
+  height: 30px;
+  right: 0%;
+  top: 36px;
+}
+
+.bm-burger-bars {
+  background: #373a47;
+}
+
+.bm-menu {
+  background: #6304048f;
+  padding: 2.5em 1.5em 0;
+  font-size: 1.15em;
+}
+
+.bm-morph-shape {
+  fill: #373a47;
+}
+
+.bm-item-list {
+  color: #b8b7ad;
+}
+
+.bm-overlay {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.tseguimiento th,td {
+  padding: 10px 15px 10px 15px;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
+
+.tseguimiento tr {
+  border-left-style: hidden;
+  border-right-style: hidden;
+}
+
+.tseguimiento{
+  width:fit-content;
+  font-size: 1rem;
+  border-collapse: collapse;
+  color: #3a0202;
+}
+
+.btn{
+  color: white;
+}
+
+.btn:hover {
+  color: white;
+}
+
+.sidebar{
+  margin-left: 100%
 }

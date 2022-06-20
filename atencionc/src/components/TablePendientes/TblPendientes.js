@@ -36,7 +36,7 @@ export const TblPendientes =(props) =>{
 
   return (
     <>
-    <table {...getTableProps()}>
+    <table className='tbl' {...getTableProps()}>
          <thead>
              {headerGroups.map((headerGroup)=> (
                 <tr {...headerGroup.getHeaderGroupProps}>  

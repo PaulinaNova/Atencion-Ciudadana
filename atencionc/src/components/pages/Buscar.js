@@ -62,7 +62,7 @@ const [values,setValues]= useState({
   caracteristica:""
   });
 
-    function createPost() {
+  function createPost() {
     axios
       .post('/api/ciudadano/addCiudadano', {
             curp:values.curp,
