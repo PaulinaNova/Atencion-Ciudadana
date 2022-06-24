@@ -310,17 +310,14 @@ const abrirCerrarModal =()=>{
     <div className='buscar'>
        <BasicTable/>
        <div className='btnbuscar'>
-       <div >   
-       <button className='btn' onClick={()=>abrirCerrarModal()}>Agregar ciudadano</button>
-      
-       <Modal
-        open={modal}
-        onClose={abrirCerrarModal}>
-          {body}
-      </Modal> 
-      
+        <button className='btn' onClick={()=>abrirCerrarModal()}>Agregar ciudadano</button>
+        
+        <Modal
+          open={modal}
+          onClose={abrirCerrarModal}>
+            {body}
+        </Modal> 
       </div>
-         </div>
     </div>
   );
 }

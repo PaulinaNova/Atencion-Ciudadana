@@ -44,8 +44,9 @@ function TableSeguimiento () {
     const [prioridad, setPrioridad] = useState([])
     const [registra, setRegistra] = useState([])
     const [folio, setFolio] = useState([])
+    const [nombre, setNombre] = useState([])
 
-    function handleClick (tipos,estados,prioridads,registras, folios){
+    function handleClick (tipos,estados,prioridads,registras,folios,nombres){
       setIsShown(!isShown);
       toggleHideColumn('tipo',!isShown)
       toggleHideColumn('estado',!isShown)
@@ -55,8 +56,10 @@ function TableSeguimiento () {
       setPrioridad(prioridads)
       setRegistra(registras)
       setFolio(folios)
+      setNombre(nombres)
       return isShown;
     };
+    
 
   return (
     <>
@@ -64,7 +67,10 @@ function TableSeguimiento () {
         <SlideSeguimiento abierto={isShown} tipo={tipo} estado={estado} prioridad={prioridad} registra={registra} folio={folio}/>
     </div>
 
-    <GlobalFilter abierto={isShown} filter={globalFilter} setFilter={setGlobalFilter} />
+    <div style={{width: isShown? '690px':''}}className='inpdiv'>
+      <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
+      <input placeholder= {!isShown? "Nombre": nombre} className='intbl3'/>
+    </div>
     <table style={{width: isShown? '110vh':''}} className='tseg' {...getTableProps()}>
          <thead>
              {headerGroups.map((headerGroup)=> (
@@ -79,7 +85,7 @@ function TableSeguimiento () {
          {rows.map((row) => {
                 prepareRow(row)
                 return ( 
-                    <tr {...row.getRowProps()} onClick={() => {handleClick(row.original.tipo,row.original.estado,row.original.prioridad,row.original.registra,row.original.folio); }}>
+                    <tr {...row.getRowProps()} onClick={() => {handleClick(row.original.tipo,row.original.estado,row.original.prioridad,row.original.registra,row.original.folio,row.original.nombre_ciudadano); }}>
                         {row.cells.map((cell) => {
                             return  <td {...cell.getCellProps()}>{cell.render('Cell')}</td>      
                         })}  

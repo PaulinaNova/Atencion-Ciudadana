@@ -48,32 +48,38 @@
 }
 
 
-/*.intbl {
+.intbl3 {
+  width: 100%;
   height: 45px;
-  width: 137vh;
-  margin-left: 42.5vh;
-  margin-top: 9vh;
   padding: 15px;
   font-size: 1.2rem;
   border-radius: 20px;
   color: rgb(92, 88, 88);
   background-color: rgba(128, 128, 128, 0.315);
   border: none;
-}*/
+  margin-left: 8vh;
+  margin-top: 5vh;
+}
 
 .intbl2 {
+  width: 100%;
   height: 45px;
-  width: 137vh;
-  margin-top: 7vh;
   padding: 15px;
   font-size: 1.2rem;
   border-radius: 20px;
   color: rgb(92, 88, 88);
   background-color: rgba(128, 128, 128, 0.315);
   border: none;
-  display: inline-flex;
+  margin-top: 5vh;
+}
+
+.inpdiv {
+  width: 870px;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, 48.5%);
+  margin-left: 4vh;
   margin-bottom: 3vh;
-  margin-left: 9vh;
 }
 
 .btnbuscar {
