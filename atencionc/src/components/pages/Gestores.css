@@ -3,13 +3,13 @@
     
   }
   
-  .wrapper{
+  .wrapper,.formulario{
     display: grid;
     gap: 1rem;
     grid-template-columns: repeat(3, 45vh);
   }
   
-  .inpG {
+  input{
     width: 40vh;
     position: relative;
     height: 45px;
@@ -22,6 +22,13 @@
     margin-top: 2vh;
     
   }
+ #password,#rfc,#dependencia,#curp,#nombre,#ape_paterno,
+ #ape_materno,#telefono,#municipio,#localidad,#codigo_Postal,
+ #colonia,#calle,#email,#userName,#fecha_nacimiento,#caracteristica,#folio,#nombre_ciudadano,
+ #descripcion,#fecha,#procedencia,#periodo,#prioridad,#tipo,#dependencia,#registra,#registra,
+ #vencimiento,#periodico,#folio_interno,#cant_benef,#evento,#estado,#presupuesto,#notas{
+  border: 2px solid #630404;
+ }
 
   input::-webkit-outer-spin-button,
     input::-webkit-inner-spin-button {
@@ -42,10 +49,16 @@
 
   }
   .btnB {
-    margin-left: 59vh;
-    margin-top: 2vh;
+    margin-left: 17vh;
+    margin-top: 5vh;
     display:inline-flex;
-
+    width: 70vh;
+  }
+  .btnGE {
+    margin-left: 50vh;
+    margin-top: 5vh;
+    display:inline-flex;
+    width: 70vh;
   }
   
   .btnG .btn {
@@ -63,4 +76,13 @@
       margin-left: 3vh;
       margin-top: 3vh;
       cursor: pointer;
+    }
+
+    input.input-errors, select.input-errors{
+      border: 2px solid blue;
+      color: black;
+    }
+
+    button:disabled{
+      opacity: 0.50;
     }

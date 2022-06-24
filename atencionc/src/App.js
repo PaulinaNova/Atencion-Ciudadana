@@ -11,6 +11,8 @@ import Pendientes from './components/pages/Pendientes';
 import Gestion from './components/pages/Gestion';
 import LoginForm from './components/Login/LoginForm';
 
+
+
 function App() {
   const adminUser ={
 
@@ -43,7 +45,7 @@ function App() {
     setUser({name:""});
   }*/
 
-  return (
+return (
     <>
       <div className='App'>
           {(user.name !== "") ? (
