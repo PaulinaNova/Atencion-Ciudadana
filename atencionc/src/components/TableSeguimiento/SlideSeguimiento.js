@@ -1,16 +1,26 @@
-import React from 'react';
-import { stack as Menu } from 'react-burger-menu';
+import React, {useState, useEffect} from 'react'
+import { slide as Menu } from 'react-burger-menu';
+import axios from 'axios'
 
 export const SlideSeguimiento=(props) =>{
-  const {abierto} = props
+  const {abierto, tipo, estado, prioridad, registra, folio} = props
+  const [seguimientos, setSeguimiento] = useState([])
+  console.log(folio)
+  const getData = async() => {
+    const res = await axios.get('/api/seguimiento',{params:{folio:1}})
+    setSeguimiento(res.data)
+  }
+  useEffect(() => {
+      getData()
+  }, [])
+
   return (
     <Menu right customBurgerIcon={false} isOpen={abierto}>
-      <p className="menu-item">Tipo</p>
-      <p className="menu-item">Estado</p>
-      <p className="menu-item">Prioridad</p>
-      <p className="menu-item">Registra</p>
-      <p className="menu-item">Gestor</p>
-
+      <p className="menu-item">Tipo: {tipo} </p>
+      <p className="menu-item">Estado: {estado}</p>
+      <p className="menu-item">Prioridad: {prioridad}</p>
+      <p className="menu-item">Registra: {registra}</p>
+      <p className="menu-item">Gestor: {folio}</p>
       <table className='tseguimiento'>
        <thead>
         <tr>  
@@ -19,18 +29,7 @@ export const SlideSeguimiento=(props) =>{
         </tr>
        </thead> 
        <tbody>
-        <tr>
-          <td>22/02/2022</td>
-          <td>Se aceptaron documentos</td>
-        </tr>
-        <tr>
-          <td>14/05/2021</td>
-          <td>Se asignó presupuesto</td>
-        </tr>
-        <tr>
-          <td>25/04/2022</td>
-          <td>Se aprobó solicitud</td>
-        </tr>
+        {seguimientos.map(u => <tr key={u._id}><td>{u.fecha_seguimiento}</td><td>{u.descripcion_seguimiento}</td></tr>)}
        </tbody>
       </table>
       <button className='btn'>Agregar seguimiento</button>

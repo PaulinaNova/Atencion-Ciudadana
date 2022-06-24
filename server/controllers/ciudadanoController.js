@@ -3,7 +3,7 @@ import asyncHandler from 'express-async-handler'
 
 //getUsers function to get all users
 export const getCiudadanos = asyncHandler(async(req, res) => {
-    const ciudadanos = await Ciudadano.find({})
+    const ciudadanos = await Ciudadano.find().select({nombre:1, curp:1, colonia:1, calle:1, telefono:1, _id:0})
     res.json(ciudadanos)
 })
 

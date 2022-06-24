@@ -1,6 +1,5 @@
-import React, {useMemo, useState} from 'react'
+import React, {useMemo, useState, useEffect} from 'react'
 import {useTable, useGlobalFilter} from 'react-table'
-import MOCK_DATA from './MOCK_DATA.json'
 import {COLUMNS} from './Columns'
 import './Table.css'
 import * as IoIcons from "react-icons/io";
@@ -10,6 +9,7 @@ import {Modal} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import FormInput from '../../elementos/FormInput';
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 
 
@@ -36,10 +36,18 @@ const useStyles=makeStyles((theme)=>({
 
 function BasicTable () {
     const navigate = useNavigate()
-    const columns = useMemo(() => COLUMNS, [])
-    const data = useMemo(() => MOCK_DATA,[])
-    
     const styles = useStyles();
+    const columns = useMemo(() => COLUMNS, [])
+    const [ciudadano, setCiudadano] = useState([])
+    const data = ciudadano
+    
+    const getData = async() => {
+        const res = await axios.get('/api/ciudadano')
+        setCiudadano(res.data)
+    }
+    useEffect(() => {
+      getData()
+    }, [])
 
 /*----------CONSTANTES PARA ABRIL LA PANTALLA----------- */
 

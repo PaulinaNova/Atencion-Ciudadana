@@ -1,46 +1,71 @@
-import React, {useMemo, useState} from 'react'
+import React, {useMemo, useState, useEffect} from 'react'
 import {useTable, useGlobalFilter} from 'react-table'
-import MOCK_DATA from '../TableSeguimiento/MOCK_DATA.json'
 import {COLUMNS} from './ColumnsSeguimiento'
 import './TableSeguimiento.css'
 import SlideSeguimiento from '../TableSeguimiento/SlideSeguimiento';
+import axios from 'axios'
+import { GlobalFilter } from './GlobalFilter'
 
-
-/*----------CREAR EL FONDO DE LA PANTALLA----------- */
+/*----------CREAR EL FONDO DE LA PANTALLA----------- */ 
 
 
 function TableSeguimiento () {
+    const [isShown, setIsShown] = useState(false);
     const columns = useMemo(() => COLUMNS, [])
-    const data = useMemo(() => MOCK_DATA,[])
+    const [gestion, setGestion] = useState([])
+    const data = gestion
+    
+    const getData = async() => {
+        const res = await axios.get('/api/gestions')
+        setGestion(res.data)
+    }
 
+    useEffect(() => {
+      getData()
+    }, [])
+ 
     const {
         getTableProps, 
         getTableBodyProps,
         headerGroups,
         rows,
-        prepareRow
+        prepareRow,
+        state,
+        setGlobalFilter,
+        toggleHideColumn
     } =  useTable({
       columns,
       data
     }, useGlobalFilter)
-  
-  const [isShown, setIsShown] = useState(false);
+    
+    var {globalFilter} = state  
+    const [tipo, setTipo] = useState([])
+    const [estado, setEstado] = useState([])
+    const [prioridad, setPrioridad] = useState([])
+    const [registra, setRegistra] = useState([])
+    const [folio, setFolio] = useState([])
 
-  function handleClick (e){
-    setIsShown(!isShown);
-    return isShown;
-  };
-
+    function handleClick (tipos,estados,prioridads,registras, folios){
+      setIsShown(!isShown);
+      toggleHideColumn('tipo',!isShown)
+      toggleHideColumn('estado',!isShown)
+      toggleHideColumn('prioridad',!isShown)
+      setTipo(tipos)
+      setEstado(estados)
+      setPrioridad(prioridads)
+      setRegistra(registras)
+      setFolio(folios)
+      return isShown;
+    };
 
   return (
     <>
     <div className='sidebar'> 
-        <SlideSeguimiento abierto={isShown}/>
+        <SlideSeguimiento abierto={isShown} tipo={tipo} estado={estado} prioridad={prioridad} registra={registra} folio={folio}/>
     </div>
 
-    <input className='intbl2' placeholder='0001'></input>
-
-    <table className='tseg' {...getTableProps()}>
+    <GlobalFilter abierto={isShown} filter={globalFilter} setFilter={setGlobalFilter} />
+    <table style={{width: isShown? '110vh':''}} className='tseg' {...getTableProps()}>
          <thead>
              {headerGroups.map((headerGroup)=> (
                 <tr {...headerGroup.getHeaderGroupProps}>  
@@ -54,7 +79,7 @@ function TableSeguimiento () {
          {rows.map((row) => {
                 prepareRow(row)
                 return ( 
-                    <tr {...row.getRowProps()} onClick={handleClick}>
+                    <tr {...row.getRowProps()} onClick={() => {handleClick(row.original.tipo,row.original.estado,row.original.prioridad,row.original.registra,row.original.folio); }}>
                         {row.cells.map((cell) => {
                             return  <td {...cell.getCellProps()}>{cell.render('Cell')}</td>      
                         })}  

@@ -1,18 +1,22 @@
 export const COLUMNS = [
     {
-        Header: 'Id',
-        accessor:'id'
-    },
-    {
         Header: 'Nombre',
         accessor: 'nombre'
     },
     {
-        Header: 'Clave',
-        accessor: 'clave'
+        Header: 'CURP',
+        accessor: 'curp'
     },
     {
-        Header: 'Domicilio',
-        accessor: 'domicilio'
-    }
+        Header: 'Colonia',
+        accessor: 'colonia'
+    },
+    {
+        Header: 'Calle y número',
+        accessor: 'calle'
+    },
+    {
+        Header: 'Telefono',
+        accessor:'telefono'
+    },
 ]

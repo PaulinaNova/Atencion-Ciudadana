@@ -23,6 +23,7 @@ app.use(bodyParser.json());
 app.use('/api/users', userRoutes)
 //Creating API for gestion
 app.use('/api/gestions', gestionRoutes)
+app.use('/api/gestions/:id', gestionRoutes)
 app.use('/api/gestions/addGestion', gestionRoutes)
 //Creating API for ciudadano
 app.use('/api/ciudadano', ciudadanoRoutes)
@@ -36,6 +37,7 @@ app.use('/api/dependencia', dependenciaRoutes)
 app.use('/api/procedencia', procedenciaRoutes)
 //Creating API for seguimiento
 app.use('/api/seguimiento', seguimientoRoutes)
+app.use('/api/seguimiento/:id', seguimientoRoutes)
 
 const PORT = process.env.PORT || 5000
 
