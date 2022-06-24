@@ -10,8 +10,7 @@ const gestionSchema = mongoose.Schema({
         type: String
     },
     curp: {
-        type: String,
-        unique:true
+        type: String
     },
     descripcion:{
         type: String

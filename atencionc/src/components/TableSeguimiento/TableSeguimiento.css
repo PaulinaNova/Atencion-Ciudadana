@@ -21,6 +21,10 @@
   border-color: rgb(112, 108, 108);
 }
 
+.tseg tbody tr:hover {
+  background-color: #5a101067;
+}
+
 
 .btntbl {
   font-size: 2rem;
@@ -69,7 +73,7 @@
   border: none;
   display: inline-flex;
   margin-bottom: 3vh;
-  margin-left: 12vh;
+  margin-left: 9vh;
 }
 
 .btnbuscar {
@@ -119,7 +123,7 @@
 }
 
 .tseguimiento th,td {
-  padding: 10px 15px 10px 15px;
+  padding: 5px 10px 5px 10px;
   border-top: 1px solid black;
   border-left: 1px solid black;
   border-right: 1px solid black;

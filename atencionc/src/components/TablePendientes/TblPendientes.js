@@ -1,13 +1,24 @@
-import React, {useMemo} from 'react'
+import React, {useMemo, useState, useEffect} from 'react'
 import {useTable} from 'react-table'
-import MOCK_DATA from './MOCK_DATA_PENDIENTES.json'
 import {COLUMNS} from './ColumnsPendientes'
 import '../Table/Table.css'
+import axios from 'axios'
 
 export const TblPendientes =(props) =>{
     const {cadena} = props
     const columns = useMemo(() => COLUMNS, [])
-    var data = useMemo(() => MOCK_DATA,[])
+    const [gestion, setGestion] = useState([])
+    var data = gestion
+    
+    const getData = async() => {
+        const res = await axios.get('/api/gestions')
+        setGestion(res.data)
+    }
+
+    useEffect(() => {
+      getData()
+    }, [])
+
     if(cadena === "Urgentes"){
         data = data.filter(function (entry) {
             return entry.prioridad === 'Alta';

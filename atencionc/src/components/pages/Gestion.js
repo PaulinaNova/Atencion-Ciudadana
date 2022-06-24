@@ -63,7 +63,7 @@ const Gestion = () =>{
       })
       .then((response) => {
         setValues(response.data);
-        NotificationManager.success('La fue agregada correctamente', 'Exito');
+        NotificationManager.success('La solicitud fue agregada correctamente', 'Exito');
       });
   }
  

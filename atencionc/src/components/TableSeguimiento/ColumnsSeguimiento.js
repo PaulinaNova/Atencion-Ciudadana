@@ -5,7 +5,7 @@ export const COLUMNS = [
     },
     {
         Header: 'Captura',
-        accessor: 'captura'
+        accessor: 'fecha'
     },
     {
         Header: 'Descripcion',

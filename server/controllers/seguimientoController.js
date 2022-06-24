@@ -7,17 +7,6 @@ export const getSeguimientos = asyncHandler(async(req, res) => {
     res.json(seguimientos)
 })
 
-export const getSeguimientosParam = asyncHandler(async(req, res) => {
-    const seguimientos = await Seguimiento.find({})
-    if(seguimientos){
-        res.json(seguimientos)
-    }else{
-        res.status(404).json({message: "Seguimiento no encontrado"})
-        res.status(404)
-        throw new Error('Seguimiento no encontrado')
-    }
-})
-
 //getUserById function to retrieve user by id
 export const getSeguimientoById  = asyncHandler(async(req, res) => {
     const seguimiento = await Seguimiento.findById(req.params.id)

@@ -2,25 +2,19 @@ import mongoose from 'mongoose'
 
 const seguimientoSchema = mongoose.Schema({
     folio: {
-        type: Number,
-        required: true,
-        unique:true
+        type: Number
     },
     fecha_seguimiento:{
-        type:Date,
-        require:true
+        type:Date
     },
     descripcion_seguimiento:{
-        type:String,
-        require:true
+        type:String
     },
     gestor:{
-        type:String,
-        require:true
+        type:String
     },
     estado: {
-    type: String,
-    required: true
+    type: String
     },
     presupuesto: {
         type: Number

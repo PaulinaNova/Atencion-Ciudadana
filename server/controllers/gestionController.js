@@ -2,6 +2,12 @@ import Gestion from '../models/gestionModel.js'
 import asyncHandler from 'express-async-handler'
 
 //getUsers function to get all users
+/*export const getGestions = asyncHandler(async(req, res) => {
+    const gestions = await Gestion.find({})
+    res.json(gestions)
+})*/
+
+//getUsers function to get all users
 export const getGestions = asyncHandler(async(req, res) => {
     const gestions = await Gestion.find({})
     res.json(gestions)
