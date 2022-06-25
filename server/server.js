@@ -38,6 +38,7 @@ app.use('/api/procedencia', procedenciaRoutes)
 //Creating API for seguimiento
 app.use('/api/seguimiento', seguimientoRoutes)
 app.use('/api/seguimiento/:id', seguimientoRoutes)
+//app.use('/api/seguimiento/addSeguimiento', seguimientoRoutes)
 
 const PORT = process.env.PORT || 5000
 

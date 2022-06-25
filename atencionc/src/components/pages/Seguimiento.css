@@ -1,0 +1,20 @@
+
+  .wrapper2, .formulario2{
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(1, 45vh);
+  }
+
+  .lblSeg, #fecha_seguimiento,#descripcion_seguimiento,#estado, .btnSeg{
+    font-size: 3vh;
+    
+  }
+
+  #fecha_seguimiento,#descripcion_seguimiento,#estado{
+    border: 2px solid #630404;
+    color: #630404;
+  }
+
+  .btnB{
+    
+  }

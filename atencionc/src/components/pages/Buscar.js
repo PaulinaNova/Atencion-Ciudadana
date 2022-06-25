@@ -9,7 +9,7 @@ import axios from 'axios'
 import 'react-notifications/lib/notifications.css';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import { useFormik} from 'formik';
-import {basicSchema} from "../schemas/index.js";
+import "../Table/Table.css";
 
 /*----------CREAR EL FONDO DE LA PANTALLA----------- */
 
@@ -31,6 +31,8 @@ const useStyles=makeStyles((theme)=>({
 }))
 
 const onSubmit =async (values,actions) => {
+  console.log(values);
+  console.log(actions);
   //METER LO DE LA BD
   await new Promise((resolve) => setTimeout(resolve, 1000));
   actions.resetForm();
@@ -80,7 +82,7 @@ const Buscar=()=>{
       calle:"",
       caracteristica:""
     },
-    validationSchema:basicSchema,
+    //validationSchema:basicSchema,
     onSubmit,
   });
 
@@ -102,7 +104,7 @@ const abrirCerrarModal =()=>{
 {/*-------------------------------------------------- */}
 
 
-    <div className='gestores'>
+  <div className='gestores'>
     <div className='CBuscar'>
         <div className='wrapper'>
         
@@ -120,6 +122,13 @@ const abrirCerrarModal =()=>{
         className={errors.curp && touched.curp ? "input-error" : ""}
       />  
     {errors.curp && touched.curp && <p className="error">{errors.curp}</p> }
+  
+  </div>
+  <div className="groupInput2">
+    <label htmlFor='vacio1'></label>
+  </div>
+  <div className="groupInput2">
+    <label htmlFor='vacio2'></label>
   </div>
 
   <div className="groupInput">
@@ -308,19 +317,20 @@ const abrirCerrarModal =()=>{
 
   return (
     <div className='buscar'>
+      <div className="tblBuscar">
        <BasicTable/>
-       <div className='btnbuscar'>
-       <div >   
-       <button className='btn' onClick={()=>abrirCerrarModal()}>Agregar ciudadano</button>
+       </div>
+        <div className='btnbuscar'>
+          
+          <button className='btn' onClick={()=>abrirCerrarModal()}>Agregar ciudadano</button>
+          
+          <Modal
+            open={modal}
+            onClose={abrirCerrarModal}>
+              {body}
+          </Modal> 
+        </div>
       
-       <Modal
-        open={modal}
-        onClose={abrirCerrarModal}>
-          {body}
-      </Modal> 
-      
-      </div>
-         </div>
     </div>
   );
 }

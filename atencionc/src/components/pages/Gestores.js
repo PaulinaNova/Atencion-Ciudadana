@@ -5,7 +5,7 @@ import axios from 'axios'
 import 'react-notifications/lib/notifications.css';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import { useFormik} from 'formik';
-import {basicSchema} from "../schemas/index.js";
+import {basicSchema} from "../schemas/indexGestores.js";
 
 
 const onSubmit =async (values,actions) => {

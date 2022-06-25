@@ -20,8 +20,8 @@
     color: #630404;
     background-color: white;
     margin-top: 2vh;
-    
   }
+
  #password,#rfc,#dependencia,#curp,#nombre,#ape_paterno,
  #ape_materno,#telefono,#municipio,#localidad,#codigo_Postal,
  #colonia,#calle,#email,#userName,#fecha_nacimiento,#caracteristica,#folio,#nombre_ciudadano,
@@ -31,7 +31,7 @@
  }
 
   input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
+  input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
     }
@@ -84,5 +84,5 @@
     }
 
     button:disabled{
-      opacity: 0.50;
+      opacity: 0.20;
     }

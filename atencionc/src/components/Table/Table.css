@@ -1,11 +1,12 @@
 .tbl {
-  width: 137vh;
+  width: 150vh;
   font-size: 1rem;
   border: 1px solid;
   border-collapse: collapse;
   border-color: rgb(112, 108, 108);
   color: rgb(92, 88, 88);
   background-color: rgba(128, 128, 128, 0.315);
+  
 }
 
 .tbl th {
@@ -45,7 +46,7 @@
 
 .intbl {
   height: 45px;
-  width: 137vh;
+  width:150vh;
   margin-left: 42.5vh;
   padding: 15px;
   font-size: 1.2rem;
@@ -53,6 +54,7 @@
   color: rgb(92, 88, 88);
   background-color: rgba(128, 128, 128, 0.315);
   border: none;
+
 }
 
 .intbl2 {
@@ -87,7 +89,7 @@
   padding: 10px;
   border-radius: 10px;
   margin-bottom: 3vh;
-  width: 137vh;
+  width: 150vh;
 }
 
 .urgentes,
@@ -96,3 +98,8 @@
   margin-left: 45vh;
   margin-top: 3vh;
 }
+
+.tblBuscar{
+  max-height: 26rem;
+  overflow: auto;
+ }

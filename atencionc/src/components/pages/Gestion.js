@@ -6,7 +6,7 @@ import axios from 'axios'
 import 'react-notifications/lib/notifications.css';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import { useFormik} from 'formik';
-import {basicSchema} from "../schemas/index.js";
+//import {basicSchema} from "../schemas/index.js";
 
 
 const onSubmit =async (values,actions) => {
@@ -77,7 +77,7 @@ const Gestion = () =>{
     notas:"",
 
   },
-    validationSchema:basicSchema,
+    //validationSchema:basicSchema,
     onSubmit,
   });
 
@@ -318,7 +318,7 @@ const Gestion = () =>{
               <div className="groupInput">
                 <label htmlFor='estado'>ESTADO</label>
                   <input
-                    value={values.evento}
+                    value={values.estado}
                     onChange={handleChange}
                     id="estado" 
                     type="text" 

@@ -10,6 +10,8 @@ import {makeStyles} from '@material-ui/core/styles';
 import FormInput from '../../elementos/FormInput';
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+import { useFormik} from 'formik';
 
 
 
@@ -33,8 +35,16 @@ const useStyles=makeStyles((theme)=>({
     }
   }))
 
+  const onSubmit =async (values,actions) => {
+  console.log(values);
+  console.log(actions);
+  //METER LO DE LA BD
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  actions.resetForm();
+};
 
-function BasicTable () {
+
+const BasicTable=()=>{
     const navigate = useNavigate()
     const styles = useStyles();
     const columns = useMemo(() => COLUMNS, [])
@@ -49,18 +59,10 @@ function BasicTable () {
       getData()
     }, [])
 
-/*----------CONSTANTES PARA ABRIL LA PANTALLA----------- */
 
-const [modal, setModal]=useState(false);
-
-const abrirCerrarModal =()=>{
-  setModal(!modal);
-}
-
-
-/*----------DECLARAR LOS VALORES DE LOS CAMPOS----------- */
-const [values,setValues]= useState({
-
+    /*----------DECLARAR LOS VALORES DE LOS CAMPOS----------- */
+    const {setValues,values,errors,touched,isSubmitting,handleBlur,handleChange, handleSubmit,} = useFormik({
+      initialValues:{
   curp:"",
   vacio:"",
   nombre:"",
@@ -75,143 +77,22 @@ const [values,setValues]= useState({
   colonia:"",
   calle:"",
   caracteristica:""
-  });
+},
+//validationSchema:basicSchema,
+onSubmit,
+});
 
-  const inputs = [
+console.log(errors);
 
-    {
-      className:"inpG",
-      id:1,
-      name:"curp",
-      type:"text",
-      placeholder:"CURP",
-      label:"CURP",    
-    },
-    {
-      className:"inpG2",
-      id:2,
-      name:"vacio",
-      type:"text",
-      disabled:"true",  
-    },
-    {
-      className:"inpG2",
-      id:3,
-      name:"vacio",
-      type:"text", 
-      disabled:"true",   
-    },
-    {
-      className:"inpG",
-      id:4,
-      name:"nombre",
-      type:"text",
-      placeholder:"NOMBRE(S)",
-      label:"NOMBRE(S)",   
-    },
-    
-    {
-      className:"inpG",
-      id:5,
-      name:"ape_paterno",
-      type:"text",
-      placeholder:"APELLIDO PATERNO",
-      label:"APELLIDO PATERNO",      
-    },
-    
-    {
-      className:"inpG",
-      id:6,
-      name:"ape_materno",
-      type:"text",
-      placeholder:"APELLIDO MATERNO",
-      label:"APELLIDO MATERNO",      
-    },
-    {
-      className:"inpG",
-      id:7,
-      name:"fecha_nacimiento",
-      type:"date",
-      placeholder:"FECHA DE NACIMIENTO",
-      label:"FECHA DE NACIMIENTO",      
-    },
-    {
-      className:"inpG",
-      id:8,
-      name:"telefono",
-      type:"number",
-      placeholder:"TELÉFONO",
-      label:"TELÉFONO",      
-    },
-    {
-      className:"inpG",
-      id:14,
-      name:"correo",
-      type:"email",
-      placeholder:"CORREO ELECTRÓNICO",
-      label:"CORREO ELECTRÓNICO",     
-    },
-    {
-      className:"inpG",
-      id:9,
-      name:"codigo_Postal",
-      type:"number",
-      placeholder:"CÓDIGO POSTAL",
-      label:"CÓDIGO POSTAL",      
-    },
-    {
-      className:"inpG",
-      id:10,
-      name:"municipio",
-      type:"text",
-      placeholder:"MUNICIPIO",
-      label:"MUNICIPIO",      
-    },
-    
-    {
-      className:"inpG",
-      id:11,
-      name:"localidad",
-      type:"text",
-      placeholder:"LOCALIDAD",
-      label:"LOCALIDAD",     
-    },
-    {
-      className:"inpG",
-      id:12,
-      name:"colonia",
-      type:"text",
-      placeholder:"COLONIA",
-      label:"COLONIA",      
-    },
-    {
-      className:"inpG",
-      id:13,
-      name:"calle",
-      type:"text",
-      placeholder:"CALLE Y NUMERO",
-      label:"CALLE Y NÚMERO",     
-    },
-    {
-      className:"inpG",
-      id:13,
-      name:"caracteristica",
-      type:"text",
-      placeholder:"CARACTERISTICA",
-      label:"CARACTERISTICA",     
-    },
-    ];
-    
-    /*-------------------------------------------------- */
+/*----------CONSTANTES PARA ABRIL LA PANTALLA----------- */
 
-    const handleSubmit = (e)=>{
-    e.preventDefault();
-    };
-    
-    const onChange = (e) =>{
-    setValues({...values, [e.target.name]: e.target.value});
-    };
-    
+const [modal, setModal]=useState(false);
+
+const abrirCerrarModal =()=>{
+  
+  setModal(!modal);
+}
+
     console.log(values);
 
 
@@ -223,31 +104,213 @@ const [values,setValues]= useState({
 
     <div className='gestores'>
     <div className='CBuscar'>
-      <form onSubmit={handleSubmit}>
         <div className='wrapper'>
-        {inputs.map((input) => (
-          <FormInput 
-          key={input.id}
-          {...input} 
-          value={values[input.name]}
-          onChange={onChange}
-          />
-        ))}
-        </div>
+        
+          <form onSubmit={handleSubmit} autoComplete='off' className="formulario">
 
-        <div className='btnB' >
-        <button className='btn'>MODIFICAR CIUDADANO</button>
-        <button className='btn' onClick={()=>abrirCerrarModal()}>CANCELAR</button>
-          
-          
-      </div>     
-      </form>
+  <div className="groupInput">
+    <label htmlFor='curp'>CURP</label>
+      <input
+        value={values.curp}
+        onChange={handleChange}
+        id="curp" 
+        type="text" 
+        placeholder='Ingresa curp'
+        onBlur={handleBlur}
+        className={errors.curp && touched.curp ? "input-error" : ""}
+      />  
+    {errors.curp && touched.curp && <p className="error">{errors.curp}</p> }
+  
+  </div>
+  <div className="groupInput2">
+    <label htmlFor='vacio1'></label>
+  </div>
+  <div className="groupInput2">
+    <label htmlFor='vacio2'></label>
+  </div>
+
+  <div className="groupInput">
+    <label htmlFor='nombre'>NOMBRE(S)</label>
+      <input
+        value={values.nombre}
+        onChange={handleChange}
+        id="nombre" 
+        type="text" 
+        placeholder='Ingresa nombre(s)'
+        onBlur={handleBlur}
+        className={errors.nombre && touched.nombre ? "input-error" : ""}
+      />  
+    {errors.nombre && touched.nombre && <p className="error">{errors.nombre}</p> }
+  </div>
+
+  <div className="groupInput">
+    <label htmlFor='ape_paterno'>APELLIDO PATERNO</label>
+      <input
+        value={values.ape_paterno}
+        onChange={handleChange}
+        id="ape_paterno" 
+        type="text" 
+        placeholder='Ingresa Apellido Paterno'
+        onBlur={handleBlur}
+        className={errors.ape_paterno && touched.ape_paterno ? "input-error" : ""}
+      />  
+    {errors.ape_paterno && touched.ape_paterno && <p className="error">{errors.ape_paterno}</p> }
+  </div>
+
+  <div className="groupInput">
+    <label htmlFor='ape_materno'>APELLIDO MATERNO</label>
+      <input
+        value={values.ape_materno}
+        onChange={handleChange}
+        id="ape_materno" 
+        type="text" 
+        placeholder='Ingresa Apellido Materno'
+        onBlur={handleBlur}
+        className={errors.ape_materno && touched.ape_materno ? "input-error" : ""}
+      />  
+    {errors.ape_materno && touched.ape_materno && <p className="error">{errors.ape_materno}</p> }
+  </div>
+
+  <div className="groupInput">
+    <label htmlFor='fecha_nacimiento'>FECHA NACIMIENTO</label>
+      <input
+        value={values.fecha_nacimiento}
+        onChange={handleChange}
+        id="fecha_nacimiento" 
+        type="date" 
+        placeholder='Ingresa Fecha Nacimiento'
+        onBlur={handleBlur}
+        className={errors.fecha_nacimiento && touched.fecha_nacimiento ? "input-error" : ""}
+      />  
+    {errors.fecha_nacimiento && touched.fecha_nacimiento && <p className="error">{errors.fecha_nacimiento}</p> }
+  </div>
+
+  <div className="groupInput">
+    <label htmlFor='telefono'>TELEFONO</label>
+      <input
+        value={values.telefono}
+        onChange={handleChange}
+        id="telefono" 
+        type="number" 
+        placeholder='Ingresa no. telefono'
+        onBlur={handleBlur}
+        className={errors.telefono && touched.telefono ? "input-error" : ""}
+      />  
+    {errors.telefono && touched.telefono && <p className="error">{errors.telefono}</p> }
+  </div>
+
+  <div className="groupInput">
+    <label htmlFor='email'>CORREO ELECTRONICO</label>
+      <input
+        value={values.email}
+        onChange={handleChange}
+        id="email" 
+        type="email" 
+        placeholder='Ingresa correo'
+        onBlur={handleBlur}
+        className={errors.email && touched.email ? "input-error" : ""}
+      />
+    {errors.email && touched.email && <p className="error">{errors.email}</p> }
+  </div>
+
+  <div className="groupInput">
+    <label htmlFor='codigo_Postal'>CODIGO POSTAL</label>
+      <input
+        value={values.codigo_Postal}
+        onChange={handleChange}
+        id="codigo_Postal" 
+        type="number" 
+        placeholder='Ingresa código postal'
+        onBlur={handleBlur}
+        className={errors.codigo_Postal && touched.codigo_Postal ? "input-error" : ""}
+      />  
+    {errors.codigo_Postal && touched.codigo_Postal && <p className="error">{errors.codigo_Postal}</p> }
+  </div>
+
+  <div className="groupInput">
+    <label htmlFor='municipio'>MUNICIPIO</label>
+      <input
+        value={values.municipio}
+        onChange={handleChange}
+        id="municipio" 
+        type="text" 
+        placeholder='Ingresa municipio'
+        onBlur={handleBlur}
+        className={errors.municipio && touched.municipio ? "input-error" : ""}
+      />  
+    {errors.municipio && touched.municipio && <p className="error">{errors.municipio}</p> }
+  </div>
+
+  <div className="groupInput">
+    <label htmlFor='localidad'>LOCALIDAD</label>
+      <input
+        value={values.localidad}
+        onChange={handleChange}
+        id="localidad" 
+        type="text" 
+        placeholder='Ingresa localidad'
+        onBlur={handleBlur}
+        className={errors.localidad && touched.localidad ? "input-error" : ""}
+      />  
+    {errors.localidad && touched.localidad && <p className="error">{errors.localidad}</p> }
+  </div>
+
+  <div className="groupInput">
+    <label htmlFor='colonia'>COLONIA</label>
+      <input
+        value={values.colonia}
+        onChange={handleChange}
+        id="colonia" 
+        type="text" 
+        placeholder='Ingresa colonia'
+        onBlur={handleBlur}
+        className={errors.colonia && touched.colonia ? "input-error" : ""}
+      />  
+    {errors.colonia && touched.colonia && <p className="error">{errors.colonia}</p> }
+  </div>
+
+  <div className="groupInput">
+    <label htmlFor='calle'>CALLE</label>
+      <input
+        value={values.calle}
+        onChange={handleChange}
+        id="calle" 
+        type="text" 
+        placeholder='Ingresa calle'
+        onBlur={handleBlur}
+        className={errors.calle && touched.calle ? "input-error" : ""}
+      />  
+    {errors.calle && touched.calle && <p className="error">{errors.calle}</p> }
+  </div>
+
+  <div className="groupInput">
+    <label htmlFor='caracteristica'>CARACTERISTICA</label>
+      <input
+        value={values.caracteristica}
+        onChange={handleChange}
+        id="caracteristica" 
+        type="text" 
+        placeholder='Ingresa caracteristica'
+        onBlur={handleBlur}
+        className={errors.caracteristica && touched.caracteristica ? "input-error" : ""}
+        />  
+      {errors.caracteristica && touched.caracteristica && <p className="error">{errors.caracteristica}</p> }
+  </div>
+
+          <div className='btnB' >
+          <button disabled={isSubmitting} className='btn' type='submit'>AGREGAR CIUDADANO</button>
+          <NotificationContainer/>
+          <button className='btn' onClick={()=>abrirCerrarModal()}>CANCELAR</button>  
+          </div> 
+
+          </form>
+
+        </div> 
       </div>
 </div>
   </div>
   </div>
 )
-
     const {
         getTableProps, 
         getTableBodyProps,
@@ -265,6 +328,7 @@ const [values,setValues]= useState({
   return (
     <>
     <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
+    
     <table className='tbl' {...getTableProps()}>
          <thead>
              {headerGroups.map((headerGroup)=> (
@@ -285,7 +349,7 @@ const [values,setValues]= useState({
                             return  <td {...cell.getCellProps()}>{cell.render('Cell')}</td>      
                         })}     
                         <td>
-                            <button className='btntbl' title='Modificar Ciudadano' /*</td>onClick={()=>abrirCerrarModal()}*/><AiIcons.AiOutlineSetting/></button>
+                            <button className='btntbl' title='Modificar Ciudadano' onClick={()=>abrirCerrarModal()}><AiIcons.AiOutlineSetting/></button>
                             <button className='btntbl' title='Historial'><AiIcons.AiOutlineHistory /></button>
                             <button className='btntbl' onClick={()=>navigate("/gestions")}><IoIcons.IoIosAddCircleOutline /></button>
                             <Modal open={modal} onClose={abrirCerrarModal}>
