@@ -319,6 +319,7 @@ const abrirCerrarModal =()=>{
     <div className='buscar'>
       <div className="tblBuscar">
        <BasicTable/>
+<<<<<<< HEAD
        </div>
         <div className='btnbuscar'>
           
@@ -331,6 +332,17 @@ const abrirCerrarModal =()=>{
           </Modal> 
         </div>
       
+=======
+       <div className='btnbuscar'>
+        <button className='btn' onClick={()=>abrirCerrarModal()}>Agregar ciudadano</button>
+        
+        <Modal
+          open={modal}
+          onClose={abrirCerrarModal}>
+            {body}
+        </Modal> 
+      </div>
+>>>>>>> d866de237e85bde13412e63a6c6a49598de25e19
     </div>
   );
 }
