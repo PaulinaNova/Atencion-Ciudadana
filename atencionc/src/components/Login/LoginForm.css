@@ -18,7 +18,7 @@ button {
 }
 
 .log {
-  height: 100vh;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -76,10 +76,8 @@ form .form-inner .form-group input {
 
 form .form-inner input[type="submit"] {
   display: inline-block;
-  padding-left: 2px;
-  padding-top: 20px;
+  padding: 20px;
   border-radius: 8px;
-  background-image: linear-gradient(to right, #ffce00 50%, #ffce00 50% #fe4880);
   background-size: 200%;
   background-position: 0%;
   transition: 0.4s;
@@ -87,9 +85,13 @@ form .form-inner input[type="submit"] {
   font-size: 15px;
   font-weight: 700;
   cursor: pointer;
+  width: 100%;
+  height: 50px;
+  margin-top: 3vh;
 }
 
 form .form-inner input[type="submit"]:hover,
 .welcome button:hover {
   background-position: 10% 0%;
+  background-color: #630404;
 }

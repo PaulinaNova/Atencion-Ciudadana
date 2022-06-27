@@ -1,81 +1,82 @@
-import mongoose from 'mongoose'
+import mongoose from "mongoose";
 
-const gestionSchema = mongoose.Schema({
-    
+const gestionSchema = mongoose.Schema(
+  {
     folio: {
-        type: Number,
-        unique:true
+      type: Number,
+      unique: true,
     },
     nombre_ciudadano: {
-        type: String
+      type: String,
     },
     curp: {
-        type: String
+      type: String,
     },
-    descripcion:{
-        type: String
+    descripcion: {
+      type: String,
     },
     fecha: {
-        type: Date
+      type: String,
     },
     procedencia: {
-        type: String
+      type: String,
     },
     periodo: {
-        type: String
+      type: String,
     },
     prioridad: {
-        type: String
+      type: String,
     },
     tipo: {
-        type: String
+      type: String,
     },
     dependencia: {
-        type: String
+      type: String,
     },
     registra: {
-        type: String
+      type: String,
     },
     vencimiento: {
-        type: Date
+      type: String,
     },
     periodico: {
-        type: String
+      type: String,
     },
     folio_interno: {
-        type: String
+      type: String,
     },
     cant_benef: {
-        type: Number
+      type: Number,
     },
     evento: {
-        type: String
+      type: String,
     },
     estado: {
-        type: String
+      type: String,
     },
     presupuesto: {
-        type: Number
+      type: Number,
     },
     notas: {
-        type: String
+      type: String,
+    },
+    gestor: {
+      type: String,
     },
     seguimiento: {
-        fecha_seguimiento:{
-            type:Date
-        },
-        descripcion_seguimiento:{
-            type:String
-        },
-        gestor:{
-            type:String
-        }
+      fecha_seguimiento: {
+        type: String,
+      },
+      descripcion_seguimiento: {
+        type: String,
+      },
     },
+  },
+  {
+    timestamps: false,
+  }
+);
 
-}, {
-    timestamps: false
-})
+const Gestion = mongoose.model("Gestion", gestionSchema);
 
-const Gestion = mongoose.model('Gestion', gestionSchema)
-
-export default Gestion
+export default Gestion;

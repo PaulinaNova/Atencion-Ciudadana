@@ -78,8 +78,8 @@
   margin-left: 40vh;
 }
 
-.btnbuscar {
-  margin-left: 144vh;
+.btnbuscar .btn {
+  margin-left: 11vh;
 }
 
 .pendientes h3 {
@@ -99,7 +99,20 @@
   margin-top: 3vh;
 }
 
-.tblBuscar{
+.buscar .tblBuscar{
   max-height: 26rem;
   overflow: auto;
  }
+
+.formulario .btnB{
+  display: inline-flex;
+  margin-left: 41vh;
+}
+
+.btnB .btn{
+  margin-left: 7vh;
+}
+
+.btnB{
+    margin:auto;
+}

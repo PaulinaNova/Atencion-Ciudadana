@@ -1,24 +1,23 @@
-import mongoose from 'mongoose'
+import mongoose from "mongoose";
 
-const procedenciaSchema = mongoose.Schema({
+const procedenciaSchema = mongoose.Schema(
+  {
     nombre_procedencia: {
-        type: Number,
-        required: true,
-        unique:true
+      type: Number,
+      unique: true,
     },
-    nombre_encargado:{
-        type: String,
-        required: true,
+    nombre_encargado: {
+      type: String,
     },
     contacto_encargado: {
-        type: Date,
-        required: true
+      type: Date,
     },
+  },
+  {
+    timestamps: false,
+  }
+);
 
-}, {
-    timestamps: false
-})
+const Procedencia = mongoose.model("Procedencia", procedenciaSchema);
 
-const Procedencia = mongoose.model('Procedencia', procedenciaSchema)
-
-export default Procedencia
+export default Procedencia;

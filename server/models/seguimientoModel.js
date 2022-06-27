@@ -1,28 +1,31 @@
-import mongoose from 'mongoose'
+import mongoose from "mongoose";
 
-const seguimientoSchema = mongoose.Schema({
+const seguimientoSchema = mongoose.Schema(
+  {
     folio: {
-        type: Number
+      type: Number,
     },
-    fecha_seguimiento:{
-        type:Date
+    fecha_seguimiento: {
+      type: String,
     },
-    descripcion_seguimiento:{
-        type:String
+    descripcion_seguimiento: {
+      type: String,
     },
-    gestor:{
-        type:String
+    gestor: {
+      type: String,
     },
     estado: {
-    type: String
+      type: String,
     },
     presupuesto: {
-        type: Number
-    }
-}, {
-    timestamps: false
-})
+      type: Number,
+    },
+  },
+  {
+    timestamps: false,
+  }
+);
 
-const Seguimiento = mongoose.model('Seguimiento', seguimientoSchema)
+const Seguimiento = mongoose.model("Seguimiento", seguimientoSchema);
 
-export default Seguimiento
+export default Seguimiento;

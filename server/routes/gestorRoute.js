@@ -2,7 +2,6 @@ import { getGestores, getGestorById, addGestor } from "../controllers/gestorCont
 import express from 'express'
 const router = express.Router()
 
-
 // express router method to create route for getting all gestores
 router.route('/').get(getGestores)
 

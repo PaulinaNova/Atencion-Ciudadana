@@ -1,23 +1,23 @@
-import React from 'react'
-import TblPendientes from '../TablePendientes/TblPendientes'
+import React from "react";
+import TblPendientes from "../TablePendientes/TblPendientes";
 
 function Pendientes() {
   return (
-    <div className='pendientes'>
-      <div className='urgentes'>
-       <h3>Urgentes</h3>
-       <TblPendientes cadena={"Urgentes"}/>
+    <div className="pendientes">
+      <div className="urgentes">
+        <h3>Urgentes</h3>
+        <TblPendientes cadena={"Urgentes"} />
       </div>
-      <div className='vencidas'>
+      <div className="vencidas">
         <h3>Pendientes</h3>
-       <TblPendientes cadena={"Vencidas"}/>
+        <TblPendientes cadena={"Vencidas"} />
       </div>
-      <div className='pendiente'>
+      <div className="pendiente">
         <h3>Vencidas</h3>
-       <TblPendientes cadena={"Pendientes"}/>
+        <TblPendientes cadena={"Pendientes"} />
       </div>
     </div>
-  )
+  );
 }
 
-export default Pendientes
+export default Pendientes;

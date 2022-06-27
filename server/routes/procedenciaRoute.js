@@ -2,11 +2,10 @@ import { getProcedencias, getProcedenciaById } from "../controllers/procedenciaC
 import express from 'express'
 const router = express.Router()
 
-
-// express router method to create route for getting all users
+// express router method to create route for getting all Procedencias
 router.route('/').get(getProcedencias)
 
-// express router method to create route for getting users by id
+// express router method to create route for getting Procedencias by id
 router.route('/:id').get(getProcedenciaById)
 
 export default router

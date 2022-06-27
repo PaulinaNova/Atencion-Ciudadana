@@ -1,24 +1,23 @@
-import mongoose from 'mongoose'
+import mongoose from "mongoose";
 
-const dependenciaSchema = mongoose.Schema({
+const dependenciaSchema = mongoose.Schema(
+  {
     nombre_dependencia: {
-        type: Number,
-        required: true,
-        unique:true
+      type: Number,
+      unique: true,
     },
-    nombre_encargado:{
-        type: String,
-        required: true,
+    nombre_encargado: {
+      type: String,
     },
     contacto_encargado: {
-        type: Date,
-        required: true
+      type: Date,
     },
+  },
+  {
+    timestamps: false,
+  }
+);
 
-}, {
-    timestamps: false
-})
+const Dependencia = mongoose.model("Dependencia", dependenciaSchema);
 
-const Dependencia = mongoose.model('Dependencia', dependenciaSchema)
-
-export default Dependencia
+export default Dependencia;

@@ -1,52 +1,52 @@
-import mongoose from 'mongoose'
+import mongoose from "mongoose";
 
-const ciudadanoSchema = mongoose.Schema({
+const ciudadanoSchema = mongoose.Schema(
+  {
     curp: {
-        type: String,
-        unique:true
+      type: String,
     },
     nombre: {
-        type: String
+      type: String,
     },
-    apellidoPaterno:{
-        type: String
+    apellidoPaterno: {
+      type: String,
     },
-    apellidoMaterno:{
-        type: String
+    apellidoMaterno: {
+      type: String,
     },
     fechaNacimiento: {
-        type: Date
+      type: String,
     },
     telefono: {
-        type: String
+      type: String,
     },
     email: {
-        type: String,
-        unique:true
+      type: String,
     },
     codigoPostal: {
-        type: Number
+      type: Number,
     },
     municipio: {
-        type: String
+      type: String,
     },
     localidad: {
-    type: String
+      type: String,
     },
     colonia: {
-        type: String
-    }
-    ,
+      type: String,
+    },
     calle: {
-        type: String
+      type: String,
     },
     caracteristica: {
-        type: String
-    }
-}, {
-    timestamps: false
-})
+      type: String,
+    },
+  },
+  {
+    timestamps: false,
+  }
+);
 
-const Ciudadano = mongoose.model('Ciudadano', ciudadanoSchema)
+const Ciudadano = mongoose.model("Ciudadano", ciudadanoSchema);
 
-export default Ciudadano
+export default Ciudadano;

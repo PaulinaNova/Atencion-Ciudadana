@@ -112,7 +112,9 @@
 
 .bm-menu {
   background: #6304048f;
-  padding: 2.5em 1.5em 0;
+  padding-left: 1em;
+  padding-top: 1.5em;
+  padding-right: 0.5em;
   font-size: 1.15em;
 }
 
@@ -126,6 +128,12 @@
 
 .bm-overlay {
   background: rgba(0, 0, 0, 0.3);
+}
+
+.detallesG{
+  max-height: 9.5rem;
+  overflow: auto;
+  width: 100%;
 }
 
 .tseguimiento th,td {
@@ -145,6 +153,8 @@
   font-size: 1rem;
   border-collapse: collapse;
   color: #3a0202;
+  max-height: 16rem;
+  overflow: auto;
 }
 
 .btn{

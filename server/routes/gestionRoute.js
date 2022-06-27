@@ -1,12 +1,17 @@
-import { getGestions, addGestion } from "../controllers/gestionController.js";
-import express from 'express'
-const router = express.Router()
+import { getGestions, getGestionById, addGestion, updtGestion } from "../controllers/gestionController.js";
+import express from "express";
+const router = express.Router();
 
+// express router method to create route for getting all gestiones
+router.route("/").get(getGestions);
 
-// express router method to create route for getting all users
-router.route('/').get(getGestions)
+// express router method to create route for getting gestiones by id
+router.route('/:id').get(getGestionById)
 
 // express router method to create route for creating gestiones
-router.route('/addGestion').post(addGestion)
+router.route("/addGestion").post(addGestion);
 
-export default router
+// express router method to create route for creating gestiones
+router.route("/updtGestion/:folio").put(updtGestion);
+
+export default router;

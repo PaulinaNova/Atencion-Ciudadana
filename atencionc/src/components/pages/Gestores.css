@@ -1,88 +1,97 @@
-.CGestor{
-    margin-left: 50vh;
-    
-  }
-  
-  .wrapper,.formulario{
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: repeat(3, 45vh);
-  }
-  
-  input{
-    width: 40vh;
-    position: relative;
-    height: 45px;
-    padding: 15px;
-    font-size: 1.2rem;
-    border-radius: 20px;
-    border: 2px solid #630404;
-    color: #630404;
-    background-color: white;
-    margin-top: 2vh;
-  }
+.CGestor {
+  margin-left: 50vh;
+}
 
- #password,#rfc,#dependencia,#curp,#nombre,#ape_paterno,
- #ape_materno,#telefono,#municipio,#localidad,#codigo_Postal,
- #colonia,#calle,#email,#userName,#fecha_nacimiento,#caracteristica,#folio,#nombre_ciudadano,
- #descripcion,#fecha,#procedencia,#periodo,#prioridad,#tipo,#dependencia,#registra,#registra,
- #vencimiento,#periodico,#folio_interno,#cant_benef,#evento,#estado,#presupuesto,#notas{
+.wrapper,
+.formulario {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, 45vh);
+}
+
+input {
+  width: 40vh;
+  position: relative;
+  height: 45px;
+  padding: 15px;
+  font-size: 1.2rem;
+  border-radius: 20px;
   border: 2px solid #630404;
- }
+  color: #630404;
+  background-color: white;
+  margin-top: 2vh;
+}
 
-  input::-webkit-outer-spin-button,
-  input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-    }
-  
-  label {
-    color: #630404;
-    font-weight: bold;
-    font-size: 20px;
-    display: inline-flex;
-  }
-  
-  .btnG {
-    margin-left: 92vh;
-    margin-top: 2vh;
+#password,
+#rfc,
+#dependencia,
+#curp,
+#nombre,
+#ape_paterno,
+#ape_materno,
+#telefono,
+#municipio,
+#localidad,
+#codigo_Postal,
+#colonia,
+#calle,
+#email,
+#userName,
+#fecha_nacimiento,
+#caracteristica,
+#folio,
+#nombre_ciudadano,
+#descripcion,
+#fecha,
+#procedencia,
+#periodo,
+#prioridad,
+#tipo,
+#dependencia,
+#registra,
+#registra,
+#vencimiento,
+#periodico,
+#folio_interno,
+#cant_benef,
+#evento,
+#estado,
+#presupuesto,
+#notas {
+  border: 2px solid #630404;
+}
 
-  }
-  .btnB {
-    margin-left: 17vh;
-    margin-top: 5vh;
-    display:inline-flex;
-    width: 70vh;
-  }
-  .btnGE {
-    margin-left: 50vh;
-    margin-top: 5vh;
-    display:inline-flex;
-    width: 70vh;
-  }
-  
-  .btnG .btn {
-    width: 40vh;
-  }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 
-  .btnG .btn:hover {
-      height: 45px;
-      width: 40vh;
-      font-size: 1.2rem;
-      border-radius: 20px;
-      color: rgb(255, 255, 255);
-      background-color: #350707;
-      border: none;
-      margin-left: 3vh;
-      margin-top: 3vh;
-      cursor: pointer;
-    }
+label {
+  color: #630404;
+  font-weight: bold;
+  font-size: 20px;
+  display: inline-flex;
+}
 
-    input.input-errors, select.input-errors{
-      border: 2px solid blue;
-      color: black;
-    }
+.btnG {
+  margin-left: 96vh;
+  margin-top: 1vh;
+}
 
-    button:disabled{
-      opacity: 0.20;
-    }
+.btnGE {
+  margin-left: 50vh;
+  margin-top: 3vh;
+  display: inline-flex;
+  width: 70vh;
+}
+
+input.input-errors,
+select.input-errors {
+  border: 2px solid blue;
+  color: black;
+}
+
+button:disabled {
+  opacity: 0.2;
+}

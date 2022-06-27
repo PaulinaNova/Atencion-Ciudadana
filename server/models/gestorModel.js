@@ -1,79 +1,66 @@
-import mongoose from 'mongoose'
+import mongoose from "mongoose";
 
-const gestorSchema = mongoose.Schema({
-    
-    
+const gestorSchema = mongoose.Schema(
+  {
     rfc: {
-        type: String,
-        //required: true,
-        unique:true
+      type: String,
+      unique: true,
     },
     curp: {
-        type: String,
-        //required: true,
-        unique:true
+      type: String,
+      unique: true,
     },
     dependencia: {
-        type: String,
-        //required: true,
-        
+      type: String,
     },
     nombre: {
-        type: String,
-        //required: true
+      type: String,
     },
-    apellidoPaterno:{
-        type: String
+    apellidoPaterno: {
+      type: String,
     },
-    apellidoMaterno:{
-        type: String
+    apellidoMaterno: {
+      type: String,
     },
     telefono: {
-        type: String
+      type: String,
     },
     municipio: {
-        type: String,
-        //required: true
+      type: String,
     },
     localidad: {
-        type: String,
-        //required: true
+      type: String,
     },
     codigoPostal: {
-        type: Number,
-        //required: true
+      type: Number,
     },
     colonia: {
-        type: String,
-        //required: true
+      type: String,
     },
     calle: {
-        type: String,
-        //required: true
+      type: String,
     },
     email: {
-        type: String,
-        //required: true,
-        unique:true
+      type: String,
+      unique: true,
     },
     userName: {
-        type: String,
-        //required: true,
-        unique:true
+      type: String,
+      unique: true,
     },
     password: {
-        type: String,
-        //required: true
+      type: String,
     },
     isAdmin: {
-        type: Boolean,
-        //required: true,
-        defualt: false
-    }
-}, {
-    timestamps: false
-})
+      type: Boolean,
+      defualt: false,
+    },
+  },
+  {
+    timestamps: false,
+  }
+);
 
-const Gestor = mongoose.model('Gestor', gestorSchema)
+const Gestor = mongoose.model("Gestor", gestorSchema);
 
-export default Gestor
+export default Gestor;

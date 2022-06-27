@@ -33,6 +33,7 @@
   color: rgb(92, 88, 88);
   background-color: rgba(128, 128, 128, 0.315);
   border: none;
+  margin-top: 2vh;
 }
 
 .filtros {
@@ -44,6 +45,10 @@
   grid-gap: 10px;
 }
 
-.btngraficas {
-  margin-left: 104vh;
+.btngraficas{
+  margin-left: 98vh;
+}
+
+.btngraficas .btn {
+  margin-right: 3vh;
 }
