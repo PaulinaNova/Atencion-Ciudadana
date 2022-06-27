@@ -46,26 +46,18 @@ const BasicTable = () => {
     const res = await axios.get("/api/ciudadano");
     setCiudadano(res.data);
   };
-  useEffect(() => {
-    getData();
-  }, []);
-
-  function llenarCampos(camposR) {
-    setCampos(camposR);
-    return camposR;
-  }
 
   function updtPut() {
     axios
-      .put("/api/ciudadano/updtCiudadano/"+campos._id, {
+      .put("/api/ciudadano/updtCiudadano/" + campos._id, {
         curp: values.curp,
         nombre: values.nombre,
-        apellidoPaterno: values.apellidoPaterno,
-        apellidoMaterno: values.apellidoMaterno,
-        fechaNacimiento: values.fechaNacimiento,
+        apellidoPaterno: values.ape_paterno,
+        apellidoMaterno: values.ape_materno,
+        fechaNacimiento: values.fecha_nacimiento,
         telefono: values.telefono,
         email: values.email,
-        codigoPostal: values.codigoPostal,
+        codigoPostal: values.codigo_Postal,
         municipio: values.municipio,
         localidad: values.localidad,
         colonia: values.colonia,
@@ -78,7 +70,9 @@ const BasicTable = () => {
           "El ciudadano fue actualizado correctamente",
           "Exito"
         );
+        setCampos(response.data)
       });
+      getData();
   }
 
   const onSubmit = async (values, actions) => {
@@ -87,7 +81,6 @@ const BasicTable = () => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
     actions.resetForm();
   };
-
   /*----------DECLARAR LOS VALORES DE LOS CAMPOS----------- */
   const {
     values,
@@ -115,6 +108,7 @@ const BasicTable = () => {
       calle: campos.calle,
       caracteristica: campos.caracteristica,
     },
+    enableReinitialize: true,
     //validationSchema:basicSchema,
     onSubmit,
   });
@@ -126,6 +120,9 @@ const BasicTable = () => {
     setModal(!modal);
   };
 
+  useEffect(() => {
+    getData();
+  }, []);
   /*------------CREAR FORMULARIO INTERNO------------- */
   const body = (
     <div className={styles.modal}>
@@ -143,7 +140,7 @@ const BasicTable = () => {
                 <div className="groupInput">
                   <label htmlFor="curp">CURP</label>
                   <input
-                    value={campos.curp}
+                    value={values.curp}
                     onChange={handleChange}
                     id="curp"
                     type="text"
@@ -165,7 +162,7 @@ const BasicTable = () => {
                 <div className="groupInput">
                   <label htmlFor="nombre">NOMBRE(S)</label>
                   <input
-                    value={campos.nombre}
+                    value={values.nombre}
                     onChange={handleChange}
                     id="nombre"
                     type="text"
@@ -183,7 +180,7 @@ const BasicTable = () => {
                 <div className="groupInput">
                   <label htmlFor="ape_paterno">APELLIDO PATERNO</label>
                   <input
-                    value={campos.apellidoPaterno}
+                    value={values.ape_paterno}
                     onChange={handleChange}
                     id="ape_paterno"
                     type="text"
@@ -203,7 +200,7 @@ const BasicTable = () => {
                 <div className="groupInput">
                   <label htmlFor="ape_materno">APELLIDO MATERNO</label>
                   <input
-                    value={campos.apellidoMaterno}
+                    value={values.ape_materno}
                     onChange={handleChange}
                     id="ape_materno"
                     type="text"
@@ -223,7 +220,7 @@ const BasicTable = () => {
                 <div className="groupInput">
                   <label htmlFor="fechaNacimiento">FECHA NACIMIENTO</label>
                   <input
-                    value={campos.fechaNacimiento}
+                    value={values.fecha_nacimiento}
                     onChange={handleChange}
                     id="fecha_nacimiento"
                     type="date"
@@ -243,7 +240,7 @@ const BasicTable = () => {
                 <div className="groupInput">
                   <label htmlFor="telefono">TELEFONO</label>
                   <input
-                    value={campos.telefono}
+                    value={values.telefono}
                     onChange={handleChange}
                     id="telefono"
                     type="number"
@@ -261,7 +258,7 @@ const BasicTable = () => {
                 <div className="groupInput">
                   <label htmlFor="email">CORREO ELECTRONICO</label>
                   <input
-                    value={campos.email}
+                    value={values.email}
                     onChange={handleChange}
                     id="email"
                     type="email"
@@ -279,27 +276,27 @@ const BasicTable = () => {
                 <div className="groupInput">
                   <label htmlFor="codigoPostal">CODIGO POSTAL</label>
                   <input
-                    value={campos.codigoPostal}
+                    value={values.codigo_Postal}
                     onChange={handleChange}
                     id="codigo_Postal"
                     type="number"
                     placeholder="Ingresa código postal"
                     onBlur={handleBlur}
                     className={
-                      errors.codigoPostal && touched.codigoPostal
+                      errors.codigo_Postal && touched.codigo_Postal
                         ? "input-error"
                         : ""
                     }
                   />
-                  {errors.codigoPostal && touched.codigoPostal && (
-                    <p className="error">{errors.codigoPostal}</p>
+                  {errors.codigo_Postal && touched.codigo_Postal && (
+                    <p className="error">{errors.codigo_Postal}</p>
                   )}
                 </div>
 
                 <div className="groupInput">
                   <label htmlFor="municipio">MUNICIPIO</label>
                   <input
-                    value={campos.municipio}
+                    value={values.municipio}
                     onChange={handleChange}
                     id="municipio"
                     type="text"
@@ -317,7 +314,7 @@ const BasicTable = () => {
                 <div className="groupInput">
                   <label htmlFor="localidad">LOCALIDAD</label>
                   <input
-                    value={campos.localidad}
+                    value={values.localidad}
                     onChange={handleChange}
                     id="localidad"
                     type="text"
@@ -335,7 +332,7 @@ const BasicTable = () => {
                 <div className="groupInput">
                   <label htmlFor="colonia">COLONIA</label>
                   <input
-                    value={campos.colonia}
+                    value={values.colonia}
                     onChange={handleChange}
                     id="colonia"
                     type="text"
@@ -353,7 +350,7 @@ const BasicTable = () => {
                 <div className="groupInput">
                   <label htmlFor="calle">CALLE</label>
                   <input
-                    value={campos.calle}
+                    value={values.calle}
                     onChange={handleChange}
                     id="calle"
                     type="text"
@@ -371,7 +368,7 @@ const BasicTable = () => {
                 <div className="groupInput">
                   <label htmlFor="caracteristica">CARACTERISTICA</label>
                   <input
-                    value={campos.caracteristica}
+                    value={values.caracteristica}
                     onChange={handleChange}
                     id="caracteristica"
                     type="text"
@@ -421,6 +418,11 @@ const BasicTable = () => {
   );
 
   const { globalFilter } = state;
+
+  function handleClick(camposR) {
+    setCampos(camposR);
+  }
+
   return (
     <>
       <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
@@ -440,12 +442,7 @@ const BasicTable = () => {
           {rows.map((row) => {
             prepareRow(row);
             return (
-              <tr
-                {...row.getRowProps()}
-                onClick={() => {
-                  llenarCampos(row.original);
-                }}
-              >
+              <tr {...row.getRowProps()}>
                 {row.cells.map((cell) => {
                   return (
                     <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
@@ -455,7 +452,10 @@ const BasicTable = () => {
                   <button
                     className="btntbl"
                     title="Modificar Ciudadano"
-                    onClick={() => abrirCerrarModal()}
+                    onClick={() => {
+                      handleClick(row.original);
+                      abrirCerrarModal();
+                    }}
                   >
                     <AiIcons.AiOutlineSetting />
                   </button>
