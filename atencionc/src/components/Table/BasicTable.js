@@ -459,12 +459,12 @@ const BasicTable = () => {
                   >
                     <AiIcons.AiOutlineSetting />
                   </button>
-                  <button className="btntbl" title="Historial">
+                  <button className="btntbl" title="Historial" onClick={() => navigate("/historial/"+row.original.curp)}>
                     <AiIcons.AiOutlineHistory />
                   </button>
                   <button
                     className="btntbl"
-                    onClick={() => navigate("/gestions")}
+                    onClick={() => navigate("/gestions/"+row.original.curp+"/"+row.original.nombre+"/"+row.original.ape_paterno+"/"+row.original.ape_materno)}
                   >
                     <IoIcons.IoIosAddCircleOutline />
                   </button>

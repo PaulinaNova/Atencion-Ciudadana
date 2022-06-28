@@ -72,8 +72,6 @@ const Gestores = () => {
     onSubmit,
   });
 
-  console.log(errors);
-
   return (
     <div className="gestores">
       <div className="CGestor">

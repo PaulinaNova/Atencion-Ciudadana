@@ -1,7 +1,5 @@
 import React from "react";
-//import FormInput from '../../elementos/FormInput';
 import "./Gestores.css";
-//import {useState} from "react";
 import axios from "axios";
 import "react-notifications/lib/notifications.css";
 import {
@@ -10,6 +8,8 @@ import {
 } from "react-notifications";
 import { useFormik } from "formik";
 //import {basicSchema} from "../schemas/index.js";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const onSubmit = async (values, actions) => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -17,12 +17,15 @@ const onSubmit = async (values, actions) => {
 };
 
 const Gestion = () => {
+  const datosC = useParams();
+  const navigate = useNavigate();
   function createPost() {
     axios
       .post("/api/gestions/addGestion", {
         folio: values.folio,
-        nombre_ciudadano: values.nombre_ciudadano,
-        curp: values.curp,
+        nombre_ciudadano:
+          datosC.nombre + " " + datosC.ape_paterno + " " + datosC.ape_materno,
+        curp: datosC.curp,
         descripcion: values.descripcion,
         fecha: values.fecha,
         procedencia: values.procedencia,
@@ -48,7 +51,8 @@ const Gestion = () => {
       .then((response) => {
         setValues(response.data);
         NotificationManager.success(
-          "La solicitud fue agregada correctamente","Exito"
+          "La solicitud fue agregada correctamente",
+          "Exito"
         );
       });
   }
@@ -118,7 +122,13 @@ const Gestion = () => {
             <div className="groupInput">
               <label htmlFor="nombre_ciudadano">NOMBRE(S)</label>
               <input
-                value={values.nombre_ciudadano}
+                value={
+                  datosC.nombre +
+                  " " +
+                  datosC.ape_paterno +
+                  " " +
+                  datosC.ape_materno
+                }
                 onChange={handleChange}
                 id="nombre_ciudadano"
                 type="text"
@@ -138,7 +148,7 @@ const Gestion = () => {
             <div className="groupInput">
               <label htmlFor="curp">CURP</label>
               <input
-                value={values.curp}
+                value={datosC.curp}
                 onChange={handleChange}
                 id="curp"
                 type="text"
@@ -441,6 +451,12 @@ const Gestion = () => {
                 Agregar gestion
               </button>
               <NotificationContainer />
+              <button
+                className="btn"
+                onClick={() => navigate("/buscar")}
+              >
+                Regresar
+              </button>
             </div>
           </form>
         </div>
