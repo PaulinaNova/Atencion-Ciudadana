@@ -1,17 +1,138 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import "./Gestores.css";
 import axios from "axios";
 import "react-notifications/lib/notifications.css";
 import {NotificationContainer, NotificationManager} from "react-notifications";
 import { useFormik } from "formik";
-//import { basicSchema } from "../schemas/indexGestores.js";
+import Select from 'react-select';
+
+
+const validate=(values)=>{
+  let errores ={};
+
+  //VALIDAR RFC
+  if(!values.rfc){
+    errores.rfc = "CAMPO VALIO"
+  } else if(!/^([A-Z]{4})([0-9]{6})(([A-Z]|[0-9]){3})$/.test(values.rfc)){
+    errores.rfc = "INGRESA CORRECTAMENTE"
+  }
+
+  //VALIDAR DEPENDENCIA
+  if(!values.dependencia){
+    errores.dependencia = "CAMPO VACIO"
+  } else if(!/^(([A-Z])|([0-9]))*$/.test(values.dependencia)){
+    errores.dependencia = "INGRESA CORRECTAMENTE"
+  }
+
+  //VALIDAR CURP
+  if(!values.curp){
+    errores.curp = "CAMPO VACIO"
+  } else if(!/^([A-Z]{4})([0-9]{6})([A-Z]{6})([0-9]{2})$/.test(values.curp)){
+    errores.curp = "INGRESA CORRECTAMENTE"
+
+  }
+
+  //VALIDAR NOMBRE
+  if(!values.nombre){
+    errores.nombre = "CAMPO VACIO"
+  } else if(!/^([A-Z])*$/.test(values.nombre)){
+    errores.nombre = "INGRESA CORRECTAMENTE"
+  }
+
+  //VALIDAR APELLIDO PATERNO
+  if(!values.apellidoPaterno){
+    errores.apellidoPaterno = "CAMPO VACIO"
+  } else if(!/^([A-Z])*$/.test(values.apellidoPaterno)){
+    errores.apellidoPaterno = "INGRESA CORRECTAMENTE"
+  }
+
+  //VALIDAR APELLIDO MATERNO
+  if(!values.apellidoMaterno){
+    errores.apellidoMaterno = "CAMPO VACIO"
+  } else if(!/^([A-Z])*$/.test(values.apellidoMaterno)){
+    errores.apellidoMaterno = "INGRESA CORRECTAMENTE"
+  }
+
+  //VALIDAR TELEFONO
+  if(!values.telefono){
+    errores.telefono = "CAMPO VACIO"
+  } else if(!/^([0-9]{10})$/.test(values.telefono)){
+    errores.telefono = "INGRESA CORRECTAMENTE"
+  }
+
+  //VALIDAR MUNICIPIO
+  if(!values.municipio){
+    errores.municipio = "CAMPO VACIO"
+  } else if(!/^(([A-Z])|([0-9]))*$/.test(values.municipio)){
+    errores.municipio = "INGRESA CORRECTAMENTE"
+  }
+
+  //VALIDAR LOCALIDAD
+  if(!values.localidad){
+    errores.localidad = "CAMPO VACIO"
+  } else if(!/^(([A-Z])|([0-9]))*$/.test(values.localidad)){
+    errores.localidad = "INGRESA CORRECTAMENTE"
+  }
+
+  //VALIDAR CODIGO POSTAL
+  if(!values.codigoPostal){
+    errores.codigoPostal = "CAMPO VACIO"
+  }else if(!/^([0-9]{5})$/.test(values.codigoPostal)){
+    errores.codigoPostal = "INGRESA CORRECTAMENTE"
+  }
+
+  //VALIDAR COLONIA
+  if(!values.colonia){
+    errores.colonia = "CAMPO VACIO"
+  }else if(!/^(([A-Z])|([0-9]))*$/.test(values.colonia)){
+    errores.colonia = "INGRESA CORRECTAMENTE"
+  }
+
+  //VALIDAR CALLE
+  if(!values.calle){
+    errores.calle = "CAMPO VACIO"
+  } else if(!/^(([A-Z])|([0-9]))*$/.test(values.calle)){
+    errores.calle = "INGRESA CORRECTAMENTE"
+  }
+
+  //VALIDAR EMAIL
+  if(!values.email){
+    errores.email = "CAMPO VACIO"
+  } else if(!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(values.email)){
+    errores.email = "INGRESA CORRECTAMENTE"
+  }
+
+  //VALIDAR USUARIO
+  if(!values.userName){
+    errores.userName = "CAMPO VACIO"
+  }
+
+  //VALIDAR CONTRASEÑA
+  if(!values.password){
+    errores.password = "CAMPO VACIO"
+  }
+
+  return errores;
+};
 
 const onSubmit = async (values, actions) => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
+  
   actions.resetForm();
 };
 
 const Gestores = () => {
+
+
+  const getData = async () => {
+    const res = await axios.get("/api/municipio");
+    setMunicipio(res.data);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   function createPost() {
     axios
       .post("/api/gestor/addGestor", {
@@ -19,12 +140,12 @@ const Gestores = () => {
         dependencia: values.dependencia,
         curp: values.curp,
         nombre: values.nombre,
-        apellidoPaterno: values.ape_paterno,
-        apellidoMaterno: values.ape_materno,
+        apellidoPaterno: values.apellidoPaterno,
+        apellidoMaterno: values.apellidoMaterno,
         telefono: values.telefono,
         municipio: values.municipio,
         localidad: values.localidad,
-        codigoPostal: values.codigo_Postal,
+        codigoPostal: values.codigoPostal,
         colonia: values.colonia,
         calle: values.calle,
         email: values.email,
@@ -41,6 +162,8 @@ const Gestores = () => {
       });
   }
 
+  const [municipios, setMunicipio] = useState([]);
+
   const {
     setValues,
     values,
@@ -56,29 +179,32 @@ const Gestores = () => {
       dependencia: "",
       curp: "",
       nombre: "",
-      ape_paterno: "",
-      ape_materno: "",
+      apellidoPaterno: "",
+      apellidoMaterno: "",
       telefono: "",
       municipio: "",
       localidad: "",
-      codigo_Postal: "",
+      codigoPostal: "",
       colonia: "",
       calle: "",
       email: "",
       userName: "",
       password: "",
     },
-    //validationSchema: basicSchema,
+    validate,
     onSubmit,
   });
 
-  console.log(errors);
-
+  const onDropdownChange = ({value})=>{
+    console.log(value);
+  }
+  
   return (
     <div className="gestores">
       <div className="CGestor">
         <div className="wrapper">
           {/*-------------------------------------------------------------------- */}
+        <>  
           <form
             onSubmit={handleSubmit}
             autoComplete="off"
@@ -95,9 +221,8 @@ const Gestores = () => {
                 onBlur={handleBlur}
                 className={errors.rfc && touched.rfc ? "input-error" : ""}
               />
-              {errors.rfc && touched.rfc && (
-                <p className="error">{errors.rfc}</p>
-              )}
+              {touched.rfc && errors.rfc && <div className="error">{errors.rfc}</div>
+              }
             </div>
 
             <div className="groupInput">
@@ -153,14 +278,14 @@ const Gestores = () => {
             <div className="groupInput">
               <label htmlFor="apellidoPaterno">APELLIDO PATERNO</label>
               <input
-                value={values.ape_paterno}
+                value={values.apellidoPaterno}
                 onChange={handleChange}
-                id="ape_paterno"
+                id="apellidoPaterno"
                 type="text"
                 placeholder="Ingresa Apellido Paterno"
                 onBlur={handleBlur}
                 className={
-                  errors.ape_paterno && touched.apellidoPaterno
+                  errors.apellidoPaterno && touched.apellidoPaterno
                     ? "input-error"
                     : ""
                 }
@@ -175,7 +300,7 @@ const Gestores = () => {
               <input
                 value={values.apellidoMaterno}
                 onChange={handleChange}
-                id="ape_materno"
+                id="apellidoMaterno"
                 type="text"
                 placeholder="Ingresa Apellido Materno"
                 onBlur={handleBlur}
@@ -208,19 +333,18 @@ const Gestores = () => {
               )}
             </div>
 
+              
             <div className="groupInput">
               <label htmlFor="municipio">MUNICIPIO</label>
-              <input
-                value={values.municipio}
-                onChange={handleChange}
-                id="municipio"
-                type="text"
-                placeholder="Ingresa municipio"
+              <div className="selectDoble"
+              >
+              <Select 
                 onBlur={handleBlur}
-                className={
-                  errors.municipio && touched.municipio ? "input-error" : ""
-                }
-              />
+                onChange={onDropdownChange}
+                options={municipios.map(mun => ({label:mun.nombre, value:mun.nombre}))}
+                >
+              </Select>
+              </div>
               {errors.municipio && touched.municipio && (
                 <p className="error">{errors.municipio}</p>
               )}
@@ -249,7 +373,7 @@ const Gestores = () => {
               <input
                 value={values.codigoPostal}
                 onChange={handleChange}
-                id="codigo_Postal"
+                id="codigoPostal"
                 type="number"
                 placeholder="Ingresa código postal"
                 onBlur={handleBlur}
@@ -362,6 +486,7 @@ const Gestores = () => {
               <NotificationContainer />
             </div>
           </form>
+          </>
           {/*-------------------------------------------------------------------- */}
         </div>
       </div>

@@ -34,6 +34,99 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const validate=(values)=>{
+  let errores ={};
+
+  //VALIDAR CURP
+  if(!values.curp){
+    errores.curp = "CAMPO VACIO"
+  } else if(!/^([A-Z]{4})([0-9]{6})([A-Z]{6})([0-9]{2})$/.test(values.curp)){
+    errores.curp = "INGRESA CORRECTAMENTE"
+  }
+
+  //VALIDAR NOMBRE
+  if(!values.nombre){
+    errores.nombre = "CAMPO VACIO"
+  } else if(!/^([A-Z])*$/.test(values.nombre)){
+    errores.nombre = "INGRESA CORRECTAMENTE"
+  }
+
+  //VALIDAR APELLIDO PATERNO
+  if(!values.apellidoPaterno){
+    errores.apellidoPaterno = "CAMPO VACIO"
+  } else if(!/^([A-Z])*$/.test(values.apellidoPaterno)){
+    errores.apellidoPaterno = "INGRESA CORRECTAMENTE"
+  }
+
+  //VALIDAR APELLIDO MATERNO
+  if(!values.apellidoMaterno){
+    errores.apellidoMaterno = "CAMPO VACIO"
+  } else if(!/^([A-Z])*$/.test(values.apellidoMaterno)){
+    errores.apellidoMaterno = "INGRESA CORRECTAMENTE"
+  }
+
+   //VALIDAR FECHA
+   if(!values.fechaNacimiento){
+    errores.fechaNacimiento = "CAMPO VACIO"
+  } 
+
+  //VALIDAR TELEFONO
+  if(!values.telefono){
+    errores.telefono = "CAMPO VACIO"
+  } else if(!/^([0-9]{10})$/.test(values.telefono)){
+    errores.telefono = "INGRESA CORRECTAMENTE"
+  }
+
+   //VALIDAR EMAIL
+   if(!values.email){
+    errores.email = "CAMPO VACIO"
+  } else if(!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(values.email)){
+    errores.email = "INGRESA CORRECTAMENTE"
+  }
+
+   //VALIDAR CODIGO POSTAL
+   if(!values.codigoPostal){
+    errores.codigoPostal = "CAMPO VACIO"
+  }else if(!/^([0-9]{5})$/.test(values.codigoPostal)){
+    errores.codigoPostal = "INGRESA CORRECTAMENTE"
+  }
+
+  //VALIDAR MUNICIPIO
+  if(!values.municipio){
+    errores.municipio = "CAMPO VACIO"
+  } else if(!/^(([A-Z])|([0-9]))*$/.test(values.municipio)){
+    errores.municipio = "INGRESA CORRECTAMENTE"
+  }
+
+  //VALIDAR LOCALIDAD
+  if(!values.localidad){
+    errores.localidad = "CAMPO VACIO"
+  } else if(!/^(([A-Z])|([0-9]))*$/.test(values.localidad)){
+    errores.localidad = "INGRESA CORRECTAMENTE"
+  }
+
+  //VALIDAR COLONIA
+  if(!values.colonia){
+    errores.colonia = "CAMPO VACIO"
+  }else if(!/^(([A-Z])|([0-9]))*$/.test(values.colonia)){
+    errores.colonia = "INGRESA CORRECTAMENTE"
+  }
+
+  //VALIDAR CALLE
+  if(!values.calle){
+    errores.calle = "CAMPO VACIO"
+  } else if(!/^(([A-Z])|([0-9]))*$/.test(values.calle)){
+    errores.calle = "INGRESA CORRECTAMENTE"
+  }
+
+  //VALIDAR CARACTERISTICA
+  if(!values.caracteristica){
+    errores.caracteristica = "CAMPO VACIO"
+  } 
+
+  return errores;
+};
+
 const BasicTable = () => {
   const navigate = useNavigate();
   const styles = useStyles();
@@ -46,18 +139,10 @@ const BasicTable = () => {
     const res = await axios.get("/api/ciudadano");
     setCiudadano(res.data);
   };
-  useEffect(() => {
-    getData();
-  }, []);
-
-  function llenarCampos(camposR) {
-    setCampos(camposR);
-    return camposR;
-  }
 
   function updtPut() {
     axios
-      .put("/api/ciudadano/updtCiudadano/"+campos._id, {
+      .put("/api/ciudadano/updtCiudadano/" + campos._id, {
         curp: values.curp,
         nombre: values.nombre,
         apellidoPaterno: values.apellidoPaterno,
@@ -78,7 +163,9 @@ const BasicTable = () => {
           "El ciudadano fue actualizado correctamente",
           "Exito"
         );
+        setCampos(response.data)
       });
+      getData();
   }
 
   const onSubmit = async (values, actions) => {
@@ -87,7 +174,6 @@ const BasicTable = () => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
     actions.resetForm();
   };
-
   /*----------DECLARAR LOS VALORES DE LOS CAMPOS----------- */
   const {
     values,
@@ -103,19 +189,20 @@ const BasicTable = () => {
       curp: campos.curp,
       vacio: "",
       nombre: campos.nombre,
-      ape_paterno: campos.apellidoPaterno,
-      ape_materno: campos.apellidoMaterno,
-      fecha_nacimiento: campos.fechaNacimiento,
+      apellidoPaterno: campos.apellidoPaterno,
+      apellidoMaterno: campos.apellidoMaterno,
+      fechaNacimiento: campos.fechaNacimiento,
       telefono: campos.telefono,
       email: campos.email,
-      codigo_Postal: campos.codigoPostal,
+      codigoPostal: campos.codigoPostal,
       municipio: campos.municipio,
       localidad: campos.localidad,
       colonia: campos.colonia,
       calle: campos.calle,
       caracteristica: campos.caracteristica,
     },
-    //validationSchema:basicSchema,
+    enableReinitialize: true,
+    validate,
     onSubmit,
   });
   /*----------CONSTANTES PARA ABRIL LA PANTALLA----------- */
@@ -126,6 +213,9 @@ const BasicTable = () => {
     setModal(!modal);
   };
 
+  useEffect(() => {
+    getData();
+  }, []);
   /*------------CREAR FORMULARIO INTERNO------------- */
   const body = (
     <div className={styles.modal}>
@@ -143,7 +233,7 @@ const BasicTable = () => {
                 <div className="groupInput">
                   <label htmlFor="curp">CURP</label>
                   <input
-                    value={campos.curp}
+                    value={values.curp}
                     onChange={handleChange}
                     id="curp"
                     type="text"
@@ -165,7 +255,7 @@ const BasicTable = () => {
                 <div className="groupInput">
                   <label htmlFor="nombre">NOMBRE(S)</label>
                   <input
-                    value={campos.nombre}
+                    value={values.nombre}
                     onChange={handleChange}
                     id="nombre"
                     type="text"
@@ -181,69 +271,69 @@ const BasicTable = () => {
                 </div>
 
                 <div className="groupInput">
-                  <label htmlFor="ape_paterno">APELLIDO PATERNO</label>
+                  <label htmlFor="apellidoPaterno">APELLIDO PATERNO</label>
                   <input
-                    value={campos.apellidoPaterno}
+                    value={values.apellidoPaterno}
                     onChange={handleChange}
-                    id="ape_paterno"
+                    id="apellidoPaterno"
                     type="text"
                     placeholder="Ingresa Apellido Paterno"
                     onBlur={handleBlur}
                     className={
-                      errors.ape_paterno && touched.ape_paterno
+                      errors.apellidoPaterno && touched.apellidoPaterno
                         ? "input-error"
                         : ""
                     }
                   />
-                  {errors.ape_paterno && touched.ape_paterno && (
-                    <p className="error">{errors.ape_paterno}</p>
+                  {errors.apellidoPaterno && touched.apellidoPaterno && (
+                    <p className="error">{errors.apellidoPaterno}</p>
                   )}
                 </div>
 
                 <div className="groupInput">
-                  <label htmlFor="ape_materno">APELLIDO MATERNO</label>
+                  <label htmlFor="apellidoMaterno">APELLIDO MATERNO</label>
                   <input
-                    value={campos.apellidoMaterno}
+                    value={values.apellidoMaterno}
                     onChange={handleChange}
-                    id="ape_materno"
+                    id="apellidoMaterno"
                     type="text"
                     placeholder="Ingresa Apellido Materno"
                     onBlur={handleBlur}
                     className={
-                      errors.ape_materno && touched.ape_materno
+                      errors.apellidoMaterno && touched.apellidoMaterno
                         ? "input-error"
                         : ""
                     }
                   />
-                  {errors.ape_materno && touched.ape_materno && (
-                    <p className="error">{errors.ape_materno}</p>
+                  {errors.apellidoMaterno && touched.apellidoMaterno && (
+                    <p className="error">{errors.apellidoMaterno}</p>
                   )}
                 </div>
 
                 <div className="groupInput">
                   <label htmlFor="fechaNacimiento">FECHA NACIMIENTO</label>
                   <input
-                    value={campos.fechaNacimiento}
+                    value={values.fechaNacimiento}
                     onChange={handleChange}
-                    id="fecha_nacimiento"
+                    id="fechaNacimiento"
                     type="date"
                     placeholder="Ingresa Fecha Nacimiento"
                     onBlur={handleBlur}
                     className={
-                      errors.fecha_nacimiento && touched.fecha_nacimiento
+                      errors.fechaNacimiento && touched.fechaNacimiento
                         ? "input-error"
                         : ""
                     }
                   />
-                  {errors.fecha_nacimiento && touched.fecha_nacimiento && (
-                    <p className="error">{errors.fecha_nacimiento}</p>
+                  {errors.fechaNacimiento && touched.fechaNacimiento && (
+                    <p className="error">{errors.fechaNacimiento}</p>
                   )}
                 </div>
 
                 <div className="groupInput">
                   <label htmlFor="telefono">TELEFONO</label>
                   <input
-                    value={campos.telefono}
+                    value={values.telefono}
                     onChange={handleChange}
                     id="telefono"
                     type="number"
@@ -261,7 +351,7 @@ const BasicTable = () => {
                 <div className="groupInput">
                   <label htmlFor="email">CORREO ELECTRONICO</label>
                   <input
-                    value={campos.email}
+                    value={values.email}
                     onChange={handleChange}
                     id="email"
                     type="email"
@@ -279,9 +369,9 @@ const BasicTable = () => {
                 <div className="groupInput">
                   <label htmlFor="codigoPostal">CODIGO POSTAL</label>
                   <input
-                    value={campos.codigoPostal}
+                    value={values.codigoPostal}
                     onChange={handleChange}
-                    id="codigo_Postal"
+                    id="codigoPostal"
                     type="number"
                     placeholder="Ingresa código postal"
                     onBlur={handleBlur}
@@ -299,7 +389,7 @@ const BasicTable = () => {
                 <div className="groupInput">
                   <label htmlFor="municipio">MUNICIPIO</label>
                   <input
-                    value={campos.municipio}
+                    value={values.municipio}
                     onChange={handleChange}
                     id="municipio"
                     type="text"
@@ -317,7 +407,7 @@ const BasicTable = () => {
                 <div className="groupInput">
                   <label htmlFor="localidad">LOCALIDAD</label>
                   <input
-                    value={campos.localidad}
+                    value={values.localidad}
                     onChange={handleChange}
                     id="localidad"
                     type="text"
@@ -335,7 +425,7 @@ const BasicTable = () => {
                 <div className="groupInput">
                   <label htmlFor="colonia">COLONIA</label>
                   <input
-                    value={campos.colonia}
+                    value={values.colonia}
                     onChange={handleChange}
                     id="colonia"
                     type="text"
@@ -353,7 +443,7 @@ const BasicTable = () => {
                 <div className="groupInput">
                   <label htmlFor="calle">CALLE</label>
                   <input
-                    value={campos.calle}
+                    value={values.calle}
                     onChange={handleChange}
                     id="calle"
                     type="text"
@@ -371,7 +461,7 @@ const BasicTable = () => {
                 <div className="groupInput">
                   <label htmlFor="caracteristica">CARACTERISTICA</label>
                   <input
-                    value={campos.caracteristica}
+                    value={values.caracteristica}
                     onChange={handleChange}
                     id="caracteristica"
                     type="text"
@@ -421,6 +511,11 @@ const BasicTable = () => {
   );
 
   const { globalFilter } = state;
+
+  function handleClick(camposR) {
+    setCampos(camposR);
+  }
+
   return (
     <>
       <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
@@ -440,12 +535,7 @@ const BasicTable = () => {
           {rows.map((row) => {
             prepareRow(row);
             return (
-              <tr
-                {...row.getRowProps()}
-                onClick={() => {
-                  llenarCampos(row.original);
-                }}
-              >
+              <tr {...row.getRowProps()}>
                 {row.cells.map((cell) => {
                   return (
                     <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
@@ -455,7 +545,10 @@ const BasicTable = () => {
                   <button
                     className="btntbl"
                     title="Modificar Ciudadano"
-                    onClick={() => abrirCerrarModal()}
+                    onClick={() => {
+                      handleClick(row.original);
+                      abrirCerrarModal();
+                    }}
                   >
                     <AiIcons.AiOutlineSetting />
                   </button>

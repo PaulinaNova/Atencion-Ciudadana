@@ -1,3 +1,4 @@
+
 .CGestor {
   margin-left: 50vh;
 }
@@ -9,17 +10,25 @@
   grid-template-columns: repeat(3, 45vh);
 }
 
-input {
+
+
+input, select {
   width: 40vh;
   position: relative;
   height: 45px;
   padding: 15px;
   font-size: 1.2rem;
-  border-radius: 20px;
+  border-radius: 10px;
   border: 2px solid #630404;
   color: #630404;
   background-color: white;
   margin-top: 2vh;
+}
+
+.selectDoble{
+  font-size: 1rem;
+  width: 40vh;
+  border: 2px solid #630404;
 }
 
 #password,
@@ -27,17 +36,17 @@ input {
 #dependencia,
 #curp,
 #nombre,
-#ape_paterno,
-#ape_materno,
+#apellidoPaterno,
+#apellidoMaterno,
 #telefono,
 #municipio,
 #localidad,
-#codigo_Postal,
+#codigoPostal,
 #colonia,
 #calle,
 #email,
 #userName,
-#fecha_nacimiento,
+#fechaNacimiento,
 #caracteristica,
 #folio,
 #nombre_ciudadano,
@@ -89,7 +98,7 @@ label {
 input.input-errors,
 select.input-errors {
   border: 2px solid blue;
-  color: black;
+  color: #630404;
 }
 
 button:disabled {

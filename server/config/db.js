@@ -6,6 +6,7 @@ import dependenciaModel from "../models/dependenciaModel.js";
 import ciudadanoModel from "../models/ciudadanoModel.js";
 import gestorModel from "../models/gestorModel.js";
 import seguimientoModel from "../models/seguimientoModel.js";
+import municipioModel from "../models/municipioModel.js";
 
 const connectDB = async () => {
   try {
