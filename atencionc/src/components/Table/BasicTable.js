@@ -145,12 +145,12 @@ const BasicTable = () => {
       .put("/api/ciudadano/updtCiudadano/" + campos._id, {
         curp: values.curp,
         nombre: values.nombre,
-        apellidoPaterno: values.apellidoPaterno,
-        apellidoMaterno: values.apellidoMaterno,
-        fechaNacimiento: values.fechaNacimiento,
+        apellidoPaterno: values.ape_paterno,
+        apellidoMaterno: values.ape_materno,
+        fechaNacimiento: values.fecha_nacimiento,
         telefono: values.telefono,
         email: values.email,
-        codigoPostal: values.codigoPostal,
+        codigoPostal: values.codigo_Postal,
         municipio: values.municipio,
         localidad: values.localidad,
         colonia: values.colonia,
@@ -201,10 +201,10 @@ const BasicTable = () => {
       calle: campos.calle,
       caracteristica: campos.caracteristica,
     },
-    enableReinitialize: true,
+    enableReinitialize: 
+    true,
     validate,
-    onSubmit,
-  });
+    onSubmit,});
   /*----------CONSTANTES PARA ABRIL LA PANTALLA----------- */
 
   const [modal, setModal] = useState(false);
@@ -273,7 +273,7 @@ const BasicTable = () => {
                 <div className="groupInput">
                   <label htmlFor="apellidoPaterno">APELLIDO PATERNO</label>
                   <input
-                    value={values.apellidoPaterno}
+                  value={values.apellidoPaterno}
                     onChange={handleChange}
                     id="apellidoPaterno"
                     type="text"
@@ -313,7 +313,7 @@ const BasicTable = () => {
                 <div className="groupInput">
                   <label htmlFor="fechaNacimiento">FECHA NACIMIENTO</label>
                   <input
-                    value={values.fechaNacimiento}
+                  value={values.fechaNacimiento}
                     onChange={handleChange}
                     id="fechaNacimiento"
                     type="date"
@@ -369,20 +369,20 @@ const BasicTable = () => {
                 <div className="groupInput">
                   <label htmlFor="codigoPostal">CODIGO POSTAL</label>
                   <input
-                    value={values.codigoPostal}
+                  value={values.codigoPostal}
                     onChange={handleChange}
                     id="codigoPostal"
                     type="number"
                     placeholder="Ingresa código postal"
                     onBlur={handleBlur}
                     className={
-                      errors.codigoPostal && touched.codigoPostal
+                      errors.codigo_Postal && touched.codigo_Postal
                         ? "input-error"
                         : ""
                     }
                   />
-                  {errors.codigoPostal && touched.codigoPostal && (
-                    <p className="error">{errors.codigoPostal}</p>
+                  {errors.codigo_Postal && touched.codigo_Postal && (
+                    <p className="error">{errors.codigo_Postal}</p>
                   )}
                 </div>
 
@@ -552,12 +552,12 @@ const BasicTable = () => {
                   >
                     <AiIcons.AiOutlineSetting />
                   </button>
-                  <button className="btntbl" title="Historial">
+                  <button className="btntbl" title="Historial" onClick={() => navigate("/historial/"+row.original.curp)}>
                     <AiIcons.AiOutlineHistory />
                   </button>
                   <button
                     className="btntbl"
-                    onClick={() => navigate("/gestions")}
+                    onClick={() => navigate("/gestions/"+row.original.curp+"/"+row.original.nombre+"/"+row.original.ape_paterno+"/"+row.original.ape_materno)}
                   >
                     <IoIcons.IoIosAddCircleOutline />
                   </button>

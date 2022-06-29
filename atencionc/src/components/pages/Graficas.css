@@ -24,6 +24,17 @@
   border: none;
 }
 
+#fecha_inicio, #fecha_final, #presupuestos, #dependencias{
+  height: 45px;
+  width: 59vh;
+  padding: 15px;
+  font-size: 1.2rem;
+  border-radius: 20px;
+  color: rgb(92, 88, 88);
+  background-color: rgba(128, 128, 128, 0.315);
+  border: none;
+}
+
 .slc {
   height: 45px;
   width: 59vh;
@@ -48,7 +59,7 @@
   margin-top: 2vh;
 }
 
-.filtros {
+.filtros .formularioChart{
   margin-left: 60vh;
   margin-top: 5vh;
   width: 750px;

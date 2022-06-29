@@ -8,12 +8,20 @@ import { GlobalFilter } from "./GlobalFilter";
 
 /*----------CREAR EL FONDO DE LA PANTALLA----------- */
 
-function TableSeguimiento() {
+export const TableSeguimiento = (props) => {
+  const { filtro } = props;
   const [isShown, setIsShown] = useState(false);
   const columns = useMemo(() => COLUMNS, []);
   const [gestion, setGestion] = useState([]);
   const [gestionR, setGestionR] = useState([]);
-  const data = gestion;
+  const [gestionF, setGestionF] = useState([]);
+  var data = gestion;
+  if (filtro != null) {
+    axios.get("/api/gestions/curp/" + filtro.curp).then((response) => {
+      setGestionF(response.data);
+    });
+    data = gestionF;
+  }
 
   const getData = async () => {
     const res = await axios.get("/api/gestions");
@@ -102,6 +110,6 @@ function TableSeguimiento() {
       </table>
     </>
   );
-}
+};
 
 export default TableSeguimiento;

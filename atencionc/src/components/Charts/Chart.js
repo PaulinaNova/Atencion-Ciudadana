@@ -23,13 +23,14 @@ ChartJS.register(
   Legend
 );
 
-function Chart() {
+export const Chart = (props) => {
+  const { canceladas, seguimiento, concluidas } = props;
   const data = {
     labels: ["Conluidas", "Canceladas", "Seguimiento"],
     datasets: [
       {
         label: "Solicitudes hechas a atención ciudadana en 2021",
-        data: [260, 85, 126],
+        data: [concluidas, canceladas, seguimiento],
         backgroundColor: ["Blue", "Yellow", "Orange"],
       },
     ],
@@ -41,6 +42,6 @@ function Chart() {
     },
   };
   return <Pie data={data} options={options} />;
-}
+};
 
 export default Chart;

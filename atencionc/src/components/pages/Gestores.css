@@ -10,9 +10,14 @@
   grid-template-columns: repeat(3, 45vh);
 }
 
+.btnGE{
+  margin-top: 2vh;
+  display:flex;
+  width: 87vh;
+  gap: 8vh;
+}
 
-
-input, select {
+input {
   width: 40vh;
   position: relative;
   height: 45px;
@@ -86,13 +91,6 @@ label {
 .btnG {
   margin-left: 96vh;
   margin-top: 1vh;
-}
-
-.btnGE {
-  margin-left: 50vh;
-  margin-top: 3vh;
-  display: inline-flex;
-  width: 70vh;
 }
 
 input.input-errors,

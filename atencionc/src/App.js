@@ -9,6 +9,7 @@ import Graficas from "./components/pages/Graficas";
 import Reportes from "./components/pages/Reportes";
 import Pendientes from "./components/pages/Pendientes";
 import Gestion from "./components/pages/Gestion";
+import Historial from "./components/pages/Historial";
 import LoginForm from "./components/Login/LoginForm";
 
 function App() {
@@ -54,7 +55,8 @@ function App() {
               <Route path="/reportes" element={<Reportes />} />
               <Route path="/" exact element={<Pendientes />} />
               <Route path="/gestores" element={<Gestores />} />
-              <Route path="/gestions" element={<Gestion />} />
+              <Route path="/gestions/:curp/:nombre/:ape_paterno/:ape_materno" element={<Gestion />} />
+              <Route path="/historial/:curp" element={<Historial />} />
             </Routes>
             {/*<button onClick={Logout}>Logout</button>*/}
           </Router>

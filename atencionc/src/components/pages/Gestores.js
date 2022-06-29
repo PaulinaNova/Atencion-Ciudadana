@@ -199,7 +199,7 @@ const Gestores = () => {
     console.log(value);
   }
   
-  return (
+return (
     <div className="gestores">
       <div className="CGestor">
         <div className="wrapper">
