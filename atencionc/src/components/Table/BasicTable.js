@@ -34,6 +34,99 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const validate=(values)=>{
+  let errores ={};
+
+  //VALIDAR CURP
+  if(!values.curp){
+    errores.curp = "CAMPO VACIO"
+  } else if(!/^([A-Z]{4})([0-9]{6})([A-Z]{6})([0-9]{2})$/.test(values.curp)){
+    errores.curp = "INGRESA CORRECTAMENTE"
+  }
+
+  //VALIDAR NOMBRE
+  if(!values.nombre){
+    errores.nombre = "CAMPO VACIO"
+  } else if(!/^([A-Z])*$/.test(values.nombre)){
+    errores.nombre = "INGRESA CORRECTAMENTE"
+  }
+
+  //VALIDAR APELLIDO PATERNO
+  if(!values.apellidoPaterno){
+    errores.apellidoPaterno = "CAMPO VACIO"
+  } else if(!/^([A-Z])*$/.test(values.apellidoPaterno)){
+    errores.apellidoPaterno = "INGRESA CORRECTAMENTE"
+  }
+
+  //VALIDAR APELLIDO MATERNO
+  if(!values.apellidoMaterno){
+    errores.apellidoMaterno = "CAMPO VACIO"
+  } else if(!/^([A-Z])*$/.test(values.apellidoMaterno)){
+    errores.apellidoMaterno = "INGRESA CORRECTAMENTE"
+  }
+
+   //VALIDAR FECHA
+   if(!values.fechaNacimiento){
+    errores.fechaNacimiento = "CAMPO VACIO"
+  } 
+
+  //VALIDAR TELEFONO
+  if(!values.telefono){
+    errores.telefono = "CAMPO VACIO"
+  } else if(!/^([0-9]{10})$/.test(values.telefono)){
+    errores.telefono = "INGRESA CORRECTAMENTE"
+  }
+
+   //VALIDAR EMAIL
+   if(!values.email){
+    errores.email = "CAMPO VACIO"
+  } else if(!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(values.email)){
+    errores.email = "INGRESA CORRECTAMENTE"
+  }
+
+   //VALIDAR CODIGO POSTAL
+   if(!values.codigoPostal){
+    errores.codigoPostal = "CAMPO VACIO"
+  }else if(!/^([0-9]{5})$/.test(values.codigoPostal)){
+    errores.codigoPostal = "INGRESA CORRECTAMENTE"
+  }
+
+  //VALIDAR MUNICIPIO
+  if(!values.municipio){
+    errores.municipio = "CAMPO VACIO"
+  } else if(!/^(([A-Z])|([0-9]))*$/.test(values.municipio)){
+    errores.municipio = "INGRESA CORRECTAMENTE"
+  }
+
+  //VALIDAR LOCALIDAD
+  if(!values.localidad){
+    errores.localidad = "CAMPO VACIO"
+  } else if(!/^(([A-Z])|([0-9]))*$/.test(values.localidad)){
+    errores.localidad = "INGRESA CORRECTAMENTE"
+  }
+
+  //VALIDAR COLONIA
+  if(!values.colonia){
+    errores.colonia = "CAMPO VACIO"
+  }else if(!/^(([A-Z])|([0-9]))*$/.test(values.colonia)){
+    errores.colonia = "INGRESA CORRECTAMENTE"
+  }
+
+  //VALIDAR CALLE
+  if(!values.calle){
+    errores.calle = "CAMPO VACIO"
+  } else if(!/^(([A-Z])|([0-9]))*$/.test(values.calle)){
+    errores.calle = "INGRESA CORRECTAMENTE"
+  }
+
+  //VALIDAR CARACTERISTICA
+  if(!values.caracteristica){
+    errores.caracteristica = "CAMPO VACIO"
+  } 
+
+  return errores;
+};
+
 const BasicTable = () => {
   const navigate = useNavigate();
   const styles = useStyles();
@@ -52,12 +145,12 @@ const BasicTable = () => {
       .put("/api/ciudadano/updtCiudadano/" + campos._id, {
         curp: values.curp,
         nombre: values.nombre,
-        apellidoPaterno: values.ape_paterno,
-        apellidoMaterno: values.ape_materno,
-        fechaNacimiento: values.fecha_nacimiento,
+        apellidoPaterno: values.apellidoPaterno,
+        apellidoMaterno: values.apellidoMaterno,
+        fechaNacimiento: values.fechaNacimiento,
         telefono: values.telefono,
         email: values.email,
-        codigoPostal: values.codigo_Postal,
+        codigoPostal: values.codigoPostal,
         municipio: values.municipio,
         localidad: values.localidad,
         colonia: values.colonia,
@@ -96,12 +189,12 @@ const BasicTable = () => {
       curp: campos.curp,
       vacio: "",
       nombre: campos.nombre,
-      ape_paterno: campos.apellidoPaterno,
-      ape_materno: campos.apellidoMaterno,
-      fecha_nacimiento: campos.fechaNacimiento,
+      apellidoPaterno: campos.apellidoPaterno,
+      apellidoMaterno: campos.apellidoMaterno,
+      fechaNacimiento: campos.fechaNacimiento,
       telefono: campos.telefono,
       email: campos.email,
-      codigo_Postal: campos.codigoPostal,
+      codigoPostal: campos.codigoPostal,
       municipio: campos.municipio,
       localidad: campos.localidad,
       colonia: campos.colonia,
@@ -109,7 +202,7 @@ const BasicTable = () => {
       caracteristica: campos.caracteristica,
     },
     enableReinitialize: true,
-    //validationSchema:basicSchema,
+    validate,
     onSubmit,
   });
   /*----------CONSTANTES PARA ABRIL LA PANTALLA----------- */
@@ -178,62 +271,62 @@ const BasicTable = () => {
                 </div>
 
                 <div className="groupInput">
-                  <label htmlFor="ape_paterno">APELLIDO PATERNO</label>
+                  <label htmlFor="apellidoPaterno">APELLIDO PATERNO</label>
                   <input
-                    value={values.ape_paterno}
+                    value={values.apellidoPaterno}
                     onChange={handleChange}
-                    id="ape_paterno"
+                    id="apellidoPaterno"
                     type="text"
                     placeholder="Ingresa Apellido Paterno"
                     onBlur={handleBlur}
                     className={
-                      errors.ape_paterno && touched.ape_paterno
+                      errors.apellidoPaterno && touched.apellidoPaterno
                         ? "input-error"
                         : ""
                     }
                   />
-                  {errors.ape_paterno && touched.ape_paterno && (
-                    <p className="error">{errors.ape_paterno}</p>
+                  {errors.apellidoPaterno && touched.apellidoPaterno && (
+                    <p className="error">{errors.apellidoPaterno}</p>
                   )}
                 </div>
 
                 <div className="groupInput">
-                  <label htmlFor="ape_materno">APELLIDO MATERNO</label>
+                  <label htmlFor="apellidoMaterno">APELLIDO MATERNO</label>
                   <input
-                    value={values.ape_materno}
+                    value={values.apellidoMaterno}
                     onChange={handleChange}
-                    id="ape_materno"
+                    id="apellidoMaterno"
                     type="text"
                     placeholder="Ingresa Apellido Materno"
                     onBlur={handleBlur}
                     className={
-                      errors.ape_materno && touched.ape_materno
+                      errors.apellidoMaterno && touched.apellidoMaterno
                         ? "input-error"
                         : ""
                     }
                   />
-                  {errors.ape_materno && touched.ape_materno && (
-                    <p className="error">{errors.ape_materno}</p>
+                  {errors.apellidoMaterno && touched.apellidoMaterno && (
+                    <p className="error">{errors.apellidoMaterno}</p>
                   )}
                 </div>
 
                 <div className="groupInput">
                   <label htmlFor="fechaNacimiento">FECHA NACIMIENTO</label>
                   <input
-                    value={values.fecha_nacimiento}
+                    value={values.fechaNacimiento}
                     onChange={handleChange}
-                    id="fecha_nacimiento"
+                    id="fechaNacimiento"
                     type="date"
                     placeholder="Ingresa Fecha Nacimiento"
                     onBlur={handleBlur}
                     className={
-                      errors.fecha_nacimiento && touched.fecha_nacimiento
+                      errors.fechaNacimiento && touched.fechaNacimiento
                         ? "input-error"
                         : ""
                     }
                   />
-                  {errors.fecha_nacimiento && touched.fecha_nacimiento && (
-                    <p className="error">{errors.fecha_nacimiento}</p>
+                  {errors.fechaNacimiento && touched.fechaNacimiento && (
+                    <p className="error">{errors.fechaNacimiento}</p>
                   )}
                 </div>
 
@@ -276,9 +369,9 @@ const BasicTable = () => {
                 <div className="groupInput">
                   <label htmlFor="codigoPostal">CODIGO POSTAL</label>
                   <input
-                    value={values.codigo_Postal}
+                    value={values.codigoPostal}
                     onChange={handleChange}
-                    id="codigo_Postal"
+                    id="codigoPostal"
                     type="number"
                     placeholder="Ingresa código postal"
                     onBlur={handleBlur}

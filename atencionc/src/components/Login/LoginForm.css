@@ -5,8 +5,9 @@
   font-family: montserrat, sans-serif;
 }
 .error {
-  color: white;
+  color: rgb(255, 0, 0);
   font-size: 10px;
+  padding-top: 5px;
 }
 
 input,

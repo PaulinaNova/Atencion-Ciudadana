@@ -46,9 +46,20 @@
   border: none;
   margin-top: 2vh;
 }
+.slcG {
+  height: 45px;
+  width: 40vh;
+  padding: 10px;
+  font-size: 1.2rem;
+  border-radius: 20px;
+  color: rgb(92, 88, 88);
+  background-color: white;
+  border: none;
+  margin-top: 2vh;
+}
 
 .filtros .formularioChart{
-  margin-left: 60vh;
+ margin-left: 60vh;
   margin-top: 5vh;
   width: 750px;
   display: grid;

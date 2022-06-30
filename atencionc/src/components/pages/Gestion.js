@@ -2,19 +2,140 @@ import React from "react";
 import "./Gestores.css";
 import axios from "axios";
 import "react-notifications/lib/notifications.css";
-import {
-  NotificationContainer,
-  NotificationManager,
-} from "react-notifications";
-import { useFormik } from "formik";
-//import {basicSchema} from "../schemas/index.js";
+
+import {NotificationContainer,NotificationManager} from "react-notifications";
+import {useFormik } from "formik";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+
+const validate=(values)=>{
+  let errores ={};
+
+  //VALIDAR FOLIO
+  if(!values.folio){
+    errores.folio = "CAMPO VACIO"
+  } else if(!/^([0-9])*$/.test(values.folio)){
+    errores.folio = "INGRESA CORRECTAMENTE"
+  }
+
+  //VALIDAR NOMBRE CIUDADANO
+  if(!values.nombre_ciudadano){
+    errores.nombre_ciudadano = "CAMPO VACIO"
+  } else if(!/^([A-Z])*$/.test(values.nombre_ciudadano)){
+    errores.nombre_ciudadano = "INGRESA CORRECTAMENTE"
+  }
+
+  //VALIDAR CURP
+  if(!values.curp){
+    errores.curp = "CAMPO VACIO"
+  } else if(!/^([A-Z]{4})([0-9]{6})([A-Z]{6})([0-9]{2})$/.test(values.curp)){
+    errores.curp = "INGRESA CORRECTAMENTE"
+  }
+
+  //VALIDAR DESCRIPCION
+  if(!values.descripcion){
+    errores.descripcion = "CAMPO VACIO"
+  } 
+
+   //VALIDAR FECHA
+   if(!values.fecha){
+    errores.fecha = "CAMPO VACIO"
+  } 
+
+  //VALIDAR PROCEDENCIA
+  if(!values.procedencia){
+    errores.procedencia = "CAMPO VACIO"
+  }
+
+   //VALIDAR PERIODO
+   if(!values.periodo){
+    errores.periodo = "CAMPO VACIO"
+  } else if(!/^([A-Z])*$/.test(values.periodo)){
+    errores.periodo = "INGRESA CORRECTAMENTE"
+  }
+
+   //VALIDAR PRIORIDAD
+  if(!values.prioridad){
+    errores.prioridad = "CAMPO VACIO"
+  } else if(!/^([A-Z])*$/.test(values.prioridad)){
+    errores.prioridad = "INGRESA CORRECTAMENTE"
+  }
+
+  //VALIDAR TIPO
+  if(!values.tipo){
+    errores.tipo = "CAMPO VACIO"
+  }
+
+  //VALIDAR DEPENDENCIA
+  if(!values.dependencia){
+    errores.dependencia = "CAMPO VACIO"
+  }
+
+  //VALIDAR REGISTRA
+  if(!values.registra){
+    errores.registra = "CAMPO VACIO"
+  } else if(!/^([A-Z])*$/.test(values.registra)){
+    errores.registra = "INGRESA CORRECTAMENTE"
+  }
+  
+   //VALIDAR VENCIMIENTO
+   if(!values.vencimiento){
+    errores.vencimiento = "CAMPO VACIO"
+  } 
+
+  //VALIDAR PERIODICO
+  if(!values.periodico){
+    errores.periodico = "CAMPO VACIO"
+  }
+
+  //VALIDAR FOLIO_INTERNO
+  if(!values.folio_interno){
+    errores.folio_interno = "CAMPO VACIO"
+  } else if(!/^([0-9])*$/.test(values.folio_interno)){
+    errores.folio_interno = "INGRESA CORRECTAMENTE"
+  }
+
+   //VALIDAR CANTIDAD DE BENEFICIADOS
+   if(!values.cant_benef){
+    errores.cant_benef = "CAMPO VACIO"
+  } else if(!/^([0-9])*$/.test(values.cant_benef)){
+    errores.cant_benef = "INGRESA CORRECTAMENTE"
+  }
+
+   //VALIDAR EVENTO
+   if(!values.evento){
+    errores.evento = "CAMPO VACIO"
+  } else if(!/^([A-Z])*$/.test(values.evento)){
+    errores.evento = "INGRESA CORRECTAMENTE"
+  }
+
+  //VALIDAR ESTADO
+  if(!values.estado){
+    errores.estado = "CAMPO VACIO"
+  } else if(!/^(([A-Z])|([0-9]))*$/.test(values.estado)){
+    errores.estado = "INGRESA CORRECTAMENTE"
+  }
+
+  //VALIDAR PRESUPUESTO
+   if(!values.presupuesto){
+    errores.presupuesto = "CAMPO VACIO"
+  } else if(!/^([0-9])*$/.test(values.presupuesto)){
+    errores.presupuesto = "INGRESA CORRECTAMENTE"
+  }
+
+  //VALIDAR NOTAS
+  if(!values.notas){
+    errores.notas = "CAMPO VACIO"
+  } 
+
+  return errores;
+};
 
 const onSubmit = async (values, actions) => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
   actions.resetForm();
 };
+
 
 const Gestion = () => {
   const datosC = useParams();
@@ -51,8 +172,7 @@ const Gestion = () => {
       .then((response) => {
         setValues(response.data);
         NotificationManager.success(
-          "La solicitud fue agregada correctamente",
-          "Exito"
+          "La gestión fue agregada correctamente","Exito"
         );
       });
   }
@@ -88,7 +208,7 @@ const Gestion = () => {
       presupuesto: "",
       notas: "",
     },
-    //validationSchema:basicSchema,
+    validate,
     onSubmit,
   });
 
@@ -197,17 +317,13 @@ const Gestion = () => {
 
             <div className="groupInput">
               <label htmlFor="procedencia">PROCEDENCIA</label>
-              <input
-                value={values.procedencia}
-                onChange={handleChange}
-                id="procedencia"
-                type="text"
-                placeholder="Ingresa Procedencia"
+              
+              <select id="procedencia" className="slcG"
                 onBlur={handleBlur}
-                className={
-                  errors.procedencia && touched.procedencia ? "input-error" : ""
-                }
-              />
+                onChange={handleChange}>
+                <option value="1">Ingresa Procedencia</option>
+                <option value="2">REDES SOCIALES</option>
+              </select>
               {errors.procedencia && touched.procedencia && (
                 <p className="error">{errors.procedencia}</p>
               )}
@@ -251,33 +367,26 @@ const Gestion = () => {
 
             <div className="groupInput">
               <label htmlFor="tipo">TIPO</label>
-              <input
-                value={values.tipo}
-                onChange={handleChange}
-                id="tipo"
-                type="text"
-                placeholder="Ingresa tipo"
-                onBlur={handleBlur}
-                className={errors.tipo && touched.tipo ? "input-error" : ""}
-              />
-              {errors.tipo && touched.tipo && (
-                <p className="error">{errors.tipo}</p>
+              <select id="tipo" className="slcG"
+              onBlur={handleBlur}
+              onChange={handleChange}>
+                <option value="1">Ingresa tipo</option>
+                <option value="2">ORDINARIO</option>
+                </select>
+              {errors.tipo && touched.tipo && (<p className="error">{errors.tipo}</p>
               )}
             </div>
 
             <div className="groupInput">
               <label htmlFor="dependencia">DEPENDENCIA</label>
-              <input
-                value={values.dependencia}
-                onChange={handleChange}
-                id="dependencia"
-                type="text"
-                placeholder="Ingresa dependencia"
-                onBlur={handleBlur}
-                className={
-                  errors.dependencia && touched.dependencia ? "input-error" : ""
-                }
-              />
+              <select id="dependencia" className="slcG"
+              onBlur={handleBlur}
+              onChange={handleChange}>
+                <option value="SEP">SEP</option>
+                <option value="1">SECRETARIA DE SALUD</option>
+                <option value="3">Secretaria de Desarrollo Rural</option>
+                <option value="4">Secretaria de Desarrollo Económico</option>
+              </select>
               {errors.dependencia && touched.dependencia && (
                 <p className="error">{errors.dependencia}</p>
               )}
@@ -321,17 +430,14 @@ const Gestion = () => {
 
             <div className="groupInput">
               <label htmlFor="periodico">PERIODICO</label>
-              <input
-                value={values.periodico}
-                onChange={handleChange}
-                id="periodico"
-                type="text"
-                placeholder="Ingresa SI/NO"
-                onBlur={handleBlur}
-                className={
-                  errors.periodico && touched.periodico ? "input-error" : ""
-                }
-              />
+              <select id="periodico" className="slcG"
+              onBlur={handleBlur}
+              onChange={handleChange}>
+                <option value="1">Ingresa SI/NO</option>
+                <option value="2">SI</option>
+                <option value="3">NO</option>
+              </select>
+              
               {errors.periodico && touched.periodico && (
                 <p className="error">{errors.periodico}</p>
               )}
@@ -393,15 +499,14 @@ const Gestion = () => {
 
             <div className="groupInput">
               <label htmlFor="estado">ESTADO</label>
-              <input
-                value={values.estado}
-                onChange={handleChange}
-                id="estado"
-                type="text"
-                placeholder="ingresa estado"
+              <select id="estado" className="slcG"
                 onBlur={handleBlur}
-                className={errors.estado && touched.estado ? "input-error" : ""}
-              />
+                onChange={handleChange}>
+                <option value="1">Ingresa Estado</option>
+                <option value="2">SEGUIMIENTO</option>
+                <option value="3">CONCLUIDA</option>
+                <option value="4">CANCELADA</option>
+              </select>
               {errors.estado && touched.estado && (
                 <p className="error">{errors.estado}</p>
               )}
@@ -413,7 +518,7 @@ const Gestion = () => {
                 value={values.presupuesto}
                 onChange={handleChange}
                 id="presupuesto"
-                type="text"
+                type="number"
                 placeholder="Presupuesto"
                 onBlur={handleBlur}
                 className={
