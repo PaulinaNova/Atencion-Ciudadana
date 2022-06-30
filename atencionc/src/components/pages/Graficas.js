@@ -7,34 +7,30 @@ import CurrencyInput from "react-currency-input-field";
 
 function Graficas() {
   const [valores, setValores] = useState([]);
+  const [dependencia, setDependencia] = useState([]);
   const getData = async () => {
-    const res = await axios.get(
-      "/api/gestions/grafica/inicio/" +
-        values.fecha_inicio +
-        "/final/" +
-        values.fecha_final
-    );
+    const res = await axios.get("/api/gestions/");
     setValores(res.data);
+    const resp = await axios.get("/api/dependencia/");
+    setDependencia(resp.data);
   };
-
-  function generarGrafica() {
-    getData();
-  }
 
   useEffect(() => {
     getData();
+    
+    console.log(dependencia.nombre_dependencia);
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+
   const onSubmit = async (values, actions) => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
-  };
+  }; 
 
   const {
     values,
     errors,
     touched,
-    isSubmitting,
     handleBlur,
     handleChange,
     handleSubmit,
@@ -42,26 +38,70 @@ function Graficas() {
     initialValues: {
       fecha_inicio: "2022-01-01",
       fecha_final: "2022-12-31",
-      presupuesto: "",
-      dependencia: "",
+      presupuestos: "",
+      dependenciasN: "Todas las dependencias",
     },
     enableReinitialize: true,
     onSubmit,
   });
-
-  var concluidasPresupuesto = valores.filter(
-    (entry) => entry.estado === "Concluida"
-  );
+  var concluidasPresupuesto;
+  var canceladas;
+  var seguimiento;
+  var concluidas;
+  if (values.dependenciasN === "Todas las dependencias") {
+    concluidasPresupuesto = valores.filter(
+      (entry) => entry.estado === "CONCLUIDA"
+    );
+    canceladas = valores.filter(
+      (entry) =>
+        entry.fecha >= values.fecha_inicio &&
+        entry.fecha <= values.fecha_final &&
+        entry.estado === "CANCELADA"
+    ).length;
+    seguimiento = valores.filter(
+      (entry) =>
+        entry.fecha >= values.fecha_inicio &&
+        entry.fecha <= values.fecha_final &&
+        entry.estado === "SEGUIMIENTO"
+    ).length;
+    concluidas = valores.filter(
+      (entry) =>
+        entry.fecha >= values.fecha_inicio &&
+        entry.fecha <= values.fecha_final &&
+        entry.estado === "CONCLUIDA"
+    ).length;
+  } else {
+    concluidasPresupuesto = valores.filter(
+      (entry) =>
+        entry.estado === "CONCLUIDA" &&
+        entry.dependencia === values.dependenciasN
+    );
+    canceladas = valores.filter(
+      (entry) =>
+        entry.fecha >= values.fecha_inicio &&
+        entry.fecha <= values.fecha_final &&
+        entry.estado === "CANCELADA" &&
+        entry.dependencia === values.dependenciasN
+    ).length;
+    seguimiento = valores.filter(
+      (entry) =>
+        entry.fecha >= values.fecha_inicio &&
+        entry.fecha <= values.fecha_final &&
+        entry.estado === "SEGUIMIENTO" &&
+        entry.dependencia === values.dependenciasN
+    ).length;
+    concluidas = valores.filter(
+      (entry) =>
+        entry.fecha >= values.fecha_inicio &&
+        entry.fecha <= values.fecha_final &&
+        entry.estado === "CONCLUIDA" &&
+        entry.dependencia === values.dependenciasN
+    ).length;
+  }
   const totalPresupuesto = concluidasPresupuesto.reduce(
     (prevValue, currentValue) => prevValue + currentValue.presupuesto,
     0
   );
-  var canceladas = valores.filter((entry) => entry.estado === "Cancelada")
-    .length;
-  var seguimiento = valores.filter((entry) => entry.estado === "Seguimiento")
-    .length;
-  var concluidas = valores.filter((entry) => entry.estado === "Concluida")
-    .length;
 
   return (
     <div className="graficas">
@@ -106,18 +146,24 @@ function Graficas() {
             groupSeparator=","
             readOnly
             className={
-              errors.presupuesto && touched.presupuesto ? "input-error" : ""
+              errors.presupuestos && touched.presupuestos ? "input-error" : ""
             }
           />
-          {errors.presupuesto && touched.presupuesto && (
-            <p className="error">{errors.presupuesto}</p>
+          {errors.presupuestos && touched.presupuestos && (
+            <p className="error">{errors.presupuestos}</p>
           )}
-          {/*<select id="framework" className="slc" value={values.dependencia}>
-            <option value="1">SEP</option>
-            <option value="2">Secretaria de Salud</option>
-            <option value="3">Secretaria de Desarrollo Rural</option>
-            <option value="4">Secretaria de Desarrollo Económico</option>
-          </select>*/}
+
+          <select
+            id="dependenciasN"
+            className="slc"
+            onBlur={handleBlur}
+            onChange={handleChange}
+          >
+            <option>Todas las dependencias</option>
+            {dependencia.map((d) => (
+              <option key={d._id}>{d.nombre_dependencia}</option>
+            ))}
+          </select>
         </form>
       </div>
       <div className="chart-container">
@@ -131,14 +177,6 @@ function Graficas() {
       </div>
       <div className="btngraficas">
         <button className="btn">Imprimir gráfica</button>
-        <button
-          className="btn"
-          type="submit"
-          onClick={() => generarGrafica()}
-          disabled={isSubmitting}
-        >
-          Generar gráfica
-        </button>
       </div>
     </div>
   );

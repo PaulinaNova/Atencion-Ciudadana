@@ -145,12 +145,12 @@ const BasicTable = () => {
       .put("/api/ciudadano/updtCiudadano/" + campos._id, {
         curp: values.curp,
         nombre: values.nombre,
-        apellidoPaterno: values.ape_paterno,
-        apellidoMaterno: values.ape_materno,
-        fechaNacimiento: values.fecha_nacimiento,
+        apellidoPaterno: values.apellidoPaterno,
+        apellidoMaterno: values.apellidoMaterno,
+        fechaNacimiento: values.fechaNacimiento,
         telefono: values.telefono,
         email: values.email,
-        codigoPostal: values.codigo_Postal,
+        codigoPostal: values.codigoPostal,
         municipio: values.municipio,
         localidad: values.localidad,
         colonia: values.colonia,
@@ -201,10 +201,10 @@ const BasicTable = () => {
       calle: campos.calle,
       caracteristica: campos.caracteristica,
     },
-    enableReinitialize: 
-    true,
+    enableReinitialize: true,
     validate,
-    onSubmit,});
+    onSubmit,
+  });
   /*----------CONSTANTES PARA ABRIL LA PANTALLA----------- */
 
   const [modal, setModal] = useState(false);
@@ -273,7 +273,7 @@ const BasicTable = () => {
                 <div className="groupInput">
                   <label htmlFor="apellidoPaterno">APELLIDO PATERNO</label>
                   <input
-                  value={values.apellidoPaterno}
+                    value={values.apellidoPaterno}
                     onChange={handleChange}
                     id="apellidoPaterno"
                     type="text"
@@ -313,7 +313,7 @@ const BasicTable = () => {
                 <div className="groupInput">
                   <label htmlFor="fechaNacimiento">FECHA NACIMIENTO</label>
                   <input
-                  value={values.fechaNacimiento}
+                    value={values.fechaNacimiento}
                     onChange={handleChange}
                     id="fechaNacimiento"
                     type="date"
@@ -369,7 +369,7 @@ const BasicTable = () => {
                 <div className="groupInput">
                   <label htmlFor="codigoPostal">CODIGO POSTAL</label>
                   <input
-                  value={values.codigoPostal}
+                    value={values.codigoPostal}
                     onChange={handleChange}
                     id="codigoPostal"
                     type="number"

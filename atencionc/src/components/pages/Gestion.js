@@ -2,8 +2,9 @@ import React from "react";
 import "./Gestores.css";
 import axios from "axios";
 import "react-notifications/lib/notifications.css";
-import {NotificationContainer,NotificationManager,} from "react-notifications";
-import { useFormik } from "formik";
+
+import {NotificationContainer,NotificationManager} from "react-notifications";
+import {useFormik } from "formik";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
@@ -129,6 +130,7 @@ const validate=(values)=>{
 
   return errores;
 };
+
 const onSubmit = async (values, actions) => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
   actions.resetForm();
@@ -171,7 +173,7 @@ const Gestion = () => {
         setValues(response.data);
         NotificationManager.success(
           "La gestión fue agregada correctamente","Exito"
- );
+        );
       });
   }
 

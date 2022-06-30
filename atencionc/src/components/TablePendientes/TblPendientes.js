@@ -21,7 +21,7 @@ export const TblPendientes = (props) => {
 
   if (cadena === "Urgentes") {
     data = data.filter(function(entry) {
-      return entry.prioridad === "Alta";
+      return entry.prioridad === "ALTA";
     });
   } else if (cadena === "Vencidas") {
     data = data.filter(function(entry) {

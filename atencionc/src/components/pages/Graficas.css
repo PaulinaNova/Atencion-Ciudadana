@@ -46,7 +46,6 @@
   border: none;
   margin-top: 2vh;
 }
-
 .slcG {
   height: 45px;
   width: 40vh;
@@ -60,7 +59,7 @@
 }
 
 .filtros .formularioChart{
-  margin-left: 60vh;
+ margin-left: 60vh;
   margin-top: 5vh;
   width: 750px;
   display: grid;

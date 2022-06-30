@@ -194,12 +194,10 @@ const Gestores = () => {
     validate,
     onSubmit,
   });
-
-  const onDropdownChange = ({value})=>{
+const onDropdownChange = ({value})=>{
     console.log(value);
   }
-  
-return (
+ return (
     <div className="gestores">
       <div className="CGestor">
         <div className="wrapper">
