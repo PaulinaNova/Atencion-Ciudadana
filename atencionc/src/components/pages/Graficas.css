@@ -1,7 +1,5 @@
 .chart-container {
   margin-top: 5vh;
-  margin-left: 60vh;
-  width: 750px;
   background-color: rgba(128, 128, 128, 0.192);
   display: flex;
   align-items: center;
@@ -13,20 +11,11 @@
   width: 400px;
 }
 
-.inp {
+#fecha_inicio,
+#fecha_final,
+#presupuestos{
   height: 45px;
-  width: 59vh;
-  padding: 15px;
-  font-size: 1.2rem;
-  border-radius: 20px;
-  color: rgb(92, 88, 88);
-  background-color: rgba(128, 128, 128, 0.315);
-  border: none;
-}
-
-#fecha_inicio, #fecha_final, #presupuestos, #dependencias{
-  height: 45px;
-  width: 59vh;
+  width: 100%;
   padding: 15px;
   font-size: 1.2rem;
   border-radius: 20px;
@@ -37,36 +26,22 @@
 
 .slc {
   height: 45px;
-  width: 59vh;
+  width: 100%;
   padding: 10px;
   font-size: 1.2rem;
   border-radius: 20px;
   color: rgb(92, 88, 88);
   background-color: rgba(128, 128, 128, 0.315);
   border: none;
-  margin-top: 2vh;
-}
-.slcG {
-  height: 45px;
-  width: 40vh;
-  padding: 10px;
-  font-size: 1.2rem;
-  border-radius: 20px;
-  color: rgb(92, 88, 88);
-  background-color: white;
-  border: none;
-  margin-top: 2vh;
 }
 
-.filtros .formularioChart{
- margin-left: 60vh;
+.filtros .formularioChart {
   margin-top: 5vh;
-  width: 750px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 10px;
 }
 
-.btngraficas{
-  margin-left: 140vh;
+.btngraficas .btn {
+  margin-left: 74%;
 }

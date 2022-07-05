@@ -1,14 +1,15 @@
 import React, { useMemo, useState, useEffect } from "react";
-import { useTable } from "react-table";
-import { COLUMNS } from "./ColumnsPendientes";
-import "../Table/Table.css";
+import { useTable,/* useGlobalFilter*/ } from "react-table";
+import { COLUMNS } from "./ColumnsReportes";
+import "./TableReportes.css";
+//import { GlobalFilter } from "./GlobalFilter";
 import axios from "axios";
 
-export const TblPendientes = (props) => {
-  const { cadena } = props;
+
+const TableReportes = () => {
   const columns = useMemo(() => COLUMNS, []);
   const [gestion, setGestion] = useState([]);
-  var data = gestion;
+  const data = gestion;
 
   const getData = async () => {
     const res = await axios.get("/api/gestions");
@@ -19,34 +20,28 @@ export const TblPendientes = (props) => {
     getData();
   }, []);
 
-  if (cadena === "Urgentes") {
-    data = data.filter(function(entry) {
-      return entry.prioridad === "ALTA";
-    });
-  } else if (cadena === "Vencidas") {
-    data = data.filter(function(entry) {
-      return entry.captura <= "2022-02-01";
-    });
-  } else if (cadena === "Pendientes") {
-    data = data.filter(function(entry) {
-      return entry.estado <= "Aceptado";
-    });
-  }
-
   const {
     getTableProps,
     getTableBodyProps,
     headerGroups,
     rows,
     prepareRow,
-  } = useTable({
-    columns,
-    data,
-  });
+    /*state,
+    setGlobalFilter,*/
+  } = useTable(
+    {
+      columns,
+      data,
+    },
+    //useGlobalFilter
+  );
+
+  //const { globalFilter } = state;
+  
 
   return (
     <>
-      <table className="tblPendientes" {...getTableProps()}>
+      <table className="tblReportes" {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps}>
@@ -75,4 +70,4 @@ export const TblPendientes = (props) => {
   );
 };
 
-export default TblPendientes;
+export default TableReportes;

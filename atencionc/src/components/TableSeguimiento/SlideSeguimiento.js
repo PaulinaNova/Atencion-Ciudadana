@@ -9,17 +9,17 @@ import {
   NotificationManager,
 } from "react-notifications";
 import { useFormik } from "formik";
-import "../pages/Seguimiento.css";
 import emailjs from 'emailjs-com';
+import "./TableSeguimiento.css";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
     position: "absolute",
-    width: 460,
+    width: 400,
     backgroundColor: "white",
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
-    padding: "16px 52px 24px",
+    padding:"4%",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
@@ -38,6 +38,7 @@ export const SlideSeguimiento = (props) => {
   const { abierto, gestion } = props;
   const [seguimientos, setSeguimiento] = useState([]);
   var datos = seguimientos;
+
   const getData = async () => {
     const res = await axios.get("/api/seguimiento");
     setSeguimiento(res.data);
@@ -79,13 +80,13 @@ export const SlideSeguimiento = (props) => {
         folio_interno: gestion.folio_interno,
         cant_benef: gestion.cant_benef,
         evento: gestion.evento,
-        estado: values.estado,
-        presupuesto: values.presupuesto,
+        estado: values.estadoS,
+        presupuesto: values.presupuestoS,
         notas: gestion.notas,
-        gestor: values.gestor,
+        gestor: values.gestorS,
         seguimiento: {
-          fecha_seguimiento: values.fecha_seguimiento,
-          descripcion_seguimiento: values.fecha_seguimiento,
+          fecha_seguimiento: values.fecha_seguimientoS,
+          descripcion_seguimiento: values.fecha_seguimientoS,
         },
       })
       .then((response) => {
@@ -97,10 +98,10 @@ export const SlideSeguimiento = (props) => {
     axios
       .post("/api/seguimiento/addSeguimiento", {
         folio: gestion.folio,
-        fecha_seguimiento: values.fecha_seguimiento,
+        fecha_seguimiento: values.fecha_seguimientoS,
         descripcion_seguimiento: values.descripcion_seguimiento,
-        gestor: values.gestor,
-        presupuesto: values.presupuesto,
+        gestor: values.gestorS,
+        presupuesto: values.presupuestoS,
       })
       .then((response) => {
         setValues(response.data);
@@ -124,11 +125,11 @@ export const SlideSeguimiento = (props) => {
     handleSubmit,
   } = useFormik({
     initialValues: {
-      fecha_seguimiento: "",
+      fecha_seguimientoS: "",
       descripcion_seguimiento: "",
-      gestor: "",
-      estado: "",
-      presupuesto: "",
+      gestorS: "",
+      estadoS: "",
+      presupuestoS: "",
     },
     onSubmit,
   });
@@ -145,8 +146,8 @@ export const SlideSeguimiento = (props) => {
 
   const body = (
     <div className={styles.modal}>
-      <div className="gestores">
-        <div className="CBuscar">
+      <div className="seguimiento">
+        <div className="CSegumiento">
           <div className="wrapper2">
             <form
               onSubmit={sendEmail}
@@ -154,24 +155,24 @@ export const SlideSeguimiento = (props) => {
               className="formulario2"
             >
               <div className="inputSeguimiento">
-                <label className="lblSeg" htmlFor="fecha_seguimiento">
+                <label className="lblSeg" htmlFor="fecha_seguimientoS">
                   FECHA
                 </label>
                 <input
-                  value={values.fecha_seguimiento}
+                  value={values.fecha_seguimientoS}
                   onChange={handleChange}
-                  id="fecha_seguimiento"
+                  id="fecha_seguimientoS"
                   type="date"
                   placeholder="Ingresa Fecha de Seguimiento"
                   onBlur={handleBlur}
                   className={
-                    errors.fecha_seguimiento && touched.fecha_seguimiento
+                    errors.fecha_seguimientoS && touched.fecha_seguimientoS
                       ? "input-error"
                       : ""
                   }
                 />
-                {errors.fecha_seguimiento && touched.fecha_seguimiento && (
-                  <p className="error">{errors.fecha_seguimiento}</p>
+                {errors.fecha_seguimientoS && touched.fecha_seguimientoS && (
+                  <p className="error">{errors.fecha_seguimientoS}</p>
                 )}
               </div>
 
@@ -200,44 +201,44 @@ export const SlideSeguimiento = (props) => {
               </div>
 
               <div className="inputSeguimiento">
-                <label className="lblSeg" htmlFor="gestor">
+                <label className="lblSeg" htmlFor="gestorS">
                   GESTOR
                 </label>
 
                 <input
-                  value={values.gestor}
+                  value={values.gestorS}
                   onChange={handleChange}
-                  id="gestor"
-                  type="email"
+                  id="gestorS"
+                  type="text"
                   placeholder="Ingresa Gestor"
                   onBlur={handleBlur}
                   className={
-                    errors.gestor && touched.gestor ? "input-error" : ""
+                    errors.gestorS && touched.gestorS ? "input-error" : ""
                   }
                 />
-                {errors.gestor && touched.gestor && (
-                  <p className="error">{errors.gestor}</p>
+                {errors.gestorS && touched.gestor && (
+                  <p className="error">{errors.gestorS}</p>
                 )}
               </div>
 
               <div className="inputSeguimiento">
-                <label className="lblSeg" htmlFor="estado">
+                <label className="lblSeg" htmlFor="estadoS">
                   ESTADO
                 </label>
 
                 <input
-                  value={values.estado}
+                  value={values.estadoS}
                   onChange={handleChange}
-                  id="estado"
+                  id="estadoS"
                   type="text"
                   placeholder="Ingresa Estado"
                   onBlur={handleBlur}
                   className={
-                    errors.estado && touched.estado ? "input-error" : ""
+                    errors.estadoS && touched.estadoS ? "input-error" : ""
                   }
                 />
-                {errors.estado && touched.estado && (
-                  <p className="error">{errors.estado}</p>
+                {errors.estadoS && touched.estadoS && (
+                  <p className="error">{errors.estadoS}</p>
                 )}
               </div>
 
@@ -247,20 +248,20 @@ export const SlideSeguimiento = (props) => {
                 </label>
 
                 <input
-                  value={values.presupuesto}
+                  value={values.presupuestoS}
                   onChange={handleChange}
-                  id="presupuesto"
+                  id="presupuestoS"
                   type="number"
                   placeholder="Ingresa Presupuesto"
                   onBlur={handleBlur}
                   className={
-                    errors.presupuesto && touched.presupuesto
+                    errors.presupuestoS && touched.presupuestoS
                       ? "input-error"
                       : ""
                   }
                 />
-                {errors.presupuesto && touched.presupuesto && (
-                  <p className="error">{errors.presupuesto}</p>
+                {errors.presupuestoS && touched.presupuestoS && (
+                  <p className="error">{errors.presupuestoS}</p>
                 )}
               </div>
 
@@ -286,21 +287,36 @@ export const SlideSeguimiento = (props) => {
   return (
     <Menu right customBurgerIcon={false} isOpen={abierto}>
       <div className="detallesG">
-        <p className="menu-item">Procedencia: {gestion.procedencia} </p>
-        <p className="menu-item">Periodo: {gestion.periodo}</p>
-        <p className="menu-item">Prioridad: {gestion.prioridad}</p>
-        <p className="menu-item">Tipo: {gestion.tipo} </p>
-        <p className="menu-item">Dependencia: {gestion.dependencia}</p>
-        <p className="menu-item">Registró: {gestion.registra}</p>
-        <p className="menu-item">Vencimiento: {gestion.vencimiento}</p>
-        <p className="menu-item">Periodico: {gestion.periodo}</p>
-        <p className="menu-item">Folio interno: {gestion.folio_interno}</p>
-        <p className="menu-item">Beneficiados: {gestion.cant_benef}</p>
-        <p className="menu-item">Evento: {gestion.evento}</p>
-        <p className="menu-item">Estado: {gestion.estado}</p>
-        <p className="menu-item">Presupuesto: {gestion.presupuesto}</p>
-        <p className="menu-item">Notas: {gestion.notas}</p>
-        <p className="menu-item">Gestor: {gestion.gestor} </p>
+        <p className="menu-item">Procedencia: </p>
+        <p className="pSeguimiento">{gestion.procedencia}</p>
+        <p className="menu-item">Periodo: </p>
+        <p className="pSeguimiento">{gestion.periodo}</p>
+        <p className="menu-item">Prioridad: </p>
+        <p className="pSeguimiento">{gestion.prioridad}</p>
+        <p className="menu-item">Tipo: </p>
+        <p className="pSeguimiento">{gestion.tipo}</p>
+        <p className="menu-item">Dependencia: </p>
+        <p className="pSeguimiento">{gestion.dependencia}</p>
+        <p className="menu-item">Registró: </p>
+        <p className="pSeguimiento">{gestion.registra}</p>
+        <p className="menu-item">Vencimiento: </p>
+        <p className="pSeguimiento">{gestion.vencimiento}</p>
+        <p className="menu-item">Periodico: </p>
+        <p className="pSeguimiento">{gestion.periodo}</p>
+        <p className="menu-item">Folio interno: </p>
+        <p className="pSeguimiento">{gestion.folio_interno}</p>
+        <p className="menu-item">Beneficiados: </p>
+        <p className="pSeguimiento">{gestion.cant_benef}</p>
+        <p className="menu-item">Evento: </p>
+        <p className="pSeguimiento">{gestion.evento}</p>
+        <p className="menu-item">Estado: </p>
+        <p className="pSeguimiento">{gestion.estado}</p>
+        <p className="menu-item">Presupuesto: </p>
+        <p className="pSeguimiento">{gestion.presupuesto}</p>
+        <p className="menu-item">Notas: </p>
+        <p className="pSeguimiento">{gestion.notas}</p>
+        <p className="menu-item">Gestor: </p>
+        <p className="pSeguimiento">{gestion.gestor}</p>
       </div>
       <table className="tseguimiento">
         <thead>

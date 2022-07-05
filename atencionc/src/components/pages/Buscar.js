@@ -4,7 +4,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "react-notifications/lib/notifications.css";
-import {NotificationContainer,NotificationManager,} from "react-notifications";
+import {
+  NotificationContainer,
+  NotificationManager,
+} from "react-notifications";
 import { useFormik } from "formik";
 import "../Table/Table.css";
 import Select from "react-select";
@@ -28,14 +31,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const validate=(values)=>{
-  let errores ={};
+const validate = (values) => {
+  let errores = {};
 
   //VALIDAR CURP
-  if(!values.curp){
-    errores.curp = "CAMPO VACIO"
-  } else if(!/^([A-Z]{4})([0-9]{6})([A-Z]{6})([0-9]{2})$/.test(values.curp)){
-    errores.curp = "INGRESA CORRECTAMENTE"
+  if (!values.curp) {
+    errores.curp = "CAMPO VACIO";
+  } else if (!/^([A-Z]{4})([0-9]{6})([A-Z]{6})([0-9]{2})$/.test(values.curp)) {
+    errores.curp = "INGRESA CORRECTAMENTE";
   }
 
   //VALIDAR NOMBRE
@@ -58,24 +61,28 @@ const validate=(values)=>{
   } 
 
   //VALIDAR TELEFONO
-  if(!values.telefono){
-    errores.telefono = "CAMPO VACIO"
-  } else if(!/^([0-9]{10})$/.test(values.telefono)){
-    errores.telefono = "INGRESA CORRECTAMENTE"
+  if (!values.telefono) {
+    errores.telefono = "CAMPO VACIO";
+  } else if (!/^([0-9]{10})$/.test(values.telefono)) {
+    errores.telefono = "INGRESA CORRECTAMENTE";
   }
 
-   //VALIDAR EMAIL
-   if(!values.email){
-    errores.email = "CAMPO VACIO"
-  } else if(!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(values.email)){
-    errores.email = "INGRESA CORRECTAMENTE"
+  //VALIDAR EMAIL
+  if (!values.email) {
+    errores.email = "CAMPO VACIO";
+  } else if (
+    !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+      values.email
+    )
+  ) {
+    errores.email = "INGRESA CORRECTAMENTE";
   }
 
-   //VALIDAR CODIGO POSTAL
-   if(!values.codigoPostal){
-    errores.codigoPostal = "CAMPO VACIO"
-  }else if(!/^([0-9]{5})$/.test(values.codigoPostal)){
-    errores.codigoPostal = "INGRESA CORRECTAMENTE"
+  //VALIDAR CODIGO POSTAL
+  if (!values.codigoPostal) {
+    errores.codigoPostal = "CAMPO VACIO";
+  } else if (!/^([0-9]{5})$/.test(values.codigoPostal)) {
+    errores.codigoPostal = "INGRESA CORRECTAMENTE";
   }
 
   //VALIDAR MUNICIPIO
@@ -99,9 +106,9 @@ const validate=(values)=>{
   }
 
   //VALIDAR CARACTERISTICA
-  if(!values.caracteristica){
-    errores.caracteristica = "CAMPO VACIO"
-  } 
+  if (!values.caracteristica) {
+    errores.caracteristica = "CAMPO VACIO";
+  }
 
   return errores;
 };
@@ -210,32 +217,26 @@ const Buscar = () => {
   };
   const body = (
     <div className={styles.modal}>
-      <div>
-        {/*-------------------------------------------------- */}
-
-        <div className="gestores">
-          <div className="CBuscar">
-            <div className="wrapper">
-              <form
-                onSubmit={handleSubmit}
-                autoComplete="off"
-                className="formulario"
-              >
-                <div className="groupInput">
-                  <label htmlFor="curp">CURP</label>
-                  <input
-                    value={values.curp}
-                    onChange={handleChange}
-                    id="curp"
-                    type="text"
-                    placeholder="Ingresa curp"
-                    onBlur={handleBlur}
-                    className={errors.curp && touched.curp ? "input-error" : ""}
-                  />
-                  {errors.curp && touched.curp && (
-                    <p className="error">{errors.curp}</p>
-                  )}
-                </div>
+<form
+        onSubmit={handleSubmit}
+        autoComplete="off"
+        className="formularioModCiudadano"
+      >
+        <div className="groupInput">
+          <label htmlFor="curp">CURP</label>
+          <input
+            value={values.curp}
+            onChange={handleChange}
+            id="curp"
+            type="text"
+            placeholder="Ingresa curp"
+            onBlur={handleBlur}
+            className={errors.curp && touched.curp ? "input-error" : ""}
+          />
+          {errors.curp && touched.curp && (
+            <p className="error">{errors.curp}</p>
+          )}
+        </div>
                 <div className="groupInput2">
                   <label htmlFor="vacio1"></label>
                 </div>
@@ -486,25 +487,20 @@ const Buscar = () => {
                 </div>
               </form>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
   );
-
+  
   return (
     <div className="buscar">
-      <div className="tblBuscar">
+      <div className="CBuscar">
         <BasicTable />
-      </div>
-      <div className="btnbuscar">
-        <button className="btn" onClick={() => abrirCerrarModal()}>
-          Agregar ciudadano
-        </button>
-
-        <Modal open={modal} onClose={abrirCerrarModal}>
-          {body}
-        </Modal>
+        <div className="btnbuscar">
+          <button className="btn" onClick={() => abrirCerrarModal()}>
+            Agregar ciudadano
+          </button>
+          <Modal open={modal} onClose={abrirCerrarModal}>
+            {body}
+          </Modal>
+        </div>
       </div>
     </div>
   );

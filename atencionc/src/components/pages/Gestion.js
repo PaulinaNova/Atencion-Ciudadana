@@ -2,7 +2,6 @@ import React from "react";
 import "./Gestores.css";
 import axios from "axios";
 import "react-notifications/lib/notifications.css";
-
 import {NotificationContainer,NotificationManager} from "react-notifications";
 import {useFormik } from "formik";
 import { useParams } from "react-router-dom";

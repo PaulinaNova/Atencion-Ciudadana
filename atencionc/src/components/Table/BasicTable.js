@@ -35,95 +35,99 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const validate=(values)=>{
-  let errores ={};
+const validate = (values) => {
+  let errores = {};
 
   //VALIDAR CURP
-  if(!values.curp){
-    errores.curp = "CAMPO VACIO"
-  } else if(!/^([A-Z]{4})([0-9]{6})([A-Z]{6})([0-9]{2})$/.test(values.curp)){
-    errores.curp = "INGRESA CORRECTAMENTE"
+  if (!values.curp) {
+    errores.curp = "CAMPO VACIO";
+  } else if (!/^([A-Z]{4})([0-9]{6})([A-Z]{6})([0-9]{2})$/.test(values.curp)) {
+    errores.curp = "INGRESA CORRECTAMENTE";
   }
 
   //VALIDAR NOMBRE
-  if(!values.nombre){
-    errores.nombre = "CAMPO VACIO"
-  } else if(!/^([A-Z])*$/.test(values.nombre)){
-    errores.nombre = "INGRESA CORRECTAMENTE"
+  if (!values.nombre) {
+    errores.nombre = "CAMPO VACIO";
+  } else if (!/^([A-Z])*$/.test(values.nombre)) {
+    errores.nombre = "INGRESA CORRECTAMENTE";
   }
 
   //VALIDAR APELLIDO PATERNO
-  if(!values.apellidoPaterno){
-    errores.apellidoPaterno = "CAMPO VACIO"
-  } else if(!/^([A-Z])*$/.test(values.apellidoPaterno)){
-    errores.apellidoPaterno = "INGRESA CORRECTAMENTE"
+  if (!values.apellidoPaterno) {
+    errores.apellidoPaterno = "CAMPO VACIO";
+  } else if (!/^([A-Z])*$/.test(values.apellidoPaterno)) {
+    errores.apellidoPaterno = "INGRESA CORRECTAMENTE";
   }
 
   //VALIDAR APELLIDO MATERNO
-  if(!values.apellidoMaterno){
-    errores.apellidoMaterno = "CAMPO VACIO"
-  } else if(!/^([A-Z])*$/.test(values.apellidoMaterno)){
-    errores.apellidoMaterno = "INGRESA CORRECTAMENTE"
+  if (!values.apellidoMaterno) {
+    errores.apellidoMaterno = "CAMPO VACIO";
+  } else if (!/^([A-Z])*$/.test(values.apellidoMaterno)) {
+    errores.apellidoMaterno = "INGRESA CORRECTAMENTE";
   }
 
-   //VALIDAR FECHA
-   if(!values.fechaNacimiento){
-    errores.fechaNacimiento = "CAMPO VACIO"
-  } 
+  //VALIDAR FECHA
+  if (!values.fechaNacimiento) {
+    errores.fechaNacimiento = "CAMPO VACIO";
+  }
 
   //VALIDAR TELEFONO
-  if(!values.telefono){
-    errores.telefono = "CAMPO VACIO"
-  } else if(!/^([0-9]{10})$/.test(values.telefono)){
-    errores.telefono = "INGRESA CORRECTAMENTE"
+  if (!values.telefono) {
+    errores.telefono = "CAMPO VACIO";
+  } else if (!/^([0-9]{10})$/.test(values.telefono)) {
+    errores.telefono = "INGRESA CORRECTAMENTE";
   }
 
-   //VALIDAR EMAIL
-   if(!values.email){
-    errores.email = "CAMPO VACIO"
-  } else if(!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(values.email)){
-    errores.email = "INGRESA CORRECTAMENTE"
+  //VALIDAR EMAIL
+  if (!values.email) {
+    errores.email = "CAMPO VACIO";
+  } else if (
+    !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+      values.email
+    )
+  ) {
+    errores.email = "INGRESA CORRECTAMENTE";
   }
 
-   //VALIDAR CODIGO POSTAL
-   if(!values.codigoPostal){
-    errores.codigoPostal = "CAMPO VACIO"
-  }else if(!/^([0-9]{5})$/.test(values.codigoPostal)){
-    errores.codigoPostal = "INGRESA CORRECTAMENTE"
+  //VALIDAR CODIGO POSTAL
+  if (!values.codigoPostal) {
+    errores.codigoPostal = "CAMPO VACIO";
+  } else if (!/^([0-9]{5})$/.test(values.codigoPostal)) {
+    errores.codigoPostal = "INGRESA CORRECTAMENTE";
   }
 
   //VALIDAR MUNICIPIO
-  if(!values.municipio){
-    errores.municipio = "CAMPO VACIO"
-  } else if(!/^(([A-Z])|([0-9]))*$/.test(values.municipio)){
-    errores.municipio = "INGRESA CORRECTAMENTE"
+  if (!values.municipio) {
+    errores.municipio = "CAMPO VACIO";
+  } else if (!/^(([A-Z])|([0-9]))*$/.test(values.municipio)) {
+    errores.municipio = "INGRESA CORRECTAMENTE";
   }
 
   //VALIDAR LOCALIDAD
-  if(!values.localidad){
-    errores.localidad = "CAMPO VACIO"
-  } else if(!/^(([A-Z])|([0-9]))*$/.test(values.localidad)){
-    errores.localidad = "INGRESA CORRECTAMENTE"
+  if (!values.localidad) {
+    errores.localidad = "CAMPO VACIO";
+  } else if (!/^(([A-Z])|([0-9]))*$/.test(values.localidad)) {
+    errores.localidad = "INGRESA CORRECTAMENTE";
   }
 
   //VALIDAR COLONIA
-  if(!values.colonia){
-    errores.colonia = "CAMPO VACIO"
-  }else if(!/^(([A-Z])|([0-9]))*$/.test(values.colonia)){
-    errores.colonia = "INGRESA CORRECTAMENTE"
+  if (!values.colonia) {
+    errores.colonia = "CAMPO VACIO";
+  } else if (!/^(([A-Z])|([0-9]))*$/.test(values.colonia)) {
+    errores.colonia = "INGRESA CORRECTAMENTE";
   }
 
   //VALIDAR CALLE
-  if(!values.calle){
-    errores.calle = "CAMPO VACIO"
-  } else if(!/^(([A-Z])|([0-9]))*$/.test(values.calle)){
-    errores.calle = "INGRESA CORRECTAMENTE"
+  if (!values.calle) {
+    errores.calle = "CAMPO VACIO";
+  } else if (!/^(([A-Z])|([0-9]))*$/.test(values.calle)) {
+    errores.calle = "INGRESA CORRECTAMENTE";
   }
 
   //VALIDAR CARACTERISTICA
-  if(!values.caracteristica){
-    errores.caracteristica = "CAMPO VACIO"
-  } 
+  if (!values.caracteristica) {
+    errores.caracteristica = "CAMPO VACIO";
+  }
 
   return errores;
 };
@@ -168,9 +172,9 @@ const BasicTable = () => {
           "El ciudadano fue actualizado correctamente",
           "Exito"
         );
-        setCampos(response.data)
+        setCampos(response.data);
       });
-      getData();
+    getData();
   }
 
   const [localidad, setLocalidad] = useState([]);
@@ -244,32 +248,26 @@ const BasicTable = () => {
   /*------------CREAR FORMULARIO INTERNO------------- */
   const body = (
     <div className={styles.modal}>
-      <div>
-        {/*-------------------------------------------------- */}
-
-        <div className="gestores">
-          <div className="CBuscar">
-            <div className="wrapper">
-              <form
-                onSubmit={handleSubmit}
-                autoComplete="off"
-                className="formulario"
-              >
-                <div className="groupInput">
-                  <label htmlFor="curp">CURP</label>
-                  <input
-                    value={values.curp}
-                    onChange={handleChange}
-                    id="curp"
-                    type="text"
-                    placeholder="Ingresa curp"
-                    onBlur={handleBlur}
-                    className={errors.curp && touched.curp ? "input-error" : ""}
-                  />
-                  {errors.curp && touched.curp && (
-                    <p className="error">{errors.curp}</p>
-                  )}
-                </div>
+<form
+        onSubmit={handleSubmit}
+        autoComplete="off"
+        className="formularioModCiudadano"
+      >
+        <div className="groupInput">
+          <label htmlFor="curp">CURP</label>
+          <input
+            value={values.curp}
+            onChange={handleChange}
+            id="curp"
+            type="text"
+            placeholder="Ingresa curp"
+            onBlur={handleBlur}
+            className={errors.curp && touched.curp ? "input-error" : ""}
+          />
+          {errors.curp && touched.curp && (
+            <p className="error">{errors.curp}</p>
+          )}
+        </div>
                 <div className="groupInput2">
                   <label htmlFor="vacio1"></label>
                 </div>
@@ -514,10 +512,7 @@ const BasicTable = () => {
                 </div>
               </form>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
+
   );
   const {
     getTableProps,
@@ -544,57 +539,77 @@ const BasicTable = () => {
   return (
     <>
       <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
-
-      <table className="tbl" {...getTableProps()}>
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps}>
-              {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>{column.render("Header")}</th>
-              ))}
-              <th>Acciones</th>
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {rows.map((row) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return (
-                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                  );
-                })}
-                <td>
-                  <button
-                    className="btntbl"
-                    title="Modificar Ciudadano"
-                    onClick={() => {
-                      handleClick(row.original);
-                      abrirCerrarModal();
-                    }}
-                  >
-                    <AiIcons.AiOutlineSetting />
-                  </button>
-                  <button className="btntbl" title="Historial" onClick={() => navigate("/historial/"+row.original.curp)}>
-                    <AiIcons.AiOutlineHistory />
-                  </button>
-                  <button
-                    className="btntbl"
-                    onClick={() => navigate("/gestions/"+row.original.curp+"/"+row.original.nombre+"/"+row.original.ape_paterno+"/"+row.original.ape_materno)}
-                  >
-                    <IoIcons.IoIosAddCircleOutline />
-                  </button>
-                  <Modal open={modal} onClose={abrirCerrarModal}>
-                    {body}
-                  </Modal>
-                </td>
+      <div className="CBasicTable">
+        <table className="tblBasicBuscar" {...getTableProps()}>
+          <thead>
+            {headerGroups.map((headerGroup) => (
+              <tr {...headerGroup.getHeaderGroupProps}>
+                {headerGroup.headers.map((column) => (
+                  <th {...column.getHeaderProps()}>
+                    {column.render("Header")}
+                  </th>
+                ))}
+                <th>Acciones</th>
               </tr>
-            );
-          })}
-        </tbody>
-      </table>
+            ))}
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {rows.map((row) => {
+              prepareRow(row);
+              return (
+                <tr {...row.getRowProps()}>
+                  {row.cells.map((cell) => {
+                    return (
+                      <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                    );
+                  })}
+                  <td>
+                    <button
+                      className="btntbl"
+                      title="Modificar Ciudadano"
+                      onClick={() => {
+                        handleClick(row.original);
+                        abrirCerrarModal();
+                      }}
+                    >
+                      <AiIcons.AiOutlineSetting />
+                    </button>
+                    <button
+                      className="btntbl"
+                      title="Historial"
+                      onClick={() =>
+                        navigate("/historial/" + row.original.curp)
+                      }
+                    >
+                      <AiIcons.AiOutlineHistory />
+                    </button>
+                    <button
+                      className="btntbl"
+                      onClick={() =>
+                        navigate(
+                          "/gestions/" +
+                            row.original.curp +
+                            "/" +
+                            row.original.nombre +
+                            "/" +
+                            row.original.ape_paterno +
+                            "/" +
+                            row.original.ape_materno
+                        )
+                      }
+                    >
+                      <IoIcons.IoIosAddCircleOutline />
+                    </button>
+                    <Modal open={modal} onClose={abrirCerrarModal}>
+                      {body}
+                    </Modal>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </>
   );
 };

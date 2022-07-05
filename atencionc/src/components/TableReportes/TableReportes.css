@@ -1,0 +1,56 @@
+.table-container {
+  margin-top: 5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tblReportes {
+  font-size: 1rem;
+  border: 1px solid;
+  border-collapse: collapse;
+  border-color: rgb(112, 108, 108);
+  color: rgb(92, 88, 88);
+  background-color: rgba(128, 128, 128, 0.315);
+}
+
+.tblReportes th {
+  padding: 10px 15px 10px 15px;
+  border: 1px solid;
+  border-color: rgb(112, 108, 108);
+}
+
+.tblReportes td {
+  padding: 10px 15px 10px 15px;
+  border: 1px solid;
+  border-color: rgb(112, 108, 108);
+}
+
+.filtrosReportes {
+  margin-top: 5vh;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+}
+
+.inpPendientes {
+  height: 45px;
+  width: 100%;
+  padding: 15px;
+  font-size: 1.2rem;
+  border-radius: 20px;
+  color: rgb(92, 88, 88);
+  background-color: rgba(128, 128, 128, 0.315);
+  border: none;
+}
+
+.slcPendientes {
+  height: 45px;
+  width: 100%;
+  padding: 10px;
+  font-size: 1.2rem;
+  border-radius: 20px;
+  color: rgb(92, 88, 88);
+  background-color: rgba(128, 128, 128, 0.315);
+  border: none;
+}

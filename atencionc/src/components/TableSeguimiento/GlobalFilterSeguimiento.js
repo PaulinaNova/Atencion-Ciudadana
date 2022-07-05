@@ -7,7 +7,7 @@ export const GlobalFilter = ({ filter, setFilter }) => {
         placeholder="Buscar folio"
         value={filter || ""}
         onChange={(e) => setFilter(e.target.value)}
-        className="intbl2"
+        className="intbl4"
       />
     </span>
   );
