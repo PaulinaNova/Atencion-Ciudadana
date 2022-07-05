@@ -1,26 +1,46 @@
-.tbl {
-  width: 150vh;
+.tblBasicBuscar {
+  width: 100%;
   font-size: 1rem;
   border: 1px solid;
   border-collapse: collapse;
   border-color: rgb(112, 108, 108);
   color: rgb(92, 88, 88);
   background-color: rgba(128, 128, 128, 0.315);
-  
 }
 
-.tbl th {
+.tblBasicBuscar th {
   padding: 10px 15px 10px 15px;
   border: 1px solid;
   border-color: rgb(112, 108, 108);
 }
 
-.tbl td {
+.tblBasicBuscar td {
   padding: 10px 15px 10px 15px;
   border: 1px solid;
   border-color: rgb(112, 108, 108);
 }
 
+.tblPendientes {
+  width: 100%;
+  font-size: 1rem;
+  border: 1px solid;
+  border-collapse: collapse;
+  border-color: rgb(112, 108, 108);
+  color: rgb(92, 88, 88);
+  background-color: rgba(128, 128, 128, 0.315);
+}
+
+.tblPendientes th {
+  padding: 10px 15px 10px 15px;
+  border: 1px solid;
+  border-color: rgb(112, 108, 108);
+}
+
+.tblPendientes td {
+  padding: 10px 15px 10px 15px;
+  border: 1px solid;
+  border-color: rgb(112, 108, 108);
+}
 
 .btntbl {
   font-size: 2rem;
@@ -43,43 +63,16 @@
   cursor: pointer;
 }
 
-
 .intbl {
   height: 45px;
-  width:150vh;
-  margin-left: 42.5vh;
+  width: 100%;
+  margin-left: -2.5vh;
   padding: 15px;
   font-size: 1.2rem;
   border-radius: 20px;
   color: rgb(92, 88, 88);
   background-color: rgba(128, 128, 128, 0.315);
   border: none;
-
-}
-
-.intbl2 {
-  height: 45px;
-  width: 137vh;
-  margin-left: 5vh;
-  padding: 15px;
-  font-size: 1.2rem;
-  border-radius: 20px;
-  color: rgb(92, 88, 88);
-  background-color: rgba(128, 128, 128, 0.315);
-  border: none;
-  display: inline-flex;
-  margin-bottom: 3vh;
-}
-
-.inpsegui{
-  margin-left: 35vh;
-}
-.tblsegui{
-  margin-left: 40vh;
-}
-
-.btnbuscar .btn {
-  margin-left: 11vh;
 }
 
 .pendientes h3 {
@@ -89,30 +82,47 @@
   padding: 10px;
   border-radius: 10px;
   margin-bottom: 3vh;
-  width: 150vh;
 }
 
 .urgentes,
 .vencidas,
 .pendiente {
-  margin-left: 45vh;
   margin-top: 3vh;
 }
 
-.buscar .tblBuscar{
-  max-height: 26rem;
+.formularioModCiudadano {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, 45vh);
+  margin-left: 1%;
+  margin-top: 5vh;
+}
+
+.CBasicTable {
+  max-height: 24rem;
   overflow: auto;
- }
+  margin-top: 5vh;
+}
 
-.formulario .btnB{
+.btnB {
   display: inline-flex;
-  margin-left: 41vh;
+  gap: 1rem;
+  width: 207%;
+  margin-left: 105%;
 }
 
-.btnB .btn{
-  margin-left: 7vh;
+.btnB .btn {
+  width: 100%;
 }
 
-.btnB{
-    margin:auto;
+.btnbuscar .btn {
+  margin-left: 73%;
+}
+
+.CPendientes{
+  margin-top: 7vh;
+}
+
+.CBuscar{
+  margin-top: 7vh;
 }

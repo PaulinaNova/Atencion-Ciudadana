@@ -209,7 +209,7 @@ const Gestores = () => {
   };
   return (
     <div className="gestores">
-      <div className="CGestor">
+      <div>
         <div className="wrapper">
           {/*-------------------------------------------------------------------- */}
           <>

@@ -11,32 +11,28 @@
 .graficas,
 .reportes,
 .pendientes,
-.gestores {
-    margin: 7vh;
+.gestores,
+.seguimientos {
+    margin-left: 300px;
+    width: 1000px;
 }
 
 .btn {
   height: 45px;
   width: 40vh;
   font-size: 1.2rem;
-  border-radius: 20px;
+  border-radius: 10px;
   color: rgb(255, 255, 255);
   background-color: #630404;
   border: none;
-  margin-top: 3vh;
-  
-}
-
-.buscar table {
-  margin-top: 5vh;
-  margin-left: 45vh;
+  margin-top: 3vh;  
 }
 
 .btn:hover {
   height: 45px;
   width: 40vh;
   font-size: 1.2rem;
-  border-radius: 20px;
+  border-radius: 10px;
   color: rgb(255, 255, 255);
   background-color: #350707;
   border: none;

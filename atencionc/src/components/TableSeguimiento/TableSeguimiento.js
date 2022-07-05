@@ -4,7 +4,7 @@ import { COLUMNS } from "./ColumnsSeguimiento";
 import "./TableSeguimiento.css";
 import SlideSeguimiento from "../TableSeguimiento/SlideSeguimiento";
 import axios from "axios";
-import { GlobalFilter } from "./GlobalFilter";
+import { GlobalFilter } from "./GlobalFilterSeguimiento";
 
 /*----------CREAR EL FONDO DE LA PANTALLA----------- */
 
@@ -66,7 +66,7 @@ export const TableSeguimiento = (props) => {
         <SlideSeguimiento abierto={isShown} gestion={gestionR} />
       </div>
 
-      <div style={{ width: isShown ? "690px" : "" }} className="inpdiv">
+      <div style={{ width: isShown ? "75%" : "" }} className="inpdiv">
         <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
         <input
           placeholder={!isShown ? "Nombre" : gestionR.nombre_ciudadano}
@@ -75,7 +75,7 @@ export const TableSeguimiento = (props) => {
         />
       </div>
       <table
-        style={{ width: isShown ? "110vh" : "" }}
+        style={{ width: isShown ? "75%" : "" }}
         className="tseg"
         {...getTableProps()}
       >
