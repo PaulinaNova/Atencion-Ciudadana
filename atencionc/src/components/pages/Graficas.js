@@ -17,8 +17,6 @@ function Graficas() {
 
   useEffect(() => {
     getData();
-    
-    console.log(dependencia.nombre_dependencia);
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

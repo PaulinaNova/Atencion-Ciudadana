@@ -24,6 +24,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/gestions", gestionRoutes);
 app.use("/api/gestions/:id", gestionRoutes);
 app.use("/api/gestions/curp/:curp", gestionRoutes);
+app.use("/api/gestions/fechas/:fechaI/:fechaF", gestionRoutes);
 app.use("/api/gestions/updtGestion/:folio", gestionRoutes);
 app.use("/api/gestions/addGestion", gestionRoutes);
 //Creating API for ciudadano
