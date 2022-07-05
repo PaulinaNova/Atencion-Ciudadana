@@ -14,6 +14,7 @@ import {
   NotificationManager,
 } from "react-notifications";
 import { useFormik } from "formik";
+import Select from "react-select";
 
 /*----------CREAR EL FONDO DE LA PANTALLA----------- */
 
@@ -138,6 +139,10 @@ const BasicTable = () => {
   const getData = async () => {
     const res = await axios.get("/api/ciudadano");
     setCiudadano(res.data);
+    const resM = await axios.get("/api/municipio");
+    setMunicipio(resM.data);
+    const respL = await axios.get("/api/localidad/");
+    setLocalidad(respL.data);
   };
 
   function updtPut() {
@@ -167,6 +172,26 @@ const BasicTable = () => {
       });
       getData();
   }
+
+  const [localidad, setLocalidad] = useState([]);
+  const [municipios, setMunicipio] = useState([]);
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const onDropdownChange = ({ value }) => {
+    console.log(value);
+  };
+
+  
+  //------------COMBOBOX----------------------------
+  const customStyles = {
+    control: (base) => ({
+      ...base,
+      height: 42,
+    }),
+  };
 
   const onSubmit = async (values, actions) => {
     //METER LO DE LA BD
@@ -388,17 +413,17 @@ const BasicTable = () => {
 
                 <div className="groupInput">
                   <label htmlFor="municipio">MUNICIPIO</label>
-                  <input
-                    value={values.municipio}
-                    onChange={handleChange}
-                    id="municipio"
-                    type="text"
-                    placeholder="Ingresa municipio"
-                    onBlur={handleBlur}
-                    className={
-                      errors.municipio && touched.municipio ? "input-error" : ""
-                    }
-                  />
+                  <div className="selectDoble">
+                    <Select
+                      onBlur={handleBlur}
+                      onChange={onDropdownChange}
+                      styles={customStyles}
+                      options={municipios.map((mun) => ({
+                        label: mun.nombre,
+                        value: mun.nombre,
+                      }))}
+                    ></Select>
+                  </div>
                   {errors.municipio && touched.municipio && (
                     <p className="error">{errors.municipio}</p>
                   )}
@@ -406,17 +431,17 @@ const BasicTable = () => {
 
                 <div className="groupInput">
                   <label htmlFor="localidad">LOCALIDAD</label>
-                  <input
-                    value={values.localidad}
-                    onChange={handleChange}
-                    id="localidad"
-                    type="text"
-                    placeholder="Ingresa localidad"
-                    onBlur={handleBlur}
-                    className={
-                      errors.localidad && touched.localidad ? "input-error" : ""
-                    }
-                  />
+                  <div className="selectDoble">
+                  <Select
+                      onBlur={handleBlur}
+                      onChange={onDropdownChange}
+                      styles={customStyles}
+                      options={localidad.map((mun) => ({
+                        label: mun.nombre,
+                        value: mun.nombre,
+                      }))}
+                    ></Select>
+                </div>
                   {errors.localidad && touched.localidad && (
                     <p className="error">{errors.localidad}</p>
                   )}

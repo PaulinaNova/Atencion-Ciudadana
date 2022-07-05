@@ -8,6 +8,8 @@ import procedenciaRoutes from "../server/routes/procedenciaRoute.js";
 import dependenciaRoutes from "../server/routes/dependenciaRoute.js";
 import seguimientoRoutes from "../server/routes/seguimientoRoute.js";
 import municipioRoutes from "../server/routes/municipioRoute.js";
+import localidadRoutes from "../server/routes/localidadRoute.js";
+import coloniaRoutes from "../server/routes/coloniaRoute.js";
 import express from "express";
 import bodyParser from "body-parser";
 
@@ -43,6 +45,10 @@ app.use("/api/seguimiento/:id", seguimientoRoutes);
 app.use("/api/seguimiento/addSeguimiento", seguimientoRoutes);
 //Creating API for municipio
 app.use("/api/municipio", municipioRoutes);
+//Creating API for localidad
+app.use("/api/localidad", localidadRoutes);
+//Creating API for colonia
+app.use("/api/colonia", coloniaRoutes);
 
 const PORT = process.env.PORT || 5000;
 

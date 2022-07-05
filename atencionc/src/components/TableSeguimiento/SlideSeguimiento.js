@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { slide as Menu } from "react-burger-menu";
 import axios from "axios";
 import { Modal } from "@material-ui/core";
@@ -10,6 +10,7 @@ import {
 } from "react-notifications";
 import { useFormik } from "formik";
 import "../pages/Seguimiento.css";
+import emailjs from 'emailjs-com';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -32,6 +33,7 @@ const onSubmit = async (values, actions) => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
   actions.resetForm();
 };
+
 export const SlideSeguimiento = (props) => {
   const { abierto, gestion } = props;
   const [seguimientos, setSeguimiento] = useState([]);
@@ -46,6 +48,17 @@ export const SlideSeguimiento = (props) => {
   useEffect(() => {
     getData();
   }, []);
+
+  function sendEmail(e) {
+    e.preventDefault();
+    emailjs.sendForm('service_lqchs6j', 'template_swrywx9', e.target, 'ID USUARIO')
+        .then(result => {
+          alert("Se ha enviado correctamente");
+          console.log(result);
+        });
+    e.target.reset()
+    alert("Mensaje enviado");
+  }
 
   function updatePut() {
     axios
@@ -136,7 +149,7 @@ export const SlideSeguimiento = (props) => {
         <div className="CBuscar">
           <div className="wrapper2">
             <form
-              onSubmit={handleSubmit}
+              onSubmit={sendEmail}
               autoComplete="off"
               className="formulario2"
             >
@@ -195,7 +208,7 @@ export const SlideSeguimiento = (props) => {
                   value={values.gestor}
                   onChange={handleChange}
                   id="gestor"
-                  type="text"
+                  type="email"
                   placeholder="Ingresa Gestor"
                   onBlur={handleBlur}
                   className={
