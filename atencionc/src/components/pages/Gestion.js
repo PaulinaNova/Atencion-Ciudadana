@@ -144,7 +144,7 @@ const Gestion = () => {
       .post("/api/gestions/addGestion", {
         folio: values.folio,
         nombre_ciudadano:
-          datosC.nombre + " " + datosC.ape_paterno + " " + datosC.ape_materno,
+          datosC.nombre + " " + datosC.apellidoPaterno + " " + datosC.apellidoMaterno,
         curp: datosC.curp,
         descripcion: values.descripcion,
         fecha: values.fecha,
@@ -244,9 +244,9 @@ const Gestion = () => {
                 value={
                   datosC.nombre +
                   " " +
-                  datosC.ape_paterno +
+                  datosC.apellidoPaterno +
                   " " +
-                  datosC.ape_materno
+                  datosC.apellidoMaterno
                 }
                 onChange={handleChange}
                 id="nombre_ciudadano"
@@ -316,10 +316,13 @@ const Gestion = () => {
 
             <div className="groupInput">
               <label htmlFor="procedencia">PROCEDENCIA</label>
-              
-              <select id="procedencia" className="slcG"
+
+              <select
+                id="procedencia"
+                className="slcG"
                 onBlur={handleBlur}
-                onChange={handleChange}>
+                onChange={handleChange}
+              >
                 <option value="1">Ingresa Procedencia</option>
                 <option value="2">REDES SOCIALES</option>
               </select>
@@ -366,21 +369,28 @@ const Gestion = () => {
 
             <div className="groupInput">
               <label htmlFor="tipo">TIPO</label>
-              <select id="tipo" className="slcG"
-              onBlur={handleBlur}
-              onChange={handleChange}>
+              <select
+                id="tipo"
+                className="slcG"
+                onBlur={handleBlur}
+                onChange={handleChange}
+              >
                 <option value="1">Ingresa tipo</option>
                 <option value="2">ORDINARIO</option>
-                </select>
-              {errors.tipo && touched.tipo && (<p className="error">{errors.tipo}</p>
+              </select>
+              {errors.tipo && touched.tipo && (
+                <p className="error">{errors.tipo}</p>
               )}
             </div>
 
             <div className="groupInput">
               <label htmlFor="dependencia">DEPENDENCIA</label>
-              <select id="dependencia" className="slcG"
-              onBlur={handleBlur}
-              onChange={handleChange}>
+              <select
+                id="dependencia"
+                className="slcG"
+                onBlur={handleBlur}
+                onChange={handleChange}
+              >
                 <option value="SEP">SEP</option>
                 <option value="1">SECRETARIA DE SALUD</option>
                 <option value="3">Secretaria de Desarrollo Rural</option>
@@ -429,14 +439,17 @@ const Gestion = () => {
 
             <div className="groupInput">
               <label htmlFor="periodico">PERIODICO</label>
-              <select id="periodico" className="slcG"
-              onBlur={handleBlur}
-              onChange={handleChange}>
+              <select
+                id="periodico"
+                className="slcG"
+                onBlur={handleBlur}
+                onChange={handleChange}
+              >
                 <option value="1">Ingresa SI/NO</option>
                 <option value="2">SI</option>
                 <option value="3">NO</option>
               </select>
-              
+
               {errors.periodico && touched.periodico && (
                 <p className="error">{errors.periodico}</p>
               )}
@@ -498,9 +511,12 @@ const Gestion = () => {
 
             <div className="groupInput">
               <label htmlFor="estado">ESTADO</label>
-              <select id="estado" className="slcG"
+              <select
+                id="estado"
+                className="slcG"
                 onBlur={handleBlur}
-                onChange={handleChange}>
+                onChange={handleChange}
+              >
                 <option value="1">Ingresa Estado</option>
                 <option value="2">SEGUIMIENTO</option>
                 <option value="3">CONCLUIDA</option>
@@ -555,10 +571,7 @@ const Gestion = () => {
                 Agregar gestion
               </button>
               <NotificationContainer />
-              <button
-                className="btn"
-                onClick={() => navigate("/buscar")}
-              >
+              <button className="btn" onClick={() => navigate("/buscar")}>
                 Regresar
               </button>
             </div>

@@ -6,7 +6,7 @@ export const GlobalFilter = ({ filter, setFilter }) => {
         placeholder="Buscar"
         value={filter || ""}
         onChange={(e) => setFilter(e.target.value)}
-        className="inpPendientesF"
+        className="inpReportesF"
       />
     </span>
   );

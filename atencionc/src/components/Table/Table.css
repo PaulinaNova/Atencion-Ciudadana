@@ -115,8 +115,9 @@
   width: 100%;
 }
 
-.btnbuscar .btn {
-  margin-left: 73%;
+.btnbuscar{
+  display: flex;
+  justify-content: right;
 }
 
 .CPendientes{

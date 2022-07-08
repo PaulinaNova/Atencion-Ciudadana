@@ -42,6 +42,7 @@
   grid-gap: 10px;
 }
 
-.btngraficas .btn {
-  margin-left: 74%;
+.btngraficas {
+  display: flex;
+  justify-content: right;
 }

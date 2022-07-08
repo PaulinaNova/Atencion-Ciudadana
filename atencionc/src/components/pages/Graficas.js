@@ -4,6 +4,8 @@ import "./Graficas.css";
 import { useFormik } from "formik";
 import axios from "axios";
 import CurrencyInput from "react-currency-input-field";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 function Graficas() {
   const [valores, setValores] = useState([]);
@@ -20,10 +22,9 @@ function Graficas() {
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-
   const onSubmit = async (values, actions) => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
-  }; 
+  };
 
   const {
     values,
@@ -101,6 +102,33 @@ function Graficas() {
     0
   );
 
+  const div2PDF = (e) => {
+    const but = e.target;
+    but.style.display = "none";
+    let input = window.document.getElementsByClassName("chart")[0];
+
+    html2canvas(input).then((canvas) => {
+      const img = canvas.toDataURL("image/png");
+      const pdf = new jsPDF("l", "pt");
+      pdf.text("Gráfica de gestiones en el periodo de " + values.fecha_inicio +" al "+values.fecha_final, 200, 15);
+      pdf.text("Dependencia: "+values.dependenciasN, 35, 50);
+      pdf.text("Presupuesto: $" + totalPresupuesto.toFixed(3)+" pesos", 35, 70);
+      pdf.text("Gestiones concluidas: " + concluidas, 35, 90);
+      pdf.text("Gestiones en seguimiento: " + seguimiento, 35, 110);
+      pdf.text("Gestiones canceladas: " + canceladas, 35, 130);
+      pdf.addImage(
+        img,
+        "png",
+        220,
+        150,
+        400,
+        400
+      );
+      pdf.save("Grafica.pdf");
+      but.style.display = "block";
+    });
+  };
+
   return (
     <div className="graficas">
       <div className="filtros">
@@ -174,7 +202,9 @@ function Graficas() {
         </div>
       </div>
       <div className="btngraficas">
-        <button className="btn">Imprimir gráfica</button>
+        <button className="btn" onClick={(e) => div2PDF(e)}>
+          Imprimir gráfica
+        </button>
       </div>
     </div>
   );

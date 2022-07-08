@@ -6,6 +6,7 @@
 }
 
 .tblReportes {
+  width: 100%;
   font-size: 1rem;
   border: 1px solid;
   border-collapse: collapse;
@@ -27,13 +28,19 @@
 }
 
 .filtrosReportes {
-  margin-top: 5vh;
+  margin-top: 2vh;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 10px;
 }
+.filtrosReportes2 {
+  margin-top: 5vh;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 1.5rem;
+}
 
-.inpPendientes {
+.inpReportes {
   height: 45px;
   width: 100%;
   padding: 15px;
@@ -44,7 +51,7 @@
   border: none;
 }
 
-.inpPendientesF {
+.inpReportesF {
   height: 45px;
   width: 100%;
   padding: 15px;
@@ -55,4 +62,20 @@
   border: none;
   margin-left: -1rem;
   margin-right: 2rem;
+}
+
+.btnReportes {
+  display: flex;
+  gap: 1rem;
+  justify-content: right;
+}
+.btnGE .btn{
+  width: 100%;
+}
+
+.inpColumnF{
+  width: 70%;
+  font-size: 15px;
+  color: rgb(92, 88, 88);
+  border-bottom: 2px solid rgb(92, 88, 88);
 }

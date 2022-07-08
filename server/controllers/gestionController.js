@@ -35,24 +35,6 @@ export const getGestionByCurp = asyncHandler(async (req, res) => {
   }
 });
 
-//getUserById function to retrieve Gestion by id
-export const getGestionByFechas = asyncHandler(async (req, res) => {
-  const gestion = await Gestion.find({
-    fecha: {
-      $gte: req.params.fechaI,
-      $lte: req.params.fechaF,
-    },
-  });
-  //if user id match param id send Gestion else throw error
-  if (gestion) {
-    res.json(gestion);
-  } else {
-    res.status(404).json({ message: "Gestion no encontrada" });
-    res.status(404);
-    throw new Error("Gestion no encontrada");
-  }
-});
-
 // To Add New Gestion
 export const addGestion = asyncHandler(async (req, res) => {
   const gestion = await Gestion.create(req.body);
@@ -85,3 +67,5 @@ export const updtGestion = asyncHandler(async (req, res) => {
       console.log("reg err");
     });
 });
+
+

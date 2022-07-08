@@ -1,38 +1,32 @@
-import React, { useMemo, useState, useEffect } from "react";
-import { useTable, useGlobalFilter } from "react-table";
+import React, { useMemo, useState } from "react";
+import { useTable, useGlobalFilter, useFilters } from "react-table";
 import { COLUMNS } from "./ColumnsReportes";
 import "./TableReportes.css";
-import Select from "react-select";
+import Select, { components } from "react-select";
 import { GlobalFilter } from "./GlobalFilter";
-import axios from "axios";
-import { useFormik } from "formik";
+import ReactHTMLTableToExcel from "react-html-table-to-excel";
 
-const TableReportes = () => {
+export const TableReportes = (props) => {
+  const { gestion } = props;
   const columns = useMemo(() => COLUMNS, []);
-  const [gestion, setGestion] = useState([]);
-  var data = gestion;
-  const { values, handleChange, handleBlur } = useFormik({
-    initialValues: {
-      filtro: "",
-      fechaI: "2022-01-01",
-      fechaF: "2022-12-31",
-    },
-    enableReinitialize: true,
-  });
-
-  const getData = async () => {
-    const res = await axios.get(
-      "/api/gestions/fechas/" + values.fechaI + "/" + values.fechaF
-    );
-    setGestion(res.data);
-    console.log(values.fechaF);
+  const data = gestion;
+  const [selectedValue, setSelectedValue] = useState([]);
+  const options = [
+    { value: "procedencia", label: "Procedencia" },
+    { value: "prioridad", label: "Prioridad" },
+    { value: "tipo", label: "Tipo" },
+    { value: "dependencia", label: "Dependencia" },
+    { value: "estado", label: "Estado" },
+  ];
+  const initialState = {
+    hiddenColumns: [
+      "procedencia",
+      "prioridad",
+      "tipo",
+      "dependencia",
+      "estado",
+    ],
   };
-
-  useEffect(() => {
-    getData();
-    //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   const {
     getTableProps,
     getTableBodyProps,
@@ -41,23 +35,19 @@ const TableReportes = () => {
     prepareRow,
     state,
     setGlobalFilter,
+    toggleHideColumn,
   } = useTable(
     {
       columns,
       data,
+      initialState,
     },
+    useFilters,
     useGlobalFilter
   );
 
+  //toggleHideColumn("procedencia", true);
   const { globalFilter } = state;
-
-  const options = [
-    { value: "procedencia", label: "Procedencia" },
-    { value: "prioridad", label: "Prioridad" },
-    { value: "tipo", label: "Tipo" },
-    { value: "dependencia", label: "Dependencia" },
-    { value: "estado", label: "Estado" },
-  ];
 
   const customStyles = {
     control: (base) => ({
@@ -68,49 +58,53 @@ const TableReportes = () => {
     }),
   };
 
-  const onDropdownChange = ({ value }) => {
-    //console.log(value);
+  const onDropdownChange = (e) => {
+    setSelectedValue(Array.isArray(e) ? e.map((x) => x.value) : []);
+    e.map((s) => toggleHideColumn(s.value, false));
+  };
+
+  const onClear = () => {
+    selectedValue.map((s) => toggleHideColumn(s, true));
+  };
+
+  const ClearIndicator = (props) => {
+    const clearValue = () => {
+      props.clearValue();
+      props.selectProps.onClear && props.selectProps.onClear();
+    };
+
+    const innerProps = {
+      ...props.innerProps,
+      onMouseDown: clearValue,
+      onTouchEnd: clearValue,
+    };
+
+    return <components.ClearIndicator {...props} innerProps={innerProps} />;
   };
 
   return (
     <>
-      <form autoComplete="off">
-        <div className="filtrosReportes">
-          <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
-          <Select
-            onChange={onDropdownChange}
-            styles={customStyles}
-            isMulti
-            options={options}
-            closeMenuOnSelect={false}
-            onBlur={handleBlur}
-          ></Select>
-          <input
-            type="date"
-            onChange={handleChange}
-            id="fechaI"
-            value={values.fechaI}
-            onBlur={handleBlur}
-            className="inpPendientes"
-          />
-          <input
-            type="date"
-            onChange={handleChange}
-            id="fechaF"
-            value={values.fechaF}
-            onBlur={handleBlur}
-            className="inpPendientes"
-          />
-        </div>
-      </form>
+      <div className="filtrosReportes">
+        <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
+        <Select
+          onChange={onDropdownChange}
+          styles={customStyles}
+          isMulti
+          components={{ ClearIndicator }}
+          options={options}
+          onClear={onClear}
+          closeMenuOnSelect={false}
+        ></Select>
+      </div>
       <div className="table-container">
-        <table className="tblReportes" {...getTableProps()}>
+        <table id="table-to-xls" className="tblReportes" {...getTableProps()}>
           <thead>
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps}>
                 {headerGroup.headers.map((column) => (
                   <th {...column.getHeaderProps()}>
                     {column.render("Header")}
+                    <div> {column.canFilter ? column.render('Filter'): null} </div>
                   </th>
                 ))}
               </tr>
@@ -131,6 +125,17 @@ const TableReportes = () => {
             })}
           </tbody>
         </table>
+      </div>
+      <div className="btnReportes">
+        <ReactHTMLTableToExcel
+          id="test-table-xls-button"
+          className="btn"
+          table="table-to-xls"
+          filename="Reportes"
+          sheet="reporte"
+          buttonText="Generar Excel"
+        />
+        {/*<button className="btn">Generar PDF</button>*/}
       </div>
     </>
   );

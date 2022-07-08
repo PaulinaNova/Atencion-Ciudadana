@@ -8,6 +8,7 @@ import procedenciaRoutes from "../server/routes/procedenciaRoute.js";
 import dependenciaRoutes from "../server/routes/dependenciaRoute.js";
 import seguimientoRoutes from "../server/routes/seguimientoRoute.js";
 import municipioRoutes from "../server/routes/municipioRoute.js";
+import sendEmail from "./config/mailer.js";
 import express from "express";
 import bodyParser from "body-parser";
 
@@ -24,7 +25,6 @@ app.use("/api/users", userRoutes);
 app.use("/api/gestions", gestionRoutes);
 app.use("/api/gestions/:id", gestionRoutes);
 app.use("/api/gestions/curp/:curp", gestionRoutes);
-app.use("/api/gestions/fechas/:fechaI/:fechaF", gestionRoutes);
 app.use("/api/gestions/updtGestion/:folio", gestionRoutes);
 app.use("/api/gestions/addGestion", gestionRoutes);
 //Creating API for ciudadano
@@ -44,6 +44,10 @@ app.use("/api/seguimiento/:id", seguimientoRoutes);
 app.use("/api/seguimiento/addSeguimiento", seguimientoRoutes);
 //Creating API for municipio
 app.use("/api/municipio", municipioRoutes);
+//Sending email
+app.post("/api/sendEmail", (req, res) => {
+  sendEmail(req.body.gestor);
+});
 
 const PORT = process.env.PORT || 5000;
 

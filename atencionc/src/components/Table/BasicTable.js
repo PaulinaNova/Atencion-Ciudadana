@@ -554,9 +554,9 @@ const BasicTable = () => {
                             "/" +
                             row.original.nombre +
                             "/" +
-                            row.original.ape_paterno +
+                            row.original.apellidoPaterno +
                             "/" +
-                            row.original.ape_materno
+                            row.original.apellidoMaterno
                         )
                       }
                     >
