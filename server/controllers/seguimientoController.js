@@ -36,3 +36,4 @@ export const addSeguimiento = asyncHandler(async (req, res) => {
       console.log("reg err");
     });
 });
+

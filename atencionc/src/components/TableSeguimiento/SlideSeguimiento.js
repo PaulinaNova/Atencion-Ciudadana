@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "white",
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
-    padding:"4%",
+    padding: "4%",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
@@ -105,6 +105,9 @@ export const SlideSeguimiento = (props) => {
           "Exito"
         );
       });
+    axios.post("/api/sendEmail", {
+      gestor: values.gestorS,
+    });
     updatePut();
     getData();
   }

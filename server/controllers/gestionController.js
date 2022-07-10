@@ -67,3 +67,5 @@ export const updtGestion = asyncHandler(async (req, res) => {
       console.log("reg err");
     });
 });
+
+

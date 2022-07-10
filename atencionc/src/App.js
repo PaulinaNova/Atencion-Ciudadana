@@ -55,7 +55,7 @@ function App() {
               <Route path="/reportes" element={<Reportes />} />
               <Route path="/" exact element={<Pendientes />} />
               <Route path="/gestores" element={<Gestores />} />
-              <Route path="/gestions/:curp/:nombre/:ape_paterno/:ape_materno" element={<Gestion />} />
+              <Route path="/gestions/:curp/:nombre/:apellidoPaterno/:apellidoMaterno" element={<Gestion />} />
               <Route path="/historial/:curp" element={<Historial />} />
             </Routes>
             {/*<button onClick={Logout}>Logout</button>*/}
