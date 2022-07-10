@@ -1,16 +1,14 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { slide as Menu } from "react-burger-menu";
 import axios from "axios";
 import { Modal } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import "react-notifications/lib/notifications.css";
-import {
-  NotificationContainer,
-  NotificationManager,
-} from "react-notifications";
+import {NotificationContainer,NotificationManager,} from "react-notifications";
 import { useFormik } from "formik";
-import emailjs from 'emailjs-com';
 import "./TableSeguimiento.css";
+import "node-mailjet";
+import Select from "react-select";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -34,14 +32,21 @@ const onSubmit = async (values, actions) => {
   actions.resetForm();
 };
 
+
 export const SlideSeguimiento = (props) => {
+
+  
+
   const { abierto, gestion } = props;
+  const [gestores, setGestor] = useState([]);
   const [seguimientos, setSeguimiento] = useState([]);
   var datos = seguimientos;
 
   const getData = async () => {
     const res = await axios.get("/api/seguimiento");
     setSeguimiento(res.data);
+    const respG = await axios.get("/api/gestor/");
+    setGestor(respG.data);
   };
 
   datos = datos.filter((entry) => entry.folio === gestion.folio);
@@ -50,16 +55,6 @@ export const SlideSeguimiento = (props) => {
     getData();
   }, []);
 
-  function sendEmail(e) {
-    e.preventDefault();
-    emailjs.sendForm('service_lqchs6j', 'template_swrywx9', e.target, 'ID USUARIO')
-        .then(result => {
-          alert("Se ha enviado correctamente");
-          console.log(result);
-        });
-    e.target.reset()
-    alert("Mensaje enviado");
-  }
 
   function updatePut() {
     axios
@@ -144,13 +139,26 @@ export const SlideSeguimiento = (props) => {
     setModal(!modal);
   };
 
+  const onDropdownChange = ({ value }) => {
+    console.log(value);
+  };
+
+  //------------COMBOBOX----------------------------
+  const customStyles = {
+    control: (base) => ({
+      ...base,
+      height: 42,
+      borderRadius:10
+    }),
+  };
+  
   const body = (
     <div className={styles.modal}>
       <div className="seguimiento">
         <div className="CSegumiento">
           <div className="wrapper2">
             <form
-              onSubmit={sendEmail}
+              onSubmit={handleSubmit}
               autoComplete="off"
               className="formulario2"
             >
@@ -205,17 +213,17 @@ export const SlideSeguimiento = (props) => {
                   GESTOR
                 </label>
 
-                <input
-                  value={values.gestorS}
-                  onChange={handleChange}
-                  id="gestorS"
-                  type="text"
-                  placeholder="Ingresa Gestor"
-                  onBlur={handleBlur}
-                  className={
-                    errors.gestorS && touched.gestorS ? "input-error" : ""
-                  }
-                />
+                <div className="selectDoble">
+                  <Select
+                      onBlur={handleBlur}
+                      onChange={onDropdownChange}
+                      styles={customStyles}
+                      options={gestores.map((ges) => ({
+                        label: ges.email,
+                        value: ges.email,
+                      }))}
+                    ></Select>
+                </div>
                 {errors.gestorS && touched.gestor && (
                   <p className="error">{errors.gestorS}</p>
                 )}
@@ -272,7 +280,7 @@ export const SlideSeguimiento = (props) => {
                   className="btn"
                   type="submit"
                 >
-                  Agregar seguimiento
+                  Agregar A seguimiento
                 </button>
                 <NotificationContainer />
               </div>

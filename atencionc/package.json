@@ -12,13 +12,11 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.27.2",
     "chart.js": "^3.8.0",
-<<<<<<< HEAD
     "emailjs": "^4.0.0",
-=======
->>>>>>> efff5c736c1238df5f3b763948d382bb78ce7c77
     "emailjs-com": "^3.2.0",
     "formik": "^2.2.9",
     "native-base": "^3.4.6",
+    "node-mailjet": "^5.0.1",
     "react": "^17.0.2",
     "react-burger-menu": "^3.0.8",
     "react-chartjs-2": "^4.0.1",

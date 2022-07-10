@@ -148,6 +148,7 @@ const Buscar = () => {
     control: (base) => ({
       ...base,
       height: 42,
+      borderRadius:10
     }),
   };
   
@@ -488,7 +489,7 @@ const Buscar = () => {
               </form>
             </div>
   );
-  
+
   return (
     <div className="buscar">
       <div className="CBuscar">

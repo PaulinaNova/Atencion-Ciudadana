@@ -130,6 +130,7 @@ const Gestores = () => {
     control: (base) => ({
       ...base,
       height: 42,
+      borderRadius:10
     }),
   };
 
