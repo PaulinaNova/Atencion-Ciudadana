@@ -1,0 +1,88 @@
+.tblBasicBuscar {
+  width: 100%;
+  font-size: 1rem;
+  border: 1px solid;
+  border-collapse: collapse;
+  border-color: rgb(112, 108, 108);
+  color: rgb(92, 88, 88);
+  background-color: rgba(128, 128, 128, 0.315);
+}
+
+.tblBasicBuscar th {
+  padding: 10px 15px 10px 15px;
+  border: 1px solid;
+  border-color: rgb(112, 108, 108);
+}
+
+.tblBasicBuscar td {
+  padding: 10px 15px 10px 15px;
+  border: 1px solid;
+  border-color: rgb(112, 108, 108);
+}
+
+.btntbl {
+  font-size: 2rem;
+  height: 2rem;
+  width: 2rem;
+  background: none;
+  border: 0ch;
+  margin-left: 5px;
+  color: rgb(92, 88, 88);
+}
+
+.btntbl:hover {
+  font-size: 2rem;
+  height: 2rem;
+  width: 2rem;
+  background: none;
+  border: 0ch;
+  margin-left: 5px;
+  color: rgb(92, 88, 88);
+  cursor: pointer;
+}
+
+.intbl {
+  height: 45px;
+  width: 100%;
+  margin-left: -2.5vh;
+  padding: 15px;
+  font-size: 1.2rem;
+  border-radius: 20px;
+  color: rgb(92, 88, 88);
+  background-color: rgba(128, 128, 128, 0.315);
+  border: none;
+}
+
+.formularioModCiudadano {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, 45vh);
+  margin-left: 1%;
+  margin-top: 5vh;
+}
+
+.CBasicTable {
+  max-height: 24rem;
+  overflow: auto;
+  margin-top: 5vh;
+}
+
+.btnB {
+  display: inline-flex;
+  gap: 1rem;
+  width: 207%;
+  margin-left: 105%;
+}
+
+.btnB .btn {
+  width: 100%;
+}
+
+.btnbuscar{
+  display: flex;
+  justify-content: right;
+}
+
+.CBuscar{
+  margin-top: 7vh;
+}

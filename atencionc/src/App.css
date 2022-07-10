@@ -12,7 +12,8 @@
 .reportes,
 .pendientes,
 .gestores,
-.seguimientos {
+.seguimientos,
+.asignadas {
     margin-left: 300px;
     width: 1000px;
     margin-bottom: 10px;

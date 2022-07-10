@@ -2,6 +2,7 @@ import {
   getGestions,
   getGestionById,
   getGestionByCurp,
+  getGestionByGestor,
   addGestion,
   updtGestion,
 } from "../controllers/gestionController.js";
@@ -16,6 +17,9 @@ router.route("/:id").get(getGestionById);
 
 // express router method to create route for getting gestiones by CURP
 router.route("/curp/:curp").get(getGestionByCurp);
+
+// express router method to create route for getting gestiones by CURP
+router.route("/gestor/:gestor").get(getGestionByGestor);
 
 // express router method to create route for creating gestiones
 router.route("/addGestion").post(addGestion);

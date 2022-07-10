@@ -1,0 +1,41 @@
+.tblAsignadas {
+  width: 100%;
+  font-size: 1rem;
+  border: 1px solid;
+  border-collapse: collapse;
+  border-color: rgb(112, 108, 108);
+  color: rgb(92, 88, 88);
+  background-color: rgba(128, 128, 128, 0.315);
+}
+
+.tblAsignadas th {
+  padding: 10px 15px 10px 15px;
+  border: 1px solid;
+  border-color: rgb(112, 108, 108);
+}
+
+.tblAsignadas td {
+  padding: 10px 15px 10px 15px;
+  border: 1px solid;
+  border-color: rgb(112, 108, 108);
+}
+
+.asignadas h3 {
+  background-color: #63040470;
+  font-size: 1.2rem;
+  color: rgb(255, 255, 255);
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 5vh;
+}
+
+.CTblAsignada {
+  max-height: 30rem;
+  overflow: auto;
+  margin-top: 2vh;
+}
+
+.btnHistorialGestor{
+  display: flex;
+  justify-content: right;
+}

@@ -1,6 +1,5 @@
 import connectDB from "./config/db.js";
 import dotenv from "dotenv";
-import userRoutes from "../server/routes/userRoute.js";
 import gestionRoutes from "../server/routes/gestionRoute.js";
 import ciudadanoRoutes from "../server/routes/ciudadanoRoute.js";
 import gestorRoutes from "../server/routes/gestorRoute.js";
@@ -9,8 +8,12 @@ import dependenciaRoutes from "../server/routes/dependenciaRoute.js";
 import seguimientoRoutes from "../server/routes/seguimientoRoute.js";
 import municipioRoutes from "../server/routes/municipioRoute.js";
 import sendEmail from "./config/mailer.js";
+//import Gestor from "./models/gestorModel.js";
 import express from "express";
 import bodyParser from "body-parser";
+/*import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";*/
+import autentificacion from "../server/routes/auth.js";
 
 connectDB();
 dotenv.config();
@@ -19,12 +22,13 @@ const app = express();
 // create application/json parser
 app.use(bodyParser.json());
 
-//Creating API for user
-app.use("/api/users", userRoutes);
+//Creating API for login
+app.use("/api/gestions/login", gestionRoutes);
 //Creating API for gestion
 app.use("/api/gestions", gestionRoutes);
 app.use("/api/gestions/:id", gestionRoutes);
 app.use("/api/gestions/curp/:curp", gestionRoutes);
+app.use("/api/gestions/gestor/:gestor", gestionRoutes);
 app.use("/api/gestions/updtGestion/:folio", gestionRoutes);
 app.use("/api/gestions/addGestion", gestionRoutes);
 //Creating API for ciudadano
@@ -48,6 +52,38 @@ app.use("/api/municipio", municipioRoutes);
 app.post("/api/sendEmail", (req, res) => {
   sendEmail(req.body.gestor);
 });
+//Autentificación
+app.use("/api", autentificacion);
+
+///////////
+/*app.post("/api/", async (req, res) => {
+  const gestor = await Gestor.findOne({
+    userName: req.body.userName,
+  });
+
+  if (!gestor) {
+    return { status: "error", error: "Invalid login" };
+  }
+
+  const isPasswordValid = await bcrypt.compare(
+    req.body.password,
+    gestor.password
+  );
+
+  if (isPasswordValid) {
+    const token = jwt.sign(
+      {
+        userName: gestor.userName,
+        password: gestor.password,
+      },
+      "secret123"
+    );
+
+    return res.json({ status: "ok", token: token });
+  } else {
+    return res.json({ status: "error", token: false });
+  }
+});*/
 
 const PORT = process.env.PORT || 5000;
 

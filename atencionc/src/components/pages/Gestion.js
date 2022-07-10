@@ -17,20 +17,6 @@ const validate=(values)=>{
     errores.folio = "INGRESA CORRECTAMENTE"
   }
 
-  //VALIDAR NOMBRE CIUDADANO
-  if(!values.nombre_ciudadano){
-    errores.nombre_ciudadano = "CAMPO VACIO"
-  } else if(!/^([A-Z])*$/.test(values.nombre_ciudadano)){
-    errores.nombre_ciudadano = "INGRESA CORRECTAMENTE"
-  }
-
-  //VALIDAR CURP
-  if(!values.curp){
-    errores.curp = "CAMPO VACIO"
-  } else if(!/^([A-Z]{4})([0-9]{6})([A-Z]{6})([0-9]{2})$/.test(values.curp)){
-    errores.curp = "INGRESA CORRECTAMENTE"
-  }
-
   //VALIDAR DESCRIPCION
   if(!values.descripcion){
     errores.descripcion = "CAMPO VACIO"
@@ -248,6 +234,7 @@ const Gestion = () => {
                   " " +
                   datosC.apellidoMaterno
                 }
+                readOnly
                 onChange={handleChange}
                 id="nombre_ciudadano"
                 type="text"
@@ -271,6 +258,7 @@ const Gestion = () => {
                 onChange={handleChange}
                 id="curp"
                 type="text"
+                readOnly
                 placeholder="Ingresa curp"
                 onBlur={handleBlur}
                 className={errors.curp && touched.curp ? "input-error" : ""}

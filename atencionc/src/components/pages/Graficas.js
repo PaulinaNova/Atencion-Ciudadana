@@ -203,7 +203,7 @@ function Graficas() {
       </div>
       <div className="btngraficas">
         <button className="btn" onClick={(e) => div2PDF(e)}>
-          Imprimir gráfica
+          Descargar PDF
         </button>
       </div>
     </div>

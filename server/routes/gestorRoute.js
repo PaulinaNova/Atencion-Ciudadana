@@ -1,4 +1,4 @@
-import { getGestores, getGestorById, addGestor } from "../controllers/gestorController.js";
+import { getGestores, getGestorById, addGestor} from "../controllers/gestorController.js";
 import express from 'express'
 const router = express.Router()
 

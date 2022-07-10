@@ -21,9 +21,23 @@ export const getGestionById = asyncHandler(async (req, res) => {
   }
 });
 
-//getUserById function to retrieve Gestion by id
+//getUserById function to retrieve Gestion by CURP
 export const getGestionByCurp = asyncHandler(async (req, res) => {
   const gestion = await Gestion.find({ curp: req.params.curp }, req.body);
+
+  //if user id match param id send Gestion else throw error
+  if (gestion) {
+    res.json(gestion);
+  } else {
+    res.status(404).json({ message: "Gestion no encontrada" });
+    res.status(404);
+    throw new Error("Gestion no encontrada");
+  }
+});
+
+//getUserById function to retrieve Gestion by Gestor
+export const getGestionByGestor = asyncHandler(async (req, res) => {
+  const gestion = await Gestion.find({ gestor: req.params.gestor }, req.body);
 
   //if user id match param id send Gestion else throw error
   if (gestion) {
