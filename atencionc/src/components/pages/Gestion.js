@@ -35,15 +35,11 @@ const validate=(values)=>{
    //VALIDAR PERIODO
    if(!values.periodo){
     errores.periodo = "CAMPO VACIO"
-  } else if(!/^([A-Z])*$/.test(values.periodo)){
-    errores.periodo = "INGRESA CORRECTAMENTE"
   }
 
    //VALIDAR PRIORIDAD
   if(!values.prioridad){
     errores.prioridad = "CAMPO VACIO"
-  } else if(!/^([A-Z])*$/.test(values.prioridad)){
-    errores.prioridad = "INGRESA CORRECTAMENTE"
   }
 
   //VALIDAR TIPO
@@ -59,8 +55,6 @@ const validate=(values)=>{
   //VALIDAR REGISTRA
   if(!values.registra){
     errores.registra = "CAMPO VACIO"
-  } else if(!/^([A-Z])*$/.test(values.registra)){
-    errores.registra = "INGRESA CORRECTAMENTE"
   }
   
    //VALIDAR VENCIMIENTO
@@ -90,16 +84,12 @@ const validate=(values)=>{
    //VALIDAR EVENTO
    if(!values.evento){
     errores.evento = "CAMPO VACIO"
-  } else if(!/^([A-Z])*$/.test(values.evento)){
-    errores.evento = "INGRESA CORRECTAMENTE"
   }
 
   //VALIDAR ESTADO
   if(!values.estado){
     errores.estado = "CAMPO VACIO"
-  } else if(!/^(([A-Z])|([0-9]))*$/.test(values.estado)){
-    errores.estado = "INGRESA CORRECTAMENTE"
-  }
+  } 
 
   //VALIDAR PRESUPUESTO
    if(!values.presupuesto){
@@ -339,17 +329,12 @@ const Gestion = () => {
 
             <div className="groupInput">
               <label htmlFor="prioridad">PRIORIDAD</label>
-              <input
-                value={values.prioridad}
-                onChange={handleChange}
-                id="prioridad"
-                type="text"
-                placeholder="Ingresa prioridad"
+              <select id="prioridad" className="slcG"
                 onBlur={handleBlur}
-                className={
-                  errors.prioridad && touched.prioridad ? "input-error" : ""
-                }
-              />
+                onChange={handleChange}>
+                <option>Alta</option>
+                <option>Baja</option>
+              </select>
               {errors.prioridad && touched.prioridad && (
                 <p className="error">{errors.prioridad}</p>
               )}

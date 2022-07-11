@@ -18,8 +18,8 @@ const authToken = async (req, res, next) => {
 
   // Authenticate token
   try {
-    const user = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-    req.user = user.email;
+    const gestor = jwt.verify(token, "secret");
+    req.userName = gestor.userName;
     next();
   } catch (error) {
     res.status(403).json({

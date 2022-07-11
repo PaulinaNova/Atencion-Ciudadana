@@ -1,15 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as FaIcons from "react-icons/fa";
+import * as IoIcons from "react-icons/io";
 import { Link } from "react-router-dom";
 import { SidebarData } from "./SidebarData";
 import { SidebarDataGestor } from "./SidebarDataGestor";
 import "./Navbar.css";
 import { IconContext } from "react-icons";
+import AuthService from "../../services/auth.service";
 
-export const Navbar = (props) => {
+export const Navbar = () => {
   const [sidebar, setSidebar] = useState(false);
   const showSidebar = () => setSidebar(!sidebar);
-  const { isAdmin } = props;
+  const [currentisAdmin, setCurrentisAdmin] = useState();
+
+  useEffect(() => {
+    const isAdmin = AuthService.getCurrentisAdmin();
+    if (isAdmin) {
+      setCurrentisAdmin(isAdmin);
+    }
+  }, []);
 
   return (
     <>
@@ -27,7 +36,8 @@ export const Navbar = (props) => {
                 <FaIcons.FaBars onClick={showSidebar} />
               </Link>
             </li>
-            {isAdmin === "true" ? SidebarData.map((item, index) => {
+            {currentisAdmin
+              ? SidebarData.map((item, index) => {
                   return (
                     <li key={index} className={item.cName}>
                       <Link to={item.path}>
@@ -36,7 +46,8 @@ export const Navbar = (props) => {
                       </Link>
                     </li>
                   );
-                }): SidebarDataGestor.map((item, index) => {
+                })
+              : SidebarDataGestor.map((item, index) => {
                   return (
                     <li key={index} className={item.cName}>
                       <Link to={item.path}>
@@ -46,6 +57,12 @@ export const Navbar = (props) => {
                     </li>
                   );
                 })}
+            <li className="nav-text">
+              <Link to={"/login"} reloadDocument >
+                <IoIcons.IoIosLogOut />
+                <span>Cerrar sesión</span>
+              </Link>
+            </li>
           </ul>
         </nav>
       </IconContext.Provider>

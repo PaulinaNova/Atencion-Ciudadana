@@ -1,49 +1,24 @@
 import React, { useState } from "react";
 import logo from "../../images/logo.png";
 import "../Login/LoginForm.css";
-//import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import AuthService from "../../services/auth.service";
-//import { setAuthToken } from "../../helpers/setAuthToken";
 
 function LoginForm({ error }) {
   const [details, setDetails] = useState({ name: "", password: "" });
   const navigate = useNavigate();
 
-  /*async function loginUser(e) {
-    e.preventDefault();
-    //reqres registered sample user
-    const loginPayload = {
-      userName: details.name,
-      password: details.password,
-    };
-
-    axios
-      .post("/api/login", loginPayload)
-      .then((response) => {
-        //get token from response
-        const token = response.data.token;
-        const isAdmin = false;
-        //set JWT token to local
-        localStorage.setItem("token", token);
-        localStorage.setItem("usuario", loginPayload.userName);
-        localStorage.setItem("isAdmin", false);
-        localStorage.setItem("logIn", true);
-        //set token to axios common header
-        setAuthToken(token);
-        //redirect user to home page
-        if (isAdmin) window.location.href = "/pendientes";
-        else window.location.href = "/buscarGestor";
-      })
-      .catch((err) => console.log(err));
-  }*/
-
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      await AuthService.login(details.userName, details.password).then(
+      await AuthService.login(details.name, details.password).then(
         () => {
-          navigate("/pendientes");
+          const isAdmin = localStorage.getItem("isAdmin");
+          if (isAdmin === "true") {
+            navigate("/pendientes");
+          } else if (isAdmin === "false") {
+            navigate("/asignadas");
+          }
           window.location.reload();
         },
         (error) => {

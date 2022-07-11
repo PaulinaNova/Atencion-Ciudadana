@@ -1,5 +1,6 @@
 import Gestor from "../models/gestorModel.js";
 import asyncHandler from "express-async-handler";
+import bcrypt from "bcryptjs";
 
 //getGestor function to get all Gestor
 export const getGestores = asyncHandler(async (req, res) => {
@@ -23,6 +24,10 @@ export const getGestorById = asyncHandler(async (req, res) => {
 
 // To Add New Gestor
 export const addGestor = asyncHandler(async (req, res) => {
+  // Hash password before saving to database
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(req.body.password, salt);
+  req.body.password = hashedPassword
   const gestor = await Gestor.create(req.body);
 
   //if user id match param id send gestor else throw error

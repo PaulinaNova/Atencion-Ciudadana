@@ -1,11 +1,6 @@
 import React from "react";
 import * as IoIcons from "react-icons/io";
 import * as AiIcons from "react-icons/ai";
-import AuthService from "../../services/auth.service";
-
-const logOut = () => {
-  AuthService.logout();
-};
 
 export const SidebarDataGestor = [
   {
@@ -26,12 +21,5 @@ export const SidebarDataGestor = [
     path: "/seguimientoGestor",
     icon: <AiIcons.AiOutlineArrowRight />,
     cName: "nav-text",
-  },
-  {
-    title: "Cerrar sesión",
-    path: "/",
-    icon: <IoIcons.IoMdLogOut />,
-    cName: "nav-text",
-    onclick: logOut,
   },
 ];

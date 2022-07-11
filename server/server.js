@@ -7,6 +7,8 @@ import procedenciaRoutes from "../server/routes/procedenciaRoute.js";
 import dependenciaRoutes from "../server/routes/dependenciaRoute.js";
 import seguimientoRoutes from "../server/routes/seguimientoRoute.js";
 import municipioRoutes from "../server/routes/municipioRoute.js";
+import localidadRoutes from "../server/routes/localidadRoute.js";
+import coloniaRoutes from "../server/routes/coloniaRoute.js";
 import sendEmail from "./config/mailer.js";
 //import Gestor from "./models/gestorModel.js";
 import express from "express";
@@ -48,42 +50,16 @@ app.use("/api/seguimiento/:id", seguimientoRoutes);
 app.use("/api/seguimiento/addSeguimiento", seguimientoRoutes);
 //Creating API for municipio
 app.use("/api/municipio", municipioRoutes);
+//Creating API for localidad
+app.use("/api/localidad", localidadRoutes);
+//Creating API for colonia
+app.use("/api/colonia", coloniaRoutes);
 //Sending email
 app.post("/api/sendEmail", (req, res) => {
   sendEmail(req.body.gestor);
 });
 //Autentificación
-app.use("/api", autentificacion);
-
-///////////
-/*app.post("/api/", async (req, res) => {
-  const gestor = await Gestor.findOne({
-    userName: req.body.userName,
-  });
-
-  if (!gestor) {
-    return { status: "error", error: "Invalid login" };
-  }
-
-  const isPasswordValid = await bcrypt.compare(
-    req.body.password,
-    gestor.password
-  );
-
-  if (isPasswordValid) {
-    const token = jwt.sign(
-      {
-        userName: gestor.userName,
-        password: gestor.password,
-      },
-      "secret123"
-    );
-
-    return res.json({ status: "ok", token: token });
-  } else {
-    return res.json({ status: "error", token: false });
-  }
-});*/
+app.use("/api/auth", autentificacion);
 
 const PORT = process.env.PORT || 5000;
 

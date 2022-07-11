@@ -4,12 +4,10 @@ import axios from "axios";
 import { Modal } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import "react-notifications/lib/notifications.css";
-import {
-  NotificationContainer,
-  NotificationManager,
-} from "react-notifications";
+import {NotificationContainer,NotificationManager,} from "react-notifications";
 import { useFormik } from "formik";
 import "./TableSeguimiento.css";
+import Select from "react-select";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -32,14 +30,20 @@ const onSubmit = async (values, actions) => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
   actions.resetForm();
 };
+
+
 export const SlideSeguimiento = (props) => {
+  const [selectedValue, setSelectedValue] = useState([]);
   const { abierto, gestion } = props;
+  const [gestores, setGestor] = useState([]);
   const [seguimientos, setSeguimiento] = useState([]);
   var datos = seguimientos;
 
   const getData = async () => {
     const res = await axios.get("/api/seguimiento");
     setSeguimiento(res.data);
+    const respG = await axios.get("/api/gestor/");
+    setGestor(respG.data);
   };
 
   datos = datos.filter((entry) => entry.folio === gestion.folio);
@@ -47,6 +51,7 @@ export const SlideSeguimiento = (props) => {
   useEffect(() => {
     getData();
   }, []);
+
 
   function updatePut() {
     axios
@@ -70,7 +75,7 @@ export const SlideSeguimiento = (props) => {
         estado: values.estadoS,
         presupuesto: values.presupuestoS,
         notas: gestion.notas,
-        gestor: values.gestorS,
+        gestor: selectedValue,
         seguimiento: {
           fecha_seguimiento: values.fecha_seguimientoS,
           descripcion_seguimiento: values.fecha_seguimientoS,
@@ -87,7 +92,7 @@ export const SlideSeguimiento = (props) => {
         folio: gestion.folio,
         fecha_seguimiento: values.fecha_seguimientoS,
         descripcion_seguimiento: values.descripcion_seguimiento,
-        gestor: values.gestorS,
+        gestor: selectedValue,
         presupuesto: values.presupuestoS,
       })
       .then((response) => {
@@ -98,7 +103,7 @@ export const SlideSeguimiento = (props) => {
         );
       });
     axios.post("/api/sendEmail", {
-      gestor: values.gestorS,
+      gestor: selectedValue,
     });
     updatePut();
     getData();
@@ -134,6 +139,19 @@ export const SlideSeguimiento = (props) => {
     setModal(!modal);
   };
 
+  const onDropdownChange = ({ value }) => {
+    setSelectedValue(value)
+  };
+
+  //------------COMBOBOX----------------------------
+  const customStyles = {
+    control: (base) => ({
+      ...base,
+      height: 42,
+      borderRadius:10
+    }),
+  };
+  
   const body = (
     <div className={styles.modal}>
       <div className="seguimiento">
@@ -195,17 +213,17 @@ export const SlideSeguimiento = (props) => {
                   GESTOR
                 </label>
 
-                <input
-                  value={values.gestorS}
-                  onChange={handleChange}
-                  id="gestorS"
-                  type="text"
-                  placeholder="Ingresa Gestor"
-                  onBlur={handleBlur}
-                  className={
-                    errors.gestorS && touched.gestorS ? "input-error" : ""
-                  }
-                />
+                <div className="selectDoble">
+                  <Select
+                    onBlur={handleBlur}
+                    onChange={onDropdownChange}
+                    styles={customStyles}
+                    options={gestores.map((ges) => ({
+                      label: ges.email,
+                      value: ges.email,
+                    }))}
+                  ></Select>
+                </div>
                 {errors.gestorS && touched.gestor && (
                   <p className="error">{errors.gestorS}</p>
                 )}

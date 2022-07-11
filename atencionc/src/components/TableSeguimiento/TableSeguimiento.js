@@ -15,6 +15,7 @@ export const TableSeguimiento = (props) => {
   const [gestion, setGestion] = useState([]);
   const [gestionR, setGestionR] = useState([]);
   const [gestionF, setGestionF] = useState([]);
+  
   var data = gestion;
   if (filtro != null) {
     axios.get("/api/gestions/curp/" + filtro.curp).then((response) => {

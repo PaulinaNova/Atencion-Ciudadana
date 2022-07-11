@@ -22,8 +22,6 @@ const validate = (values) => {
   //VALIDAR DEPENDENCIA
   if (!values.dependencia) {
     errores.dependencia = "CAMPO VACIO";
-  } else if (!/^(([A-Z])|([0-9]))*$/.test(values.dependencia)) {
-    errores.dependencia = "INGRESA CORRECTAMENTE";
   }
 
   //VALIDAR CURP
@@ -36,24 +34,17 @@ const validate = (values) => {
   //VALIDAR NOMBRE
   if (!values.nombre) {
     errores.nombre = "CAMPO VACIO";
-  } else if (!/^([A-Z])*$/.test(values.nombre)) {
-    errores.nombre = "INGRESA CORRECTAMENTE";
   }
 
   //VALIDAR APELLIDO PATERNO
   if (!values.apellidoPaterno) {
     errores.apellidoPaterno = "CAMPO VACIO";
-  } else if (!/^([A-Z])*$/.test(values.apellidoPaterno)) {
-    errores.apellidoPaterno = "INGRESA CORRECTAMENTE";
   }
 
   //VALIDAR APELLIDO MATERNO
   if (!values.apellidoMaterno) {
     errores.apellidoMaterno = "CAMPO VACIO";
-  } else if (!/^([A-Z])*$/.test(values.apellidoMaterno)) {
-    errores.apellidoMaterno = "INGRESA CORRECTAMENTE";
   }
-
   //VALIDAR TELEFONO
   if (!values.telefono) {
     errores.telefono = "CAMPO VACIO";
@@ -64,15 +55,11 @@ const validate = (values) => {
   //VALIDAR MUNICIPIO
   if (!values.municipio) {
     errores.municipio = "CAMPO VACIO";
-  } else if (!/^(([A-Z])|([0-9]))*$/.test(values.municipio)) {
-    errores.municipio = "INGRESA CORRECTAMENTE";
   }
 
   //VALIDAR LOCALIDAD
   if (!values.localidad) {
     errores.localidad = "CAMPO VACIO";
-  } else if (!/^(([A-Z])|([0-9]))*$/.test(values.localidad)) {
-    errores.localidad = "INGRESA CORRECTAMENTE";
   }
 
   //VALIDAR CODIGO POSTAL
@@ -85,15 +72,11 @@ const validate = (values) => {
   //VALIDAR COLONIA
   if (!values.colonia) {
     errores.colonia = "CAMPO VACIO";
-  } else if (!/^(([A-Z])|([0-9]))*$/.test(values.colonia)) {
-    errores.colonia = "INGRESA CORRECTAMENTE";
   }
 
   //VALIDAR CALLE
   if (!values.calle) {
     errores.calle = "CAMPO VACIO";
-  } else if (!/^(([A-Z])|([0-9]))*$/.test(values.calle)) {
-    errores.calle = "INGRESA CORRECTAMENTE";
   }
 
   //VALIDAR EMAIL
@@ -127,20 +110,40 @@ const onSubmit = async (values, actions) => {
 };
 
 const Gestores = () => {
+  const [dependencia, setDependencia] = useState([]);
+  const [localidad, setLocalidad] = useState([]);
+  const [selectedDep, setSelectedDep] = useState([]);
+  const [selectedMun, setSelectedMun] = useState([]);
+  const [selectedLoc, setSelectedLoc] = useState([]);
+  const onDropdownChangeDep = ({ value }) => {
+    setSelectedDep(value);
+  };
+  const onDropdownChangeMun = ({ value }) => {
+    setSelectedMun(value);
+  };
+  const onDropdownChangeLoc = ({ value }) => {
+    setSelectedLoc(value);
+  };
+
   const getData = async () => {
     const res = await axios.get("/api/municipio");
     setMunicipio(res.data);
+    const resp = await axios.get("/api/dependencia/");
+    setDependencia(resp.data);
+    const respL = await axios.get("/api/localidad/");
+    setLocalidad(respL.data);
   };
 
   useEffect(() => {
     getData();
   }, []);
 
+  //------------COMBOBOX----------------------------
   const customStyles = {
     control: (base) => ({
       ...base,
       height: 42,
-      borderRadius: 10
+      borderRadius: 10,
     }),
   };
 
@@ -148,14 +151,14 @@ const Gestores = () => {
     axios
       .post("/api/gestor/addGestor", {
         rfc: values.rfc,
-        dependencia: values.dependencia,
+        dependencia: selectedDep,
         curp: values.curp,
         nombre: values.nombre,
         apellidoPaterno: values.apellidoPaterno,
         apellidoMaterno: values.apellidoMaterno,
         telefono: values.telefono,
-        municipio: values.municipio,
-        localidad: values.localidad,
+        municipio: selectedMun,
+        localidad: selectedLoc,
         codigoPostal: values.codigoPostal,
         colonia: values.colonia,
         calle: values.calle,
@@ -174,7 +177,6 @@ const Gestores = () => {
   }
 
   const [municipios, setMunicipio] = useState([]);
-
   const {
     setValues,
     values,
@@ -205,9 +207,7 @@ const Gestores = () => {
     validate,
     onSubmit,
   });
-  const onDropdownChange = ({ value }) => {
-    console.log(value);
-  };
+
   return (
     <div className="gestores">
       <div>
@@ -237,19 +237,17 @@ const Gestores = () => {
 
               <div className="groupInput">
                 <label htmlFor="dependencia">DEPENDENCIA</label>
-                <input
-                  value={values.dependencia}
-                  onChange={handleChange}
-                  id="dependencia"
-                  type="text"
-                  placeholder="Ingresa dependencia"
-                  onBlur={handleBlur}
-                  className={
-                    errors.dependencia && touched.dependencia
-                      ? "input-error"
-                      : ""
-                  }
-                />
+                <div className="selectDoble">
+                  <Select
+                    onBlur={handleBlur}
+                    onChange={onDropdownChangeDep}
+                    styles={customStyles}
+                    options={dependencia.map((mun) => ({
+                      label: mun.nombre_dependencia,
+                      value: mun.nombre_dependencia,
+                    }))}
+                  ></Select>
+                </div>
                 {errors.dependencia && touched.dependencia && (
                   <p className="error">{errors.dependencia}</p>
                 )}
@@ -352,7 +350,7 @@ const Gestores = () => {
                 <div className="selectDoble">
                   <Select
                     onBlur={handleBlur}
-                    onChange={onDropdownChange}
+                    onChange={onDropdownChangeMun}
                     styles={customStyles}
                     options={municipios.map((mun) => ({
                       label: mun.nombre,
@@ -367,17 +365,17 @@ const Gestores = () => {
 
               <div className="groupInput">
                 <label htmlFor="localidad">LOCALIDAD</label>
-                <input
-                  value={values.localidad}
-                  onChange={handleChange}
-                  id="localidad"
-                  type="text"
-                  placeholder="Ingresa localidad"
-                  onBlur={handleBlur}
-                  className={
-                    errors.localidad && touched.localidad ? "input-error" : ""
-                  }
-                />
+                <div className="selectDoble">
+                  <Select
+                    onBlur={handleBlur}
+                    onChange={onDropdownChangeLoc}
+                    styles={customStyles}
+                    options={localidad.map((mun) => ({
+                      label: mun.nombre,
+                      value: mun.nombre,
+                    }))}
+                  ></Select>
+                </div>
                 {errors.localidad && touched.localidad && (
                   <p className="error">{errors.localidad}</p>
                 )}
