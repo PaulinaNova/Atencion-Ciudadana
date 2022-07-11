@@ -7,7 +7,6 @@ import "react-notifications/lib/notifications.css";
 import {NotificationContainer,NotificationManager,} from "react-notifications";
 import { useFormik } from "formik";
 import "./TableSeguimiento.css";
-import "node-mailjet";
 import Select from "react-select";
 
 const useStyles = makeStyles((theme) => ({
@@ -34,9 +33,7 @@ const onSubmit = async (values, actions) => {
 
 
 export const SlideSeguimiento = (props) => {
-
-  
-
+  const [selectedValue, setSelectedValue] = useState([]);
   const { abierto, gestion } = props;
   const [gestores, setGestor] = useState([]);
   const [seguimientos, setSeguimiento] = useState([]);
@@ -78,7 +75,7 @@ export const SlideSeguimiento = (props) => {
         estado: values.estadoS,
         presupuesto: values.presupuestoS,
         notas: gestion.notas,
-        gestor: values.gestorS,
+        gestor: selectedValue,
         seguimiento: {
           fecha_seguimiento: values.fecha_seguimientoS,
           descripcion_seguimiento: values.fecha_seguimientoS,
@@ -95,7 +92,7 @@ export const SlideSeguimiento = (props) => {
         folio: gestion.folio,
         fecha_seguimiento: values.fecha_seguimientoS,
         descripcion_seguimiento: values.descripcion_seguimiento,
-        gestor: values.gestorS,
+        gestor: selectedValue,
         presupuesto: values.presupuestoS,
       })
       .then((response) => {
@@ -106,7 +103,7 @@ export const SlideSeguimiento = (props) => {
         );
       });
     axios.post("/api/sendEmail", {
-      gestor: values.gestorS,
+      gestor: selectedValue,
     });
     updatePut();
     getData();
@@ -143,7 +140,7 @@ export const SlideSeguimiento = (props) => {
   };
 
   const onDropdownChange = ({ value }) => {
-    console.log(value);
+    setSelectedValue(value)
   };
 
   //------------COMBOBOX----------------------------
@@ -218,14 +215,14 @@ export const SlideSeguimiento = (props) => {
 
                 <div className="selectDoble">
                   <Select
-                      onBlur={handleBlur}
-                      onChange={onDropdownChange}
-                      styles={customStyles}
-                      options={gestores.map((ges) => ({
-                        label: ges.email,
-                        value: ges.email,
-                      }))}
-                    ></Select>
+                    onBlur={handleBlur}
+                    onChange={onDropdownChange}
+                    styles={customStyles}
+                    options={gestores.map((ges) => ({
+                      label: ges.email,
+                      value: ges.email,
+                    }))}
+                  ></Select>
                 </div>
                 {errors.gestorS && touched.gestor && (
                   <p className="error">{errors.gestorS}</p>
@@ -283,7 +280,7 @@ export const SlideSeguimiento = (props) => {
                   className="btn"
                   type="submit"
                 >
-                  Agregar A seguimiento
+                  Agregar seguimiento
                 </button>
                 <NotificationContainer />
               </div>

@@ -10,6 +10,7 @@ import seguimientoRoutes from "../server/routes/seguimientoRoute.js";
 import municipioRoutes from "../server/routes/municipioRoute.js";
 import localidadRoutes from "../server/routes/localidadRoute.js";
 import coloniaRoutes from "../server/routes/coloniaRoute.js";
+import eventoRoutes from "../server/routes/eventoRoute.js";
 import sendEmail from "./config/mailer.js";
 import express from "express";
 import bodyParser from "body-parser";
@@ -50,6 +51,8 @@ app.use("/api/municipio", municipioRoutes);
 app.use("/api/localidad", localidadRoutes);
 //Creating API for colonia
 app.use("/api/colonia", coloniaRoutes);
+//Creating API for evento
+app.use("/api/evento", eventoRoutes);
 //Sending email
 app.post("/api/sendEmail", (req, res) => {
   sendEmail(req.body.gestor);

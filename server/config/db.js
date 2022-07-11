@@ -9,6 +9,7 @@ import seguimientoModel from "../models/seguimientoModel.js";
 import municipioModel from "../models/municipioModel.js";
 import localidadModel from "../models/localidadModel.js";
 import coloniaModel from "../models/coloniaModel.js";
+import eventoModel from "../models/eventoModel.js";
 
 const connectDB = async () => {
   try {

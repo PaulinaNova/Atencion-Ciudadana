@@ -84,7 +84,9 @@ const validate = (values) => {
     errores.email = "CAMPO VACIO";
   } else if (
     !/^[a-zA-Z0-9.!#$%&'+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)$/.test(
-      values.email)) {
+      values.email
+    )
+  ) {
     errores.email = "INGRESA CORRECTAMENTE";
   }
 
@@ -108,9 +110,20 @@ const onSubmit = async (values, actions) => {
 };
 
 const Gestores = () => {
-
   const [dependencia, setDependencia] = useState([]);
   const [localidad, setLocalidad] = useState([]);
+  const [selectedDep, setSelectedDep] = useState([]);
+  const [selectedMun, setSelectedMun] = useState([]);
+  const [selectedLoc, setSelectedLoc] = useState([]);
+  const onDropdownChangeDep = ({ value }) => {
+    setSelectedDep(value);
+  };
+  const onDropdownChangeMun = ({ value }) => {
+    setSelectedMun(value);
+  };
+  const onDropdownChangeLoc = ({ value }) => {
+    setSelectedLoc(value);
+  };
 
   const getData = async () => {
     const res = await axios.get("/api/municipio");
@@ -130,11 +143,7 @@ const Gestores = () => {
     control: (base) => ({
       ...base,
       height: 42,
-<<<<<<< HEAD
-      borderRadius:10
-=======
-      borderRadius: 10
->>>>>>> 374a3f2d34d28ee378a89e44eab6d7cb3d020fa0
+      borderRadius: 10,
     }),
   };
 
@@ -142,14 +151,14 @@ const Gestores = () => {
     axios
       .post("/api/gestor/addGestor", {
         rfc: values.rfc,
-        dependencia: values.dependencia,
+        dependencia: selectedDep,
         curp: values.curp,
         nombre: values.nombre,
         apellidoPaterno: values.apellidoPaterno,
         apellidoMaterno: values.apellidoMaterno,
         telefono: values.telefono,
-        municipio: values.municipio,
-        localidad: values.localidad,
+        municipio: selectedMun,
+        localidad: selectedLoc,
         codigoPostal: values.codigoPostal,
         colonia: values.colonia,
         calle: values.calle,
@@ -168,7 +177,6 @@ const Gestores = () => {
   }
 
   const [municipios, setMunicipio] = useState([]);
-
   const {
     setValues,
     values,
@@ -199,9 +207,7 @@ const Gestores = () => {
     validate,
     onSubmit,
   });
-  const onDropdownChange = ({ value }) => {
-    console.log(value);
-  };
+
   return (
     <div className="gestores">
       <div>
@@ -232,9 +238,9 @@ const Gestores = () => {
               <div className="groupInput">
                 <label htmlFor="dependencia">DEPENDENCIA</label>
                 <div className="selectDoble">
-                <Select
+                  <Select
                     onBlur={handleBlur}
-                    onChange={onDropdownChange}
+                    onChange={onDropdownChangeDep}
                     styles={customStyles}
                     options={dependencia.map((mun) => ({
                       label: mun.nombre_dependencia,
@@ -344,14 +350,14 @@ const Gestores = () => {
                 <div className="selectDoble">
                   <Select
                     onBlur={handleBlur}
-                    onChange={onDropdownChange}
+                    onChange={onDropdownChangeMun}
                     styles={customStyles}
                     options={municipios.map((mun) => ({
                       label: mun.nombre,
                       value: mun.nombre,
                     }))}
                   ></Select>
-                  </div>
+                </div>
                 {errors.municipio && touched.municipio && (
                   <p className="error">{errors.municipio}</p>
                 )}
@@ -360,9 +366,9 @@ const Gestores = () => {
               <div className="groupInput">
                 <label htmlFor="localidad">LOCALIDAD</label>
                 <div className="selectDoble">
-                <Select
+                  <Select
                     onBlur={handleBlur}
-                    onChange={onDropdownChange}
+                    onChange={onDropdownChangeLoc}
                     styles={customStyles}
                     options={localidad.map((mun) => ({
                       label: mun.nombre,
