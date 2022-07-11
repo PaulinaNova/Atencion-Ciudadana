@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Gestores.css";
 import axios from "axios";
 import "react-notifications/lib/notifications.css";
@@ -6,6 +6,7 @@ import {NotificationContainer,NotificationManager} from "react-notifications";
 import {useFormik } from "formik";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Select from "react-select";
 
 const validate=(values)=>{
   let errores ={};
@@ -106,6 +107,7 @@ const validate=(values)=>{
   return errores;
 };
 
+
 const onSubmit = async (values, actions) => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
   actions.resetForm();
@@ -113,6 +115,48 @@ const onSubmit = async (values, actions) => {
 
 
 const Gestion = () => {
+
+
+  const [dependencia, setDependencia] = useState([]);
+  const [registra, setRegistra] = useState([]);
+  const [evento, setEvento] = useState([]);
+  const [selectedDep, setSelectedDep] = useState([]);
+  const [selectedReg, setSelectedReg] = useState([]);
+  const [selectedEv, setSelectedEv] = useState([]);
+
+  const onDropdownChangeDep = ({ value }) => {
+    setSelectedDep(value);
+  };
+  const onDropdownChangeReg = ({ value }) => {
+    setSelectedReg(value);
+  };
+  const onDropdownChangeEv = ({ value }) => {
+    setSelectedEv(value);
+  };
+
+  const getData = async () => {
+    const resR = await axios.get("/api/gestor");
+    setRegistra(resR.data);
+    const resD = await axios.get("/api/dependencia/");
+    setDependencia(resD.data);
+    const respE = await axios.get("/api/evento/");
+    setEvento(respE.data);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+  
+  //------------COMBOBOX----------------------------
+  const customStyles = {
+    control: (base) => ({
+      ...base,
+      height: 42,
+      borderRadius: 10,
+    }),
+  };
+  
+
   const datosC = useParams();
   const navigate = useNavigate();
   function createPost() {
@@ -128,13 +172,13 @@ const Gestion = () => {
         periodo: values.periodo,
         prioridad: values.prioridad,
         tipo: values.tipo,
-        dependencia: values.dependencia,
-        registra: values.registra,
+        dependencia: selectedDep,
+        registra: selectedReg,
         vencimiento: values.vencimiento,
         periodico: values.periodico,
         folio_interno: values.folio_interno,
         cant_benef: values.cant_benef,
-        evento: values.evento,
+        evento: selectedEv,
         estado: values.estado,
         presupuesto: values.presupuesto,
         notas: values.notas,
@@ -358,17 +402,17 @@ const Gestion = () => {
 
             <div className="groupInput">
               <label htmlFor="dependencia">DEPENDENCIA</label>
-              <select
-                id="dependencia"
-                className="slcG"
-                onBlur={handleBlur}
-                onChange={handleChange}
-              >
-                <option value="SEP">SEP</option>
-                <option value="1">SECRETARIA DE SALUD</option>
-                <option value="3">Secretaria de Desarrollo Rural</option>
-                <option value="4">Secretaria de Desarrollo Económico</option>
-              </select>
+              <div className="selectDoble">
+                    <Select
+                      onBlur={handleBlur}
+                      onChange={onDropdownChangeDep}
+                      styles={customStyles}
+                      options={dependencia.map((mun) => ({
+                        label: mun.nombre_dependencia,
+                        value: mun.nombre_dependencia,
+                      }))}
+                    ></Select>
+                  </div>
               {errors.dependencia && touched.dependencia && (
                 <p className="error">{errors.dependencia}</p>
               )}
@@ -376,17 +420,17 @@ const Gestion = () => {
 
             <div className="groupInput">
               <label htmlFor="registra">REGISTRA</label>
-              <input
-                value={values.registra}
-                onChange={handleChange}
-                id="registra"
-                type="text"
-                placeholder="Ingresa quien registra"
-                onBlur={handleBlur}
-                className={
-                  errors.registra && touched.registra ? "input-error" : ""
-                }
-              />
+              <div className="selectDoble">
+                    <Select
+                      onBlur={handleBlur}
+                      onChange={onDropdownChangeReg}
+                      styles={customStyles}
+                      options={registra.map((mun) => ({
+                        label: mun.nombre,
+                        value: mun.nombre,
+                      }))}
+                    ></Select>
+                  </div>
               {errors.registra && touched.registra && (
                 <p className="error">{errors.registra}</p>
               )}
@@ -468,15 +512,17 @@ const Gestion = () => {
 
             <div className="groupInput">
               <label htmlFor="evento">EVENTO</label>
-              <input
-                value={values.evento}
-                onChange={handleChange}
-                id="evento"
-                type="text"
-                placeholder="Ingresa evento"
-                onBlur={handleBlur}
-                className={errors.evento && touched.evento ? "input-error" : ""}
-              />
+              <div className="selectDoble">
+                    <Select
+                      onBlur={handleBlur}
+                      onChange={onDropdownChangeEv}
+                      styles={customStyles}
+                      options={evento.map((mun) => ({
+                        label: mun.nombre,
+                        value: mun.nombre,
+                      }))}
+                    ></Select>
+                  </div>
               {errors.evento && touched.evento && (
                 <p className="error">{errors.evento}</p>
               )}

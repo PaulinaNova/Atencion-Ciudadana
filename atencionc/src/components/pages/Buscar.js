@@ -138,8 +138,14 @@ const Buscar = () => {
     getData();
   }, []);
 
-  const onDropdownChange = ({ value }) => {
-    console.log(value);
+  const [selectedMun, setSelectedMun] = useState([]);
+  const [selectedLoc, setSelectedLoc] = useState([]);
+  
+  const onDropdownChangeMun = ({ value }) => {
+    setSelectedMun(value);
+  };
+  const onDropdownChangeLoc = ({ value }) => {
+    setSelectedLoc(value);
   };
 
   
@@ -163,8 +169,8 @@ const Buscar = () => {
         telefono: values.telefono,
         email: values.email,
         codigoPostal: values.codigoPostal,
-        municipio: values.municipio,
-        localidad: values.localidad,
+        municipio: selectedMun,
+        localidad: selectedLoc,
         colonia: values.colonia,
         calle: values.calle,
         caracteristica: values.caracteristica,
@@ -384,7 +390,7 @@ const Buscar = () => {
                   <div className="selectDoble">
                     <Select
                       onBlur={handleBlur}
-                      onChange={onDropdownChange}
+                      onChange={onDropdownChangeMun}
                       styles={customStyles}
                       options={municipios.map((mun) => ({
                         label: mun.nombre,
@@ -403,7 +409,7 @@ const Buscar = () => {
                   <div className="selectDoble">
                   <Select
                       onBlur={handleBlur}
-                      onChange={onDropdownChange}
+                      onChange={onDropdownChangeLoc}
                       styles={customStyles}
                       options={localidad.map((mun) => ({
                         label: mun.nombre,
