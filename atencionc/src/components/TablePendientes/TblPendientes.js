@@ -25,11 +25,11 @@ export const TblPendientes = (props) => {
     });
   } else if (cadena === "Vencidas") {
     data = data.filter(function(entry) {
-      return entry.captura <= "2022-02-01";
+      return entry.captura <= "2022-01-01";
     });
   } else if (cadena === "Pendientes") {
     data = data.filter(function(entry) {
-      return entry.estado <= "Aceptado";
+      return entry.estado <= "ACEPTADA";
     });
   }
 

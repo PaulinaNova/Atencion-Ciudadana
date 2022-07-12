@@ -31,7 +31,7 @@ export const Chart = (props) => {
       {
         label: "Solicitudes hechas a atención ciudadana en 2021",
         data: [concluidas, canceladas, seguimiento],
-        backgroundColor: ["Blue", "Yellow", "Orange"],
+        backgroundColor: ["Lightblue", "Lightgreen", "aquamarine"],
       },
     ],
   };
