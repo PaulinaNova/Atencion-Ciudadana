@@ -2,121 +2,113 @@ import React, { useState, useEffect } from "react";
 import "./Gestores.css";
 import axios from "axios";
 import "react-notifications/lib/notifications.css";
-import {NotificationContainer,NotificationManager} from "react-notifications";
-import {useFormik } from "formik";
+import {
+  NotificationContainer,
+  NotificationManager,
+} from "react-notifications";
+import { useFormik } from "formik";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 
-const validate=(values)=>{
-  let errores ={};
-
-  //VALIDAR FOLIO
-  if(!values.folio){
-    errores.folio = "CAMPO VACIO"
-  } else if(!/^([0-9])*$/.test(values.folio)){
-    errores.folio = "INGRESA CORRECTAMENTE"
-  }
+const validate = (values) => {
+  let errores = {};
 
   //VALIDAR DESCRIPCION
-  if(!values.descripcion){
-    errores.descripcion = "CAMPO VACIO"
-  } 
+  if (!values.descripcion) {
+    errores.descripcion = "CAMPO VACIO";
+  }
 
-   //VALIDAR FECHA
-   if(!values.fecha){
-    errores.fecha = "CAMPO VACIO"
-  } 
+  //VALIDAR FECHA
+  if (!values.fecha) {
+    errores.fecha = "CAMPO VACIO";
+  }
 
   //VALIDAR PROCEDENCIA
-  if(!values.procedencia){
-    errores.procedencia = "CAMPO VACIO"
+  if (!values.procedencia) {
+    errores.procedencia = "CAMPO VACIO";
   }
 
-   //VALIDAR PERIODO
-   if(!values.periodo){
-    errores.periodo = "CAMPO VACIO"
+  //VALIDAR PERIODO
+  if (!values.periodo) {
+    errores.periodo = "CAMPO VACIO";
   }
 
-   //VALIDAR PRIORIDAD
-  if(!values.prioridad){
-    errores.prioridad = "CAMPO VACIO"
+  //VALIDAR PRIORIDAD
+  if (!values.prioridad) {
+    errores.prioridad = "CAMPO VACIO";
   }
 
   //VALIDAR TIPO
-  if(!values.tipo){
-    errores.tipo = "CAMPO VACIO"
+  if (!values.tipo) {
+    errores.tipo = "CAMPO VACIO";
   }
 
   //VALIDAR DEPENDENCIA
-  if(!values.dependencia){
-    errores.dependencia = "CAMPO VACIO"
+  if (!values.dependencia) {
+    errores.dependencia = "CAMPO VACIO";
   }
 
   //VALIDAR REGISTRA
-  if(!values.registra){
-    errores.registra = "CAMPO VACIO"
+  if (!values.registra) {
+    errores.registra = "CAMPO VACIO";
   }
-  
-   //VALIDAR VENCIMIENTO
-   if(!values.vencimiento){
-    errores.vencimiento = "CAMPO VACIO"
-  } 
+
+  //VALIDAR VENCIMIENTO
+  if (!values.vencimiento) {
+    errores.vencimiento = "CAMPO VACIO";
+  }
 
   //VALIDAR PERIODICO
-  if(!values.periodico){
-    errores.periodico = "CAMPO VACIO"
+  if (!values.periodico) {
+    errores.periodico = "CAMPO VACIO";
   }
 
   //VALIDAR FOLIO_INTERNO
-  if(!values.folio_interno){
-    errores.folio_interno = "CAMPO VACIO"
-  } else if(!/^([0-9])*$/.test(values.folio_interno)){
-    errores.folio_interno = "INGRESA CORRECTAMENTE"
+  if (!values.folio_interno) {
+    errores.folio_interno = "CAMPO VACIO";
+  } else if (!/^([0-9])*$/.test(values.folio_interno)) {
+    errores.folio_interno = "INGRESA CORRECTAMENTE";
   }
 
-   //VALIDAR CANTIDAD DE BENEFICIADOS
-   if(!values.cant_benef){
-    errores.cant_benef = "CAMPO VACIO"
-  } else if(!/^([0-9])*$/.test(values.cant_benef)){
-    errores.cant_benef = "INGRESA CORRECTAMENTE"
+  //VALIDAR CANTIDAD DE BENEFICIADOS
+  if (!values.cant_benef) {
+    errores.cant_benef = "CAMPO VACIO";
+  } else if (!/^([0-9])*$/.test(values.cant_benef)) {
+    errores.cant_benef = "INGRESA CORRECTAMENTE";
   }
 
-   //VALIDAR EVENTO
-   if(!values.evento){
-    errores.evento = "CAMPO VACIO"
+  //VALIDAR EVENTO
+  if (!values.evento) {
+    errores.evento = "CAMPO VACIO";
   }
 
   //VALIDAR ESTADO
-  if(!values.estado){
-    errores.estado = "CAMPO VACIO"
-  } 
+  if (!values.estado) {
+    errores.estado = "CAMPO VACIO";
+  }
 
   //VALIDAR PRESUPUESTO
-   if(!values.presupuesto){
-    errores.presupuesto = "CAMPO VACIO"
-  } else if(!/^([0-9])*$/.test(values.presupuesto)){
-    errores.presupuesto = "INGRESA CORRECTAMENTE"
+  if (!values.presupuesto) {
+    errores.presupuesto = "CAMPO VACIO";
+  } else if (!/^([0-9])*$/.test(values.presupuesto)) {
+    errores.presupuesto = "INGRESA CORRECTAMENTE";
   }
 
   //VALIDAR NOTAS
-  if(!values.notas){
-    errores.notas = "CAMPO VACIO"
-  } 
+  if (!values.notas) {
+    errores.notas = "CAMPO VACIO";
+  }
 
   return errores;
 };
-
 
 const onSubmit = async (values, actions) => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
   actions.resetForm();
 };
 
-
 const Gestion = () => {
-
-
   const [dependencia, setDependencia] = useState([]);
   const [registra, setRegistra] = useState([]);
   const [evento, setEvento] = useState([]);
@@ -146,7 +138,7 @@ const Gestion = () => {
   useEffect(() => {
     getData();
   }, []);
-  
+
   //------------COMBOBOX----------------------------
   const customStyles = {
     control: (base) => ({
@@ -155,16 +147,18 @@ const Gestion = () => {
       borderRadius: 10,
     }),
   };
-  
 
   const datosC = useParams();
   const navigate = useNavigate();
   function createPost() {
     axios
       .post("/api/gestions/addGestion", {
-        folio: values.folio,
         nombre_ciudadano:
-          datosC.nombre + " " + datosC.apellidoPaterno + " " + datosC.apellidoMaterno,
+          datosC.nombre +
+          " " +
+          datosC.apellidoPaterno +
+          " " +
+          datosC.apellidoMaterno,
         curp: datosC.curp,
         descripcion: values.descripcion,
         fecha: values.fecha,
@@ -191,7 +185,8 @@ const Gestion = () => {
       .then((response) => {
         setValues(response.data);
         NotificationManager.success(
-          "La gestión fue agregada correctamente","Exito"
+          "La gestión fue agregada correctamente",
+          "Exito"
         );
       });
   }
@@ -245,11 +240,11 @@ const Gestion = () => {
             <div className="groupInput">
               <label htmlFor="folio">FOLIO</label>
               <input
+                readOnly
                 value={values.folio}
                 onChange={handleChange}
                 id="folio"
                 type="text"
-                placeholder="Ingresa folio"
                 onBlur={handleBlur}
                 className={errors.folio && touched.folio ? "input-error" : ""}
               />
@@ -373,9 +368,12 @@ const Gestion = () => {
 
             <div className="groupInput">
               <label htmlFor="prioridad">PRIORIDAD</label>
-              <select id="prioridad" className="slcG"
+              <select
+                id="prioridad"
+                className="slcG"
                 onBlur={handleBlur}
-                onChange={handleChange}>
+                onChange={handleChange}
+              >
                 <option>Alta</option>
                 <option>Baja</option>
               </select>
@@ -403,16 +401,16 @@ const Gestion = () => {
             <div className="groupInput">
               <label htmlFor="dependencia">DEPENDENCIA</label>
               <div className="selectDoble">
-                    <Select
-                      onBlur={handleBlur}
-                      onChange={onDropdownChangeDep}
-                      styles={customStyles}
-                      options={dependencia.map((mun) => ({
-                        label: mun.nombre_dependencia,
-                        value: mun.nombre_dependencia,
-                      }))}
-                    ></Select>
-                  </div>
+                <Select
+                  onBlur={handleBlur}
+                  onChange={onDropdownChangeDep}
+                  styles={customStyles}
+                  options={dependencia.map((mun) => ({
+                    label: mun.nombre_dependencia,
+                    value: mun.nombre_dependencia,
+                  }))}
+                ></Select>
+              </div>
               {errors.dependencia && touched.dependencia && (
                 <p className="error">{errors.dependencia}</p>
               )}
@@ -421,16 +419,16 @@ const Gestion = () => {
             <div className="groupInput">
               <label htmlFor="registra">REGISTRA</label>
               <div className="selectDoble">
-                    <Select
-                      onBlur={handleBlur}
-                      onChange={onDropdownChangeReg}
-                      styles={customStyles}
-                      options={registra.map((mun) => ({
-                        label: mun.nombre,
-                        value: mun.nombre,
-                      }))}
-                    ></Select>
-                  </div>
+                <Select
+                  onBlur={handleBlur}
+                  onChange={onDropdownChangeReg}
+                  styles={customStyles}
+                  options={registra.map((mun) => ({
+                    label: mun.nombre,
+                    value: mun.nombre,
+                  }))}
+                ></Select>
+              </div>
               {errors.registra && touched.registra && (
                 <p className="error">{errors.registra}</p>
               )}
@@ -513,16 +511,16 @@ const Gestion = () => {
             <div className="groupInput">
               <label htmlFor="evento">EVENTO</label>
               <div className="selectDoble">
-                    <Select
-                      onBlur={handleBlur}
-                      onChange={onDropdownChangeEv}
-                      styles={customStyles}
-                      options={evento.map((mun) => ({
-                        label: mun.nombre,
-                        value: mun.nombre,
-                      }))}
-                    ></Select>
-                  </div>
+                <Select
+                  onBlur={handleBlur}
+                  onChange={onDropdownChangeEv}
+                  styles={customStyles}
+                  options={evento.map((mun) => ({
+                    label: mun.nombre,
+                    value: mun.nombre,
+                  }))}
+                ></Select>
+              </div>
               {errors.evento && touched.evento && (
                 <p className="error">{errors.evento}</p>
               )}

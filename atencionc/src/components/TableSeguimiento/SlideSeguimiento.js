@@ -46,7 +46,7 @@ export const SlideSeguimiento = (props) => {
     setGestor(respG.data);
   };
 
-  datos = datos.filter((entry) => entry.folio === gestion.folio);
+  datos = datos.filter((entry) => entry.folio === gestion._id);
 
   useEffect(() => {
     getData();
@@ -56,7 +56,7 @@ export const SlideSeguimiento = (props) => {
   function updatePut() {
     axios
       .put("/api/gestions/updtGestion/" + gestion.folio, {
-        folio: gestion.folio,
+        folio: gestion._id,
         nombre_ciudadano: gestion.nombre_ciudadano,
         curp: gestion.curp,
         descripcion: gestion.descripcion,
@@ -89,7 +89,7 @@ export const SlideSeguimiento = (props) => {
   function createPost() {
     axios
       .post("/api/seguimiento/addSeguimiento", {
-        folio: gestion.folio,
+        folio: gestion._id,
         fecha_seguimiento: values.fecha_seguimientoS,
         descripcion_seguimiento: values.descripcion_seguimiento,
         gestor: selectedValue,

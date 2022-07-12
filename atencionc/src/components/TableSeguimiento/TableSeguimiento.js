@@ -1,10 +1,9 @@
 import React, { useMemo, useState, useEffect } from "react";
-import { useTable, useGlobalFilter } from "react-table";
+import { useTable, useFilters } from "react-table";
 import { COLUMNS } from "./ColumnsSeguimiento";
 import "./TableSeguimiento.css";
 import SlideSeguimiento from "../TableSeguimiento/SlideSeguimiento";
 import axios from "axios";
-import { GlobalFilter } from "./GlobalFilterSeguimiento";
 
 /*----------CREAR EL FONDO DE LA PANTALLA----------- */
 
@@ -15,21 +14,9 @@ export const TableSeguimiento = (props) => {
   const [gestion, setGestion] = useState([]);
   const [gestionR, setGestionR] = useState([]);
   const [gestionF, setGestionF] = useState([]);
-  
-  var data = gestion;
-  if (filtro != null) {
-    axios.get("/api/gestions/curp/" + filtro.curp).then((response) => {
-      setGestionF(response.data);
-    });
-    data = gestionF;
-  }
-  if (gestor != null) {
-    axios.get("/api/gestions/gestor/" + gestor).then((response) => {
-      setGestionF(response.data);
-    });
-    data = gestionF;
-  }
+  const [gestionG, setGestionG] = useState([]);
 
+  var data = gestion;
   const getData = async () => {
     const res = await axios.get("/api/gestions");
     setGestion(res.data);
@@ -39,24 +26,33 @@ export const TableSeguimiento = (props) => {
     getData();
   }, []);
 
+  if (filtro != null) {
+    axios.get("/api/gestions/curp/" + filtro.curp).then((response) => {
+      setGestionF(response.data);
+    });
+    data = gestionF;
+  }
+  if (gestor != null) {
+    axios.get("/api/gestions/gestor/" + gestor).then((response) => {
+      setGestionG(response.data);
+    });
+    data = gestionG;
+  }
+
   const {
     getTableProps,
     getTableBodyProps,
     headerGroups,
     rows,
     prepareRow,
-    state,
-    setGlobalFilter,
     toggleHideColumn,
   } = useTable(
     {
       columns,
       data,
     },
-    useGlobalFilter
+    useFilters
   );
-
-  var { globalFilter } = state;
 
   function handleClick(gestions) {
     setIsShown(!isShown);
@@ -74,7 +70,6 @@ export const TableSeguimiento = (props) => {
       </div>
 
       <div style={{ width: isShown ? "75%" : "" }} className="inpdiv">
-        <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
         <input
           placeholder={!isShown ? "Nombre" : gestionR.nombre_ciudadano}
           className="intbl3"
@@ -90,7 +85,12 @@ export const TableSeguimiento = (props) => {
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps}>
               {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+                <th {...column.getHeaderProps()}>
+                  {column.render("Header")}
+                  <div>
+                    {column.canFilter ? column.render("Filter") : null}
+                  </div>
+                </th>
               ))}
             </tr>
           ))}

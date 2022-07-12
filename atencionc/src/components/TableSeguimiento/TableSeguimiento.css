@@ -74,7 +74,7 @@
 .tblsegui .inpdiv {
   gap: 1rem;
   display: grid;
-  grid-template-columns: repeat(2, 49%);
+  grid-template-columns: repeat(1, 100%);
   margin-bottom: 4vh;
 }
 
