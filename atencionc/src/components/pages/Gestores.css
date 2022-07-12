@@ -24,7 +24,7 @@
   margin-top: 2vh;
 }
 
-#password,
+#password,#isAdmin,
 #rfc,
 #dependencia,
 #curp,
@@ -86,7 +86,7 @@ label {
 }
 
 .formulario .btnG {
-  margin-left: 210%;
+  margin-left: 105%;
   margin-top: 1vh;
   width: 100%;
 }

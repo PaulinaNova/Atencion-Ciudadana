@@ -110,6 +110,7 @@ const onSubmit = async (values, actions) => {
 };
 
 const Gestores = () => {
+  var admin;
   const [dependencia, setDependencia] = useState([]);
   const [localidad, setLocalidad] = useState([]);
   const [selectedDep, setSelectedDep] = useState([]);
@@ -147,7 +148,14 @@ const Gestores = () => {
     }),
   };
 
+  
+
   function createPost() {
+    /*if(values.isAdmin === 'SI'){
+      admin=true;
+    }else{
+      admin=false;
+    }*/
     axios
       .post("/api/gestor/addGestor", {
         rfc: values.rfc,
@@ -165,7 +173,7 @@ const Gestores = () => {
         email: values.email,
         userName: values.userName,
         password: values.password,
-        isAdmin: false,
+        isAdmin: admin,
       })
       .then((response) => {
         setValues(response.data);
@@ -203,10 +211,20 @@ const Gestores = () => {
       email: "",
       userName: "",
       password: "",
+      isAdmin:"",
     },
     validate,
     onSubmit,
   });
+
+  if(values.isAdmin === 'SI'){
+    admin=true;
+    console.log(admin);
+  }else{
+    admin=false;
+    console.log(admin);
+  }
+  
 
   return (
     <div className="gestores">
@@ -486,6 +504,22 @@ const Gestores = () => {
                   <p className="error">{errors.password}</p>
                 )}
               </div>
+
+              <div className="groupInput">
+              <label htmlFor="isAdmin">ADMINISTRADOR</label>
+              <select
+                id="isAdmin"
+                className="slcG"
+                onBlur={handleBlur}
+                onChange={handleChange}
+              >
+                <option>SI</option>
+                <option>NO</option>
+              </select>
+              {errors.isAdmin && touched.isAdmin && (
+                <p className="error">{errors.isAdmin}</p>
+              )}
+            </div>
 
               <div className="btnG">
                 <button
