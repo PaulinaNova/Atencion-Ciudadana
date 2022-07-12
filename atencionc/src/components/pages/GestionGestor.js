@@ -437,9 +437,9 @@ const GestionGestor = () => {
                 onBlur={handleBlur}
                 onChange={handleChange}
               >
-                <option value="1">Ingresa SI/NO</option>
-                <option value="2">SI</option>
-                <option value="3">NO</option>
+                <option>Ingresa SI/NO</option>
+                <option>SI</option>
+                <option>NO</option>
               </select>
 
               {errors.periodico && touched.periodico && (
@@ -509,10 +509,10 @@ const GestionGestor = () => {
                 onBlur={handleBlur}
                 onChange={handleChange}
               >
-                <option value="1">Ingresa Estado</option>
-                <option value="2">SEGUIMIENTO</option>
-                <option value="3">CONCLUIDA</option>
-                <option value="4">CANCELADA</option>
+                <option>Ingresa Estado</option>
+                <option>SEGUIMIENTO</option>
+                <option>CONCLUIDA</option>
+                <option>CANCELADA</option>
               </select>
               {errors.estado && touched.estado && (
                 <p className="error">{errors.estado}</p>
