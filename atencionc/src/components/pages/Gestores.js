@@ -256,7 +256,6 @@ const Gestores = () => {
       password: "",
       isAdmin:"",
     },
-    validate,
     onSubmit,
   });
 
