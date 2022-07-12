@@ -9,6 +9,10 @@ export const TblPendientes = (props) => {
   const columns = useMemo(() => COLUMNS, []);
   const [gestion, setGestion] = useState([]);
   var data = gestion;
+  const fecha = new Date();
+  const hoy = fecha.getDate();
+  const mesActual = fecha.getMonth() + 1;
+  const añoActual = fecha.getFullYear();
 
   const getData = async () => {
     const res = await axios.get("/api/gestions");
@@ -25,11 +29,11 @@ export const TblPendientes = (props) => {
     });
   } else if (cadena === "Vencidas") {
     data = data.filter(function(entry) {
-      return entry.captura <= "2022-01-01";
+      return entry.vencimiento < (añoActual + "/" + mesActual + "/" + hoy) && entry.estado === "ACEPTADA";
     });
   } else if (cadena === "Pendientes") {
     data = data.filter(function(entry) {
-      return entry.estado <= "ACEPTADA";
+      return entry.estado === "ACEPTADA";
     });
   }
 

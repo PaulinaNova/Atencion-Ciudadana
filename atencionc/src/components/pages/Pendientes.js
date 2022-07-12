@@ -11,11 +11,11 @@ function Pendientes() {
         </div>
         <div className="vencidas">
           <h3>Pendientes</h3>
-          <TblPendientes cadena={"Vencidas"} />
+          <TblPendientes cadena={"Pendientes"} />
         </div>
         <div className="pendiente">
           <h3>Vencidas</h3>
-          <TblPendientes cadena={"Pendientes"} />
+          <TblPendientes cadena={"Vencidas"} />
         </div>
       </div>
     </div>

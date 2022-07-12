@@ -373,6 +373,7 @@ const Gestion = () => {
                 onBlur={handleBlur}
                 onChange={handleChange}
               >
+                <option>Ingresa prioridad</option>
                 <option>ALTA</option>
                 <option>BAJA</option>
               </select>
@@ -534,11 +535,7 @@ const Gestion = () => {
                 onChange={handleChange}
               >
                 <option>Ingresa Estado</option>
-                <option>ASIGNADA</option>
                 <option>ACEPTADA</option>
-                <option>SEGUIMIENTO</option>
-                <option>CONCLUIDA</option>
-                <option>CANCELADA</option>
               </select>
               {errors.estado && touched.estado && (
                 <p className="error">{errors.estado}</p>
