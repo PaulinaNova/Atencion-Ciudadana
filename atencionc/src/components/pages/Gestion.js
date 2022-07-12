@@ -389,8 +389,8 @@ const Gestion = () => {
                 onBlur={handleBlur}
                 onChange={handleChange}
               >
-                <option value="1">Ingresa tipo</option>
-                <option value="2">ORDINARIO</option>
+                <option>Ingresa tipo</option>
+                <option>ORDINARIO</option>
               </select>
               {errors.tipo && touched.tipo && (
                 <p className="error">{errors.tipo}</p>
@@ -459,9 +459,9 @@ const Gestion = () => {
                 onBlur={handleBlur}
                 onChange={handleChange}
               >
-                <option value="1">Ingresa SI/NO</option>
-                <option value="2">SI</option>
-                <option value="3">NO</option>
+                <option>Ingresa SI/NO</option>
+                <option>SI</option>
+                <option>NO</option>
               </select>
 
               {errors.periodico && touched.periodico && (
@@ -533,12 +533,12 @@ const Gestion = () => {
                 onBlur={handleBlur}
                 onChange={handleChange}
               >
-                <option value="1">Ingresa Estado</option>
-                <option value="2">ASIGNADA</option>
-                <option value="3">ACEPTADA</option>
-                <option value="4">SEGUIMIENTO</option>
-                <option value="5">CONCLUIDA</option>
-                <option value="6">CANCELADA</option>
+                <option>Ingresa Estado</option>
+                <option>ASIGNADA</option>
+                <option>ACEPTADA</option>
+                <option>SEGUIMIENTO</option>
+                <option>CONCLUIDA</option>
+                <option>CANCELADA</option>
               </select>
               {errors.estado && touched.estado && (
                 <p className="error">{errors.estado}</p>
