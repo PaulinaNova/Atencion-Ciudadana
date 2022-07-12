@@ -345,17 +345,15 @@ const GestionGestor = () => {
 
             <div className="groupInput">
               <label htmlFor="prioridad">PRIORIDAD</label>
-              <input
-                value={values.prioridad}
-                onChange={handleChange}
+              <select
                 id="prioridad"
-                type="text"
-                placeholder="Ingresa prioridad"
+                className="slcG"
                 onBlur={handleBlur}
-                className={
-                  errors.prioridad && touched.prioridad ? "input-error" : ""
-                }
-              />
+                onChange={handleChange}
+              >
+                <option>ALTA</option>
+                <option>BAJA</option>
+              </select>
               {errors.prioridad && touched.prioridad && (
                 <p className="error">{errors.prioridad}</p>
               )}

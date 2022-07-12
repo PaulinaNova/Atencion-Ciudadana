@@ -233,18 +233,19 @@ export const SlideSeguimiento = (props) => {
                 <label className="lblSeg" htmlFor="estadoS">
                   ESTADO
                 </label>
-
-                <input
-                  value={values.estadoS}
-                  onChange={handleChange}
-                  id="estadoS"
-                  type="text"
-                  placeholder="Ingresa Estado"
-                  onBlur={handleBlur}
-                  className={
-                    errors.estadoS && touched.estadoS ? "input-error" : ""
-                  }
-                />
+                <select
+                id="estadoS"
+                className="slcG"
+                onBlur={handleBlur}
+                onChange={handleChange}
+              >
+                <option value="1">Ingresa Estado</option>
+                <option value="2">ASIGNADA</option>
+                <option value="3">ACEPTADA</option>
+                <option value="4">SEGUIMIENTO</option>
+                <option value="5">CONCLUIDA</option>
+                <option value="6">CANCELADA</option>
+              </select>
                 {errors.estadoS && touched.estadoS && (
                   <p className="error">{errors.estadoS}</p>
                 )}
