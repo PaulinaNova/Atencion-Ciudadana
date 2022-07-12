@@ -239,12 +239,12 @@ export const SlideSeguimiento = (props) => {
                 onBlur={handleBlur}
                 onChange={handleChange}
               >
-                <option value="1">Ingresa Estado</option>
-                <option value="2">ASIGNADA</option>
-                <option value="3">ACEPTADA</option>
-                <option value="4">SEGUIMIENTO</option>
-                <option value="5">CONCLUIDA</option>
-                <option value="6">CANCELADA</option>
+                <option>Ingresa Estado</option>
+                <option>ASIGNADA</option>
+                <option>ACEPTADA</option>
+                <option >SEGUIMIENTO</option>
+                <option>CONCLUIDA</option>
+                <option>CANCELADA</option>
               </select>
                 {errors.estadoS && touched.estadoS && (
                   <p className="error">{errors.estadoS}</p>

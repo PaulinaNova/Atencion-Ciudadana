@@ -389,8 +389,8 @@ const Gestion = () => {
                 onBlur={handleBlur}
                 onChange={handleChange}
               >
-                <option value="1">Ingresa tipo</option>
-                <option value="2">ORDINARIO</option>
+                <option>Ingresa tipo</option>
+                <option>ORDINARIO</option>
               </select>
               {errors.tipo && touched.tipo && (
                 <p className="error">{errors.tipo}</p>
