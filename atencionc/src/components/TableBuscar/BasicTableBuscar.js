@@ -107,7 +107,7 @@ const validate = (values) => {
   //VALIDAR CALLE
   if (!values.calle) {
     errores.calle = "CAMPO VACIO";
-  } 
+  }
 
   //VALIDAR CARACTERISTICA
   if (!values.caracteristica) {
@@ -124,6 +124,8 @@ const BasicTableBuscar = () => {
   const [ciudadano, setCiudadano] = useState([]);
   const [campos, setCampos] = useState([]);
   const data = ciudadano;
+  const [localidad, setLocalidad] = useState([]);
+  const [municipios, setMunicipio] = useState([]);
 
   const getData = async () => {
     const res = await axios.get("/api/ciudadano");
@@ -133,6 +135,62 @@ const BasicTableBuscar = () => {
     const respL = await axios.get("/api/localidad/");
     setLocalidad(respL.data);
   };
+  useEffect(() => {
+    getData();
+  }, []);
+  
+  const [selectedMun, setSelectedMun] = useState([]);
+  const [selectedLoc, setSelectedLoc] = useState([]);
+  var loc = localidad;
+
+  const onDropdownChangeMun = ({ value }) => {
+    setSelectedMun(value);
+  };
+  const onDropdownChangeLoc = ({ value }) => {
+    setSelectedLoc(value);
+  };
+
+  if (selectedMun === "ACAPONETA") {
+    loc = loc.filter((entry) => entry.clave.startsWith("180010"));
+  } else if (selectedMun === "AHUACATLAN") {
+    loc = loc.filter((entry) => entry.clave.startsWith("180020"));
+  } else if (selectedMun === "AMATLAN") {
+    loc = loc.filter((entry) => entry.clave.startsWith("180030"));
+  } else if (selectedMun === "COMPOSTELA") {
+    loc = loc.filter((entry) => entry.clave.startsWith("180040"));
+  } else if (selectedMun === "HUAJICORI") {
+    loc = loc.filter((entry) => entry.clave.startsWith("180050"));
+  } else if (selectedMun === "IXTLAN") {
+    loc = loc.filter((entry) => entry.clave.startsWith("180060"));
+  } else if (selectedMun === "JALA") {
+    loc = loc.filter((entry) => entry.clave.startsWith("180070"));
+  } else if (selectedMun === "XALISCO") {
+    loc = loc.filter((entry) => entry.clave.startsWith("180080"));
+  } else if (selectedMun === "DEL NAYAR") {
+    loc = loc.filter((entry) => entry.clave.startsWith("180090"));
+  } else if (selectedMun === "ROSAMORADA") {
+    loc = loc.filter((entry) => entry.clave.startsWith("180100"));
+  } else if (selectedMun === "RUIZ") {
+    loc = loc.filter((entry) => entry.clave.startsWith("180110"));
+  } else if (selectedMun === "SAN BLAS") {
+    loc = loc.filter((entry) => entry.clave.startsWith("180120"));
+  } else if (selectedMun === "SAN PEDRO") {
+    loc = loc.filter((entry) => entry.clave.startsWith("180130"));
+  } else if (selectedMun === "SAMAO") {
+    loc = loc.filter((entry) => entry.clave.startsWith("180140"));
+  } else if (selectedMun === "SANTIAGO") {
+    loc = loc.filter((entry) => entry.clave.startsWith("180150"));
+  } else if (selectedMun === "TECUALA") {
+    loc = loc.filter((entry) => entry.clave.startsWith("180160"));
+  } else if (selectedMun === "TEPIC") {
+    loc = loc.filter((entry) => entry.clave.startsWith("180170"));
+  } else if (selectedMun === "TUXPAN") {
+    loc = loc.filter((entry) => entry.clave.startsWith("180180"));
+  } else if (selectedMun === "YESCA") {
+    loc = loc.filter((entry) => entry.clave.startsWith("180190"));
+  } else if (selectedMun === "BAHIA") {
+    loc = loc.filter((entry) => entry.clave.startsWith("180200"));
+  }
 
   function updtPut() {
     axios
@@ -145,8 +203,8 @@ const BasicTableBuscar = () => {
         telefono: values.telefono,
         email: values.email,
         codigoPostal: values.codigoPostal,
-        municipio: values.municipio,
-        localidad: values.localidad,
+        municipio: selectedMun,
+        localidad: selectedLoc,
         colonia: values.colonia,
         calle: values.calle,
         caracteristica: values.caracteristica,
@@ -166,10 +224,10 @@ const BasicTableBuscar = () => {
     control: (base) => ({
       ...base,
       height: 42,
-      borderRadius:10
+      borderRadius: 10,
     }),
   };
-  
+
   const onSubmit = async (values, actions) => {
     //METER LO DE LA BD
     updtPut();
@@ -215,17 +273,6 @@ const BasicTableBuscar = () => {
     setModal(!modal);
   };
 
-  const [localidad, setLocalidad] = useState([]);
-  const [municipios, setMunicipio] = useState([]);
-
-
-  useEffect(() => {
-    getData();
-  }, []);
-
-  const onDropdownChange = ({ value }) => {
-    console.log(value);
-  };
   /*------------CREAR FORMULARIO INTERNO------------- */
   const body = (
     <div className={styles.modal}>
@@ -385,16 +432,16 @@ const BasicTableBuscar = () => {
         <div className="groupInput">
           <label htmlFor="municipio">MUNICIPIO</label>
           <div className="selectDoble">
-                    <Select
-                      onBlur={handleBlur}
-                      onChange={onDropdownChange}
-                      styles={customStyles}
-                      options={municipios.map((mun) => ({
-                        label: mun.nombre,
-                        value: mun.nombre,
-                      }))}
-                    ></Select>
-                  </div>
+            <Select
+              onBlur={handleBlur}
+              onChange={onDropdownChangeMun}
+              styles={customStyles}
+              options={municipios.map((mun) => ({
+                label: mun.nombre,
+                value: mun.nombre,
+              }))}
+            ></Select>
+          </div>
           {errors.municipio && touched.municipio && (
             <p className="error">{errors.municipio}</p>
           )}
@@ -403,16 +450,16 @@ const BasicTableBuscar = () => {
         <div className="groupInput">
           <label htmlFor="localidad">LOCALIDAD</label>
           <div className="selectDoble">
-                  <Select
-                      onBlur={handleBlur}
-                      onChange={onDropdownChange}
-                      styles={customStyles}
-                      options={localidad.map((mun) => ({
-                        label: mun.nombre,
-                        value: mun.nombre,
-                      }))}
-                    ></Select>
-                </div>
+            <Select
+              onBlur={handleBlur}
+              onChange={onDropdownChangeLoc}
+              styles={customStyles}
+              options={loc.map((mun) => ({
+                label: mun.nombre,
+                value: mun.nombre,
+              }))}
+            ></Select>
+          </div>
           {errors.localidad && touched.localidad && (
             <p className="error">{errors.localidad}</p>
           )}
