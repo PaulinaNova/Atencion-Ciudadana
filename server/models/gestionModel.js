@@ -2,10 +2,6 @@ import mongoose from "mongoose";
 
 const gestionSchema = mongoose.Schema(
   {
-    folio: {
-      type: Number,
-      unique: true,
-    },
     nombre_ciudadano: {
       type: String,
     },

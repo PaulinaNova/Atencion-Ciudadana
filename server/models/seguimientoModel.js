@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const seguimientoSchema = mongoose.Schema(
   {
     folio: {
-      type: Number,
+      type: String,
     },
     fecha_seguimiento: {
       type: String,

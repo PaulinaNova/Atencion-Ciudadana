@@ -58,10 +58,11 @@ export const Navbar = () => {
                   );
                 })}
             <li className="nav-text">
-              <Link to={"/login"} reloadDocument >
+              <Link to={"/login"} reloadDocument>
                 <IoIcons.IoIosLogOut />
                 <span>Cerrar sesión</span>
               </Link>
+              {localStorage.setItem("gestor","nuevo")}
             </li>
           </ul>
         </nav>

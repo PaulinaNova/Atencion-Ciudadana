@@ -1,13 +1,12 @@
 import React from "react";
-import "./TableSeguimiento.css";
-export const GlobalFilter = ({ filter, setFilter }) => {
+export const ColumnFilter = ({ column }) => {
+  const { filterValue, setFilter } = column;
   return (
     <span>
       <input
-        placeholder="Buscar folio"
-        value={filter || ""}
+        value={filterValue || ""}
         onChange={(e) => setFilter(e.target.value)}
-        className="intbl4"
+        className="inpColumnF"
       />
     </span>
   );
