@@ -21,7 +21,7 @@ router.post("/login", async (req, res) => {
     return res.status(400).json({
       errors: [
         {
-          msg: "Invalid credentials",
+          msg: "No se encontró este usuario.",
         },
       ],
     });
@@ -35,7 +35,7 @@ router.post("/login", async (req, res) => {
     return res.status(401).json({
       errors: [
         {
-          msg: "Email or password is invalid",
+          msg: "El usuario o la contraseña no son correctos.",
         },
       ],
     });

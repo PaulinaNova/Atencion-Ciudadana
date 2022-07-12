@@ -1,7 +1,7 @@
 export const COLUMNS = [
          {
-           Header: "Folio",
-           accessor: "folio",
+           Header: "Folio Interno",
+           accessor: "folio_interno",
          },
          {
            Header: "Captura",
