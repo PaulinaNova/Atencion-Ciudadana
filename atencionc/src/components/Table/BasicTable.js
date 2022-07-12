@@ -48,23 +48,17 @@ const validate = (values) => {
   //VALIDAR NOMBRE
   if (!values.nombre) {
     errores.nombre = "CAMPO VACIO";
-  } else if (!/^([A-Z])*$/.test(values.nombre)) {
-    errores.nombre = "INGRESA CORRECTAMENTE";
-  }
+  } 
 
   //VALIDAR APELLIDO PATERNO
   if (!values.apellidoPaterno) {
     errores.apellidoPaterno = "CAMPO VACIO";
-  } else if (!/^([A-Z])*$/.test(values.apellidoPaterno)) {
-    errores.apellidoPaterno = "INGRESA CORRECTAMENTE";
   }
 
   //VALIDAR APELLIDO MATERNO
   if (!values.apellidoMaterno) {
     errores.apellidoMaterno = "CAMPO VACIO";
-  } else if (!/^([A-Z])*$/.test(values.apellidoMaterno)) {
-    errores.apellidoMaterno = "INGRESA CORRECTAMENTE";
-  }
+  } 
 
   //VALIDAR FECHA
   if (!values.fechaNacimiento) {
@@ -99,29 +93,21 @@ const validate = (values) => {
   //VALIDAR MUNICIPIO
   if (!values.municipio) {
     errores.municipio = "CAMPO VACIO";
-  } else if (!/^(([A-Z])|([0-9]))*$/.test(values.municipio)) {
-    errores.municipio = "INGRESA CORRECTAMENTE";
   }
 
   //VALIDAR LOCALIDAD
   if (!values.localidad) {
     errores.localidad = "CAMPO VACIO";
-  } else if (!/^(([A-Z])|([0-9]))*$/.test(values.localidad)) {
-    errores.localidad = "INGRESA CORRECTAMENTE";
-  }
+  } 
 
   //VALIDAR COLONIA
   if (!values.colonia) {
     errores.colonia = "CAMPO VACIO";
-  } else if (!/^(([A-Z])|([0-9]))*$/.test(values.colonia)) {
-    errores.colonia = "INGRESA CORRECTAMENTE";
   }
 
   //VALIDAR CALLE
   if (!values.calle) {
     errores.calle = "CAMPO VACIO";
-  } else if (!/^(([A-Z])|([0-9]))*$/.test(values.calle)) {
-    errores.calle = "INGRESA CORRECTAMENTE";
   }
 
   //VALIDAR CARACTERISTICA

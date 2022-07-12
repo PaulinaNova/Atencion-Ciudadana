@@ -18,9 +18,11 @@ import GestionGestor from "./components/pages/GestionGestor";
 import SeguimientoGestor from "./components/pages/SeguimientoGestor";
 import AuthService from "./services/auth.service";
 
+
 function App() {
   const [currentuserName, setCurrentUserName] = useState();
   const [currentPath, setCurrentPath] = useState();
+
 
   useEffect(() => {
     const userName = AuthService.getCurrentUserName();
