@@ -222,7 +222,6 @@ const Gestion = () => {
       presupuesto: "",
       notas: "",
     },
-    validate,
     onSubmit,
   });
 

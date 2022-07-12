@@ -252,7 +252,6 @@ const Buscar = () => {
       calle: "",
       caracteristica: "",
     },
-    validate,
     onSubmit,
   });
 

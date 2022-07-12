@@ -200,7 +200,6 @@ const GestionGestor = () => {
       presupuesto: "",
       notas: "",
     },
-    validate,
     onSubmit,
   });
 

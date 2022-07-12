@@ -169,7 +169,7 @@ const BasicTableBuscar = () => {
       borderRadius:10
     }),
   };
-  
+
   const onSubmit = async (values, actions) => {
     //METER LO DE LA BD
     updtPut();
@@ -204,7 +204,6 @@ const BasicTableBuscar = () => {
       caracteristica: campos.caracteristica,
     },
     enableReinitialize: true,
-    validate,
     onSubmit,
   });
   /*----------CONSTANTES PARA ABRIL LA PANTALLA----------- */

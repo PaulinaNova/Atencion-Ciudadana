@@ -565,7 +565,10 @@ const Gestores = () => {
 
               <div className="btnG">
                 <button
-                  onClick={createPost}
+                  onClick={()=>{
+                    createPost();
+                    
+                  }}
                   disabled={isSubmitting}
                   className="btn"
                   type="submit"

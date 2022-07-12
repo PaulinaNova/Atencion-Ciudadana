@@ -218,7 +218,6 @@ const BasicTable = () => {
       caracteristica: campos.caracteristica,
     },
     enableReinitialize: true,
-    validate,
     onSubmit,
   });
   /*----------CONSTANTES PARA ABRIL LA PANTALLA----------- */
