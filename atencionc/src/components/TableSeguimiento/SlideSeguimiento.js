@@ -55,8 +55,7 @@ export const SlideSeguimiento = (props) => {
 
   function updatePut() {
     axios
-      .put("/api/gestions/updtGestion/" + gestion.folio, {
-        folio: gestion._id,
+      .put("/api/gestions/updtGestion/" + gestion._id, {
         nombre_ciudadano: gestion.nombre_ciudadano,
         curp: gestion.curp,
         descripcion: gestion.descripcion,
@@ -235,7 +234,6 @@ export const SlideSeguimiento = (props) => {
                 </label>
                 <select
                 id="estadoS"
-                className="slcG"
                 onBlur={handleBlur}
                 onChange={handleChange}
               >
