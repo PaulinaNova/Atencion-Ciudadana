@@ -4,6 +4,7 @@ const ciudadanoSchema = mongoose.Schema(
   {
     curp: {
       type: String,
+      unique: true,
     },
     nombre: {
       type: String,
@@ -22,6 +23,7 @@ const ciudadanoSchema = mongoose.Schema(
     },
     email: {
       type: String,
+      unique: true,
     },
     codigoPostal: {
       type: Number,

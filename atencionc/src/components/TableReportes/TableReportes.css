@@ -68,7 +68,9 @@
   display: flex;
   gap: 1rem;
   justify-content: right;
+  margin-top: -6%;
 }
+
 .btnGE .btn{
   width: 100%;
 }
@@ -78,4 +80,31 @@
   font-size: 15px;
   color: rgb(92, 88, 88);
   border-bottom: 2px solid rgb(92, 88, 88);
+}
+
+.inpMostrar{
+  font-size: 18px;
+  color: rgb(92, 88, 88);
+  border-bottom: 2px solid rgb(92, 88, 88);
+  text-align: center;
+}
+
+.btnPagR {
+  font-size: 2.5rem;
+  background: none;
+  border: 0ch;
+  color: rgb(92, 88, 88);
+}
+
+.spanPagR {
+  font-size: 1.1rem;
+  border: 0ch;
+  color: rgb(92, 88, 88);
+  margin-top: 0.7rem;
+  margin-right: 1rem;
+}
+
+.pagR{
+  display: flex;
+  margin-top: 1%;
 }

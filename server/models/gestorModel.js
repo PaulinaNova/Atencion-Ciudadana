@@ -6,9 +6,8 @@ const gestorSchema = mongoose.Schema(
       type: String,
       unique: true,
     },
-    curp: {
+    estado: {
       type: String,
-      unique: true,
     },
     dependencia: {
       type: String,
@@ -53,7 +52,6 @@ const gestorSchema = mongoose.Schema(
     },
     isAdmin: {
       type: Boolean,
-      defualt: false,
     },
   },
   {

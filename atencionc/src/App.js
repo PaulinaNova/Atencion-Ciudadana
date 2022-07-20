@@ -17,43 +17,69 @@ import HistorialGestor from "./components/pages/HistorialGestor";
 import GestionGestor from "./components/pages/GestionGestor";
 import SeguimientoGestor from "./components/pages/SeguimientoGestor";
 import AuthService from "./services/auth.service";
-
+import Catalogo from "./components/pages/Catalogo";
 
 function App() {
   const [currentuserName, setCurrentUserName] = useState();
+  const [currentuser, setCurrentUser] = useState();
   const [currentPath, setCurrentPath] = useState();
-
 
   useEffect(() => {
     const userName = AuthService.getCurrentUserName();
+    const gestor = AuthService.getCurrentUser();
     const pathname = window.location.pathname;
     if (userName) {
       setCurrentUserName(userName);
     }
-    setCurrentPath(pathname)
+    if (gestor) {
+      setCurrentUser(gestor);
+    }
+    setCurrentPath(pathname);
   }, []);
 
   return (
     <>
       <div className="App">
         <Router>
-          {currentPath === "/login" ? null : <Navbar />}
+          {currentPath === "/login" || !currentuser ? null : <Navbar />}
           <Routes>
             <Route path="/login" element={<LoginForm />} />
-            <Route path="/buscar" element={<Buscar />} />
-            <Route path="/seguimiento" element={<Seguimiento />} />
-            <Route path="/graficas" element={<Graficas />} />
-            <Route path="/reportes" element={<Reportes />} />
-            <Route path="/pendientes" exact element={<Pendientes />} />
-            <Route path="/gestores" element={<Gestores />} />
-            <Route path="/gestions/:curp/:nombre/:apellidoPaterno/:apellidoMaterno" element={<Gestion />} />
-            <Route path="/historial/:curp" element={<Historial />} />
-            <Route path="/asignadas" element={<Asignadas gestor={currentuserName} />} />
-            <Route path="/buscarGestor" element={<BuscarGestor />} />
-            <Route path="/historialGestor/:curp" element={<HistorialGestor />} />
-            <Route path="/gestionGestor/:curp/:nombre/:apellidoPaterno/:apellidoMaterno" element={<GestionGestor />} />
-            <Route path="/seguimientoGestor" element={<SeguimientoGestor gestor={currentuserName} />} />
           </Routes>
+          {currentuser ? (
+            <Routes>
+              <Route path="/buscar" element={<Buscar />} />
+              <Route path="/seguimiento" element={<Seguimiento />} />
+              <Route path="/graficas" element={<Graficas />} />
+              <Route path="/reportes" element={<Reportes />} />
+              <Route path="/pendientes" exact element={<Pendientes />} />
+              <Route path="/gestores" element={<Gestores />} />
+              <Route
+                path="/gestions/:curp/:nombre/:apellidoPaterno/:apellidoMaterno"
+                element={<Gestion />}
+              />
+              <Route path="/catalogo" element={<Catalogo />} />
+              <Route path="/historial/:curp" element={<Historial />} />
+              <Route
+                path="/asignadas"
+                element={<Asignadas gestor={currentuserName} />}
+              />
+              <Route path="/buscarGestor" element={<BuscarGestor />} />
+              <Route
+                path="/historialGestor/:curp"
+                element={<HistorialGestor />}
+              />
+              <Route
+                path="/gestionGestor/:curp/:nombre/:apellidoPaterno/:apellidoMaterno"
+                element={<GestionGestor />}
+              />
+              <Route
+                path="/seguimientoGestor"
+                element={<SeguimientoGestor gestor={currentuserName} />}
+              />
+            </Routes>
+          ) : currentPath === "/login" ? null : (
+            <LoginForm />
+          )}
         </Router>
       </div>
     </>

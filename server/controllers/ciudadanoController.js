@@ -37,9 +37,8 @@ export const addCiudadano = asyncHandler(async (req, res) => {
     });
 });
 
-// To Update New Ciudadano
+// To Update Ciudadano
 export const updtCiudadano = asyncHandler(async (req, res) => {
-  const curp = req.params.curp;
   const ciudadano = await Ciudadano.findByIdAndUpdate(req.params.id, req.body);
   //if user id match param id send Ciudadano else throw error
   ciudadano

@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const validate = (values) => {
+/*const validate = (values) => {
   let errores = {};
 
   //VALIDAR CURP
@@ -126,7 +126,7 @@ const validate = (values) => {
   }
 
   return errores;
-};
+};*/
 
 const onSubmit = async (values, actions) => {
   //METER LO DE LA BD
@@ -235,6 +235,9 @@ const BuscarGestor = () => {
           "Exito"
         );
       });
+    setTimeout(function() {
+      window.location.reload();
+    }, 3000);
   }
 
   const {
@@ -262,7 +265,7 @@ const BuscarGestor = () => {
       calle: "",
       caracteristica: "",
     },
-    validate,
+    //validate,
     onSubmit,
   });
 

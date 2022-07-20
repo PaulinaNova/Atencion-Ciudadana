@@ -13,7 +13,8 @@
 .pendientes,
 .gestores,
 .seguimientos,
-.asignadas {
+.asignadas,
+.catalogo {
     margin-left: 300px;
     width: 1000px;
     margin-bottom: 10px;

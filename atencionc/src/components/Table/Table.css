@@ -118,6 +118,7 @@
 .btnbuscar{
   display: flex;
   justify-content: right;
+  margin-top: -8vh;
 }
 
 .CPendientes{

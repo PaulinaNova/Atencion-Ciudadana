@@ -1,4 +1,4 @@
-import { getGestores, getGestorById, addGestor} from "../controllers/gestorController.js";
+import { getGestores, getGestorById, addGestor, updtGestor, dltGestor} from "../controllers/gestorController.js";
 import express from 'express'
 const router = express.Router()
 
@@ -10,5 +10,11 @@ router.route('/:id').get(getGestorById)
 
 // express router method to create route for creating gestores
 router.route('/addGestor').post(addGestor)
+
+// express router method to create route for updating gestores
+router.route('/updtGestor/:id').put(updtGestor)
+
+// express router method to create route for deleting gestores
+router.route('/dltGestor/:id').delete(dltGestor)
 
 export default router

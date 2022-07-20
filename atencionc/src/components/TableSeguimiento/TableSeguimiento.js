@@ -1,9 +1,10 @@
 import React, { useMemo, useState, useEffect } from "react";
-import { useTable, useFilters } from "react-table";
+import { useTable, useFilters, usePagination } from "react-table";
 import { COLUMNS } from "./ColumnsSeguimiento";
 import "./TableSeguimiento.css";
 import SlideSeguimiento from "../TableSeguimiento/SlideSeguimiento";
 import axios from "axios";
+import * as IoIcons from "react-icons/io";
 
 /*----------CREAR EL FONDO DE LA PANTALLA----------- */
 
@@ -43,15 +44,23 @@ export const TableSeguimiento = (props) => {
     getTableProps,
     getTableBodyProps,
     headerGroups,
-    rows,
+    page,
+    nextPage,
+    previousPage,
+    canNextPage,
+    canPreviousPage,
+    pageOptions,
+    state,
     prepareRow,
     toggleHideColumn,
   } = useTable(
     {
       columns,
       data,
+      initialState: { pageSize: 8 },
     },
-    useFilters
+    useFilters,
+    usePagination
   );
 
   function handleClick(gestions) {
@@ -62,6 +71,8 @@ export const TableSeguimiento = (props) => {
     setGestionR(gestions);
     return isShown;
   }
+
+  const {pageIndex} = state;
 
   return (
     <>
@@ -76,45 +87,65 @@ export const TableSeguimiento = (props) => {
           readOnly
         />
       </div>
-      <table
-        style={{ width: isShown ? "75%" : "" }}
-        className="tseg"
-        {...getTableProps()}
-      >
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps}>
-              {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>
-                  {column.render("Header")}
-                  <div>
-                    {column.canFilter ? column.render("Filter") : null}
-                  </div>
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {rows.map((row) => {
-            prepareRow(row);
-            return (
-              <tr
-                {...row.getRowProps()}
-                onClick={() => {
-                  handleClick(row.original);
-                }}
-              >
-                {row.cells.map((cell) => {
-                  return (
-                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                  );
-                })}
+      <div className="divSegui" style={{ width: isShown ? "75%" : "" }}>
+        <table className="tseg" {...getTableProps()}>
+          <thead>
+            {headerGroups.map((headerGroup) => (
+              <tr {...headerGroup.getHeaderGroupProps}>
+                {headerGroup.headers.map((column) => (
+                  <th {...column.getHeaderProps()}>
+                    {column.render("Header")}
+                    <div>
+                      {column.canFilter ? column.render("Filter") : null}
+                    </div>
+                  </th>
+                ))}
               </tr>
-            );
-          })}
-        </tbody>
-      </table>
+            ))}
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {page.map((row) => {
+              prepareRow(row);
+              return (
+                <tr
+                  {...row.getRowProps()}
+                  onClick={() => {
+                    handleClick(row.original);
+                  }}
+                >
+                  {row.cells.map((cell) => {
+                    return (
+                      <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+      <div className="pag">
+        <p className="spanPag">
+          Pág.{" "}
+          <strong>
+            {pageIndex + 1} de {pageOptions.length}
+          </strong>{" "}
+        </p>
+        <button
+          className="btnPag"
+          onClick={() => previousPage()}
+          disabled={!canPreviousPage}
+        >
+          <IoIcons.IoMdArrowBack />
+        </button>
+        <button
+          className="btnPag"
+          onClick={() => nextPage()}
+          disabled={!canNextPage}
+        >
+          <IoIcons.IoMdArrowForward />
+        </button>
+      </div>
     </>
   );
 };

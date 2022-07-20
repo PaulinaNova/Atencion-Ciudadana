@@ -13,6 +13,11 @@ export const TblPendientes = (props) => {
   const hoy = fecha.getDate();
   const mesActual = fecha.getMonth() + 1;
   const añoActual = fecha.getFullYear();
+  var fechaV
+  if(mesActual< 10)
+    fechaV = añoActual + "-0" + mesActual + "-" + hoy;
+  else
+    fechaV = añoActual + "-" + mesActual + "-" + hoy;
 
   const getData = async () => {
     const res = await axios.get("/api/gestions");
@@ -29,7 +34,7 @@ export const TblPendientes = (props) => {
     });
   } else if (cadena === "Vencidas") {
     data = data.filter(function(entry) {
-      return entry.vencimiento < (añoActual + "/" + mesActual + "/" + hoy) && entry.estado === "ACEPTADA";
+      return entry.vencimiento < (fechaV) && entry.estado !== "CONCLUIDA";
     });
   } else if (cadena === "Pendientes") {
     data = data.filter(function(entry) {

@@ -4,7 +4,10 @@ import axios from "axios";
 import { Modal } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import "react-notifications/lib/notifications.css";
-import {NotificationContainer,NotificationManager,} from "react-notifications";
+import {
+  NotificationContainer,
+  NotificationManager,
+} from "react-notifications";
 import { useFormik } from "formik";
 import "./TableSeguimiento.css";
 import Select from "react-select";
@@ -31,13 +34,13 @@ const onSubmit = async (values, actions) => {
   actions.resetForm();
 };
 
-
 export const SlideSeguimiento = (props) => {
   const [selectedValue, setSelectedValue] = useState([]);
   const { abierto, gestion } = props;
   const [gestores, setGestor] = useState([]);
   const [seguimientos, setSeguimiento] = useState([]);
   var datos = seguimientos;
+  var emails = gestores;
 
   const getData = async () => {
     const res = await axios.get("/api/seguimiento");
@@ -46,12 +49,33 @@ export const SlideSeguimiento = (props) => {
     setGestor(respG.data);
   };
 
+  emails = emails.filter((entry) => entry.estado === "ACTIVO");
+
   datos = datos.filter((entry) => entry.folio === gestion._id);
 
   useEffect(() => {
     getData();
   }, []);
 
+  const {
+    setValues,
+    values,
+    errors,
+    touched,
+    isSubmitting,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+  } = useFormik({
+    initialValues: {
+      fecha_seguimientoS: "",
+      descripcion_seguimiento: "",
+      gestorS: "",
+      estadoS: "",
+      presupuestoS: "",
+    },
+    onSubmit,
+  });
 
   function updatePut() {
     axios
@@ -77,11 +101,11 @@ export const SlideSeguimiento = (props) => {
         gestor: selectedValue,
         seguimiento: {
           fecha_seguimiento: values.fecha_seguimientoS,
-          descripcion_seguimiento: values.fecha_seguimientoS,
+          descripcion_seguimiento: values.descripcion_seguimiento,
         },
       })
       .then((response) => {
-        setValues(response.data);
+        console.log(response);
       });
   }
 
@@ -101,32 +125,29 @@ export const SlideSeguimiento = (props) => {
           "Exito"
         );
       });
-    axios.post("/api/sendEmail", {
-      gestor: selectedValue,
-    });
+    if (values.estadoS === "ASIGNADA") {
+      axios.post("/api/sendEmail", {
+        gestor: selectedValue,
+      });
+    }
     updatePut();
     getData();
   }
 
-  const {
-    setValues,
-    values,
-    errors,
-    touched,
-    isSubmitting,
-    handleBlur,
-    handleChange,
-    handleSubmit,
-  } = useFormik({
-    initialValues: {
-      fecha_seguimientoS: "",
-      descripcion_seguimiento: "",
-      gestorS: "",
-      estadoS: "",
-      presupuestoS: "",
-    },
-    onSubmit,
-  });
+  function downloadFile() {
+    axios
+      .get("/api/downloadFile/" + gestion.archivo, {
+        responseType: "blob",
+      })
+      .then((res) => {
+        const url = window.URL.createObjectURL(new Blob([res.data]));
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", gestion.archivo);
+        document.body.appendChild(link);
+        link.click();
+      });
+  }
 
   const styles = useStyles();
 
@@ -139,7 +160,7 @@ export const SlideSeguimiento = (props) => {
   };
 
   const onDropdownChange = ({ value }) => {
-    setSelectedValue(value)
+    setSelectedValue(value);
   };
 
   //------------COMBOBOX----------------------------
@@ -147,10 +168,10 @@ export const SlideSeguimiento = (props) => {
     control: (base) => ({
       ...base,
       height: 42,
-      borderRadius:10
+      borderRadius: 10,
     }),
   };
-  
+
   const body = (
     <div className={styles.modal}>
       <div className="seguimiento">
@@ -211,13 +232,12 @@ export const SlideSeguimiento = (props) => {
                 <label className="lblSeg" htmlFor="gestorS">
                   GESTOR
                 </label>
-
-                <div className="selectDoble">
+                <div className="selectDoble4">
                   <Select
                     onBlur={handleBlur}
                     onChange={onDropdownChange}
                     styles={customStyles}
-                    options={gestores.map((ges) => ({
+                    options={emails.map((ges) => ({
                       label: ges.email,
                       value: ges.email,
                     }))}
@@ -233,17 +253,17 @@ export const SlideSeguimiento = (props) => {
                   ESTADO
                 </label>
                 <select
-                id="estadoS"
-                onBlur={handleBlur}
-                onChange={handleChange}
-              >
-                <option>Ingresa Estado</option>
-                <option>ASIGNADA</option>
-                <option>ACEPTADA</option>
-                <option >SEGUIMIENTO</option>
-                <option>CONCLUIDA</option>
-                <option>CANCELADA</option>
-              </select>
+                  id="estadoS"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                >
+                  <option>Ingresa Estado</option>
+                  <option>ASIGNADA</option>
+                  <option>ACEPTADA</option>
+                  <option>SEGUIMIENTO</option>
+                  <option>CONCLUIDA</option>
+                  <option>CANCELADA</option>
+                </select>
                 {errors.estadoS && touched.estadoS && (
                   <p className="error">{errors.estadoS}</p>
                 )}
@@ -324,6 +344,20 @@ export const SlideSeguimiento = (props) => {
         <p className="pSeguimiento">{gestion.notas}</p>
         <p className="menu-item">Gestor: </p>
         <p className="pSeguimiento">{gestion.gestor}</p>
+        <p className="menu-item">Archivo: </p>
+        {gestion.archivo ? (
+          <button
+            type="button"
+            className="btn"
+            onClick={() => {
+              downloadFile();
+            }}
+          >
+            Descargar
+          </button>
+        ) : (
+          <></>
+        )}
       </div>
       <table className="tseguimiento">
         <thead>

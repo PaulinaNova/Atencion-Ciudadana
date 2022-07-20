@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./Gestores.css";
+import "../TableGestores/TableGestores.css";
 import axios from "axios";
 import "react-notifications/lib/notifications.css";
 import {
@@ -10,8 +10,11 @@ import { useFormik } from "formik";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
+import * as IoIcons from "react-icons/io";
+import { Modal } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 
-const validate = (values) => {
+/*const validate = (values) => {
   let errores = {};
 
   //VALIDAR DESCRIPCION
@@ -101,20 +104,49 @@ const validate = (values) => {
   }
 
   return errores;
-};
+};*/
 
-const onSubmit = async (values, actions) => {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  actions.resetForm();
-};
+const useStyles = makeStyles((theme) => ({
+  modal: {
+    position: "absolute",
+    width: 330,
+    backgroundColor: "white",
+    border: "2px solid #000",
+    boxShadow: theme.shadows[5],
+    padding: "16px 32px 24px",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+  },
+  textfield: {
+    width: "100%",
+  },
+}));
 
 const Gestion = () => {
   const [dependencia, setDependencia] = useState([]);
   const [registra, setRegistra] = useState([]);
   const [evento, setEvento] = useState([]);
+  const [procedencia, setProcedencia] = useState([]);
   const [selectedDep, setSelectedDep] = useState([]);
   const [selectedReg, setSelectedReg] = useState([]);
   const [selectedEv, setSelectedEv] = useState([]);
+  const [selectedProc, setSelectedProc] = useState([]);
+  //const [formData, setFormData] = useState("");
+  const [fileAr, setFileAr] = useState("");
+  const styles = useStyles();
+  const [modal, setModal] = useState(false);
+  const abrirCerrarModal = () => {
+    setModal(!modal);
+  };
+  const [modalDep, setModalDep] = useState(false);
+  const abrirCerrarModalDep = () => {
+    setModalDep(!modalDep);
+  };
+  const [modalEv, setModalEv] = useState(false);
+  const abrirCerrarModalEv = () => {
+    setModalEv(!modalEv);
+  };
 
   const onDropdownChangeDep = ({ value }) => {
     setSelectedDep(value);
@@ -125,6 +157,9 @@ const Gestion = () => {
   const onDropdownChangeEv = ({ value }) => {
     setSelectedEv(value);
   };
+  const onDropdownChangeProc = ({ value }) => {
+    setSelectedProc(value);
+  };
 
   const getData = async () => {
     const resR = await axios.get("/api/gestor");
@@ -133,6 +168,8 @@ const Gestion = () => {
     setDependencia(resD.data);
     const respE = await axios.get("/api/evento/");
     setEvento(respE.data);
+    const respP = await axios.get("/api/procedencia/");
+    setProcedencia(respP.data);
   };
 
   useEffect(() => {
@@ -150,6 +187,13 @@ const Gestion = () => {
 
   const datosC = useParams();
   const navigate = useNavigate();
+
+  function uploadFile() {
+    axios.post("/api/uploadFiles", fileAr).then((response) => {
+      setFileAr(response.data);
+    });
+  }
+
   function createPost() {
     axios
       .post("/api/gestions/addGestion", {
@@ -162,7 +206,7 @@ const Gestion = () => {
         curp: datosC.curp,
         descripcion: values.descripcion,
         fecha: values.fecha,
-        procedencia: values.procedencia,
+        procedencia: selectedProc,
         periodo: values.periodo,
         prioridad: values.prioridad,
         tipo: values.tipo,
@@ -181,6 +225,7 @@ const Gestion = () => {
           descripcion_seguimiento: "",
           gestor: "",
         },
+        archivo: values.archivo,
       })
       .then((response) => {
         setValues(response.data);
@@ -188,7 +233,70 @@ const Gestion = () => {
           "La gestión fue agregada correctamente",
           "Exito"
         );
+        setTimeout(function() {
+          window.location.reload();
+        }, 3000);
+        if (values.archivo !== "") uploadFile();
       });
+  }
+
+  const onSubmit = async (values, actions) => {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    actions.resetForm();
+  };
+
+  function addProcedencia() {
+    axios
+      .post("/api/procedencia/addProcedencia", {
+        nombre_procedencia: values.proc,
+      })
+      .then((response) => {
+        NotificationManager.success(
+          "La procedencia fue agregada correctamente",
+          "Exito"
+        );
+      });
+    getData();
+    setTimeout(function() {
+      values.proc = "";
+      abrirCerrarModal();
+    }, 3000);
+  }
+
+  function addDependencia() {
+    axios
+      .post("/api/dependencia/addDependencia", {
+        nombre_dependencia: values.dep,
+      })
+      .then((response) => {
+        NotificationManager.success(
+          "La dependencia fue agregada correctamente",
+          "Exito"
+        );
+      });
+    getData();
+    setTimeout(function() {
+      values.dep = "";
+      abrirCerrarModalDep();
+    }, 3000);
+  }
+
+  function addEvento() {
+    axios
+      .post("/api/evento/addEvento", {
+        nombre: values.ev,
+      })
+      .then((response) => {
+        NotificationManager.success(
+          "El evento fue agregado correctamente",
+          "Exito"
+        );
+      });
+    getData();
+    setTimeout(function() {
+      values.ev = "";
+      abrirCerrarModalEv();
+    }, 3000);
   }
 
   const {
@@ -202,7 +310,6 @@ const Gestion = () => {
     handleSubmit,
   } = useFormik({
     initialValues: {
-      folio: "",
       nombre_ciudadano: "",
       curp: "",
       descripcion: "",
@@ -221,11 +328,73 @@ const Gestion = () => {
       estado: "",
       presupuesto: "",
       notas: "",
+      archivo: "",
+      proc: "",
+      dep: "",
+      ev: "",
     },
     onSubmit,
   });
 
-  console.log(errors);
+  const body = (
+    <div className={styles.modal}>
+      <label htmlFor="procedencia">PROCEDENCIA</label>
+      <input
+        value={values.proc}
+        onChange={handleChange}
+        id="proc"
+        type="text"
+        placeholder="Ingrese procedencia"
+        onBlur={handleBlur}
+      />
+      <button className="btn" onClick={() => addProcedencia()}>
+        Agregar
+      </button>
+      <button className="btn" onClick={() => abrirCerrarModal()}>
+        Cancelar
+      </button>
+    </div>
+  );
+
+  const bodyDep = (
+    <div className={styles.modal}>
+      <label htmlFor="dependencia">DEPENDENCIA</label>
+      <input
+        value={values.dep}
+        onChange={handleChange}
+        id="dep"
+        type="text"
+        placeholder="Ingrese dependencia"
+        onBlur={handleBlur}
+      />
+      <button className="btn" onClick={() => addDependencia()}>
+        Agregar
+      </button>
+      <button className="btn" onClick={() => abrirCerrarModalDep()}>
+        Cancelar
+      </button>
+    </div>
+  );
+
+  const bodyEv = (
+    <div className={styles.modal}>
+      <label htmlFor="evento">EVENTO</label>
+      <input
+        value={values.ev}
+        onChange={handleChange}
+        id="ev"
+        type="text"
+        placeholder="Ingrese evento"
+        onBlur={handleBlur}
+      />
+      <button className="btn" onClick={() => addEvento()}>
+        Agregar
+      </button>
+      <button className="btn" onClick={() => abrirCerrarModalEv()}>
+        Cancelar
+      </button>
+    </div>
+  );
 
   return (
     <div className="gestores">
@@ -235,20 +404,25 @@ const Gestion = () => {
             onSubmit={handleSubmit}
             autoComplete="off"
             className="formulario"
+            encType="multipart/form-data"
           >
             <div className="groupInput">
-              <label htmlFor="folio">FOLIO</label>
+              <label htmlFor="folio_interno">FOLIO INTERNO</label>
               <input
-                readOnly
-                value={values.folio}
+                value={values.folio_interno}
                 onChange={handleChange}
-                id="folio"
+                id="folio_interno"
                 type="text"
+                placeholder="Ingresa folio interno"
                 onBlur={handleBlur}
-                className={errors.folio && touched.folio ? "input-error" : ""}
+                className={
+                  errors.folio_interno && touched.folio_interno
+                    ? "input-error"
+                    : ""
+                }
               />
-              {errors.folio && touched.folio && (
-                <p className="error">{errors.folio}</p>
+              {errors.folio_interno && touched.folio_interno && (
+                <p className="error">{errors.folio_interno}</p>
               )}
             </div>
 
@@ -332,16 +506,31 @@ const Gestion = () => {
 
             <div className="groupInput">
               <label htmlFor="procedencia">PROCEDENCIA</label>
-
-              <select
-                id="procedencia"
-                className="slcG"
-                onBlur={handleBlur}
-                onChange={handleChange}
-              >
-                <option value="1">Ingresa Procedencia</option>
-                <option value="2">REDES SOCIALES</option>
-              </select>
+              <div className="selectBotones">
+                <div className="selectDoble">
+                  <Select
+                    onBlur={handleBlur}
+                    onChange={onDropdownChangeProc}
+                    styles={customStyles}
+                    options={procedencia.map((mun) => ({
+                      label: mun.nombre_procedencia,
+                      value: mun.nombre_procedencia,
+                    }))}
+                  ></Select>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    abrirCerrarModal();
+                  }}
+                  className="addCatalogo"
+                >
+                  <IoIcons.IoIosAddCircleOutline />
+                </button>
+                <Modal open={modal} onClose={abrirCerrarModal}>
+                  {body}
+                </Modal>
+              </div>
               {errors.procedencia && touched.procedencia && (
                 <p className="error">{errors.procedencia}</p>
               )}
@@ -400,16 +589,30 @@ const Gestion = () => {
 
             <div className="groupInput">
               <label htmlFor="dependencia">DEPENDENCIA</label>
-              <div className="selectDoble">
-                <Select
-                  onBlur={handleBlur}
-                  onChange={onDropdownChangeDep}
-                  styles={customStyles}
-                  options={dependencia.map((mun) => ({
-                    label: mun.nombre_dependencia,
-                    value: mun.nombre_dependencia,
-                  }))}
-                ></Select>
+              <div className="selectBotones">
+                <div className="selectDoble">
+                  <Select
+                    onBlur={handleBlur}
+                    onChange={onDropdownChangeDep}
+                    styles={customStyles}
+                    options={dependencia.map((mun) => ({
+                      label: mun.nombre_dependencia,
+                      value: mun.nombre_dependencia,
+                    }))}
+                  ></Select>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    abrirCerrarModalDep();
+                  }}
+                  className="addCatalogo"
+                >
+                  <IoIcons.IoIosAddCircleOutline />
+                </button>
+                <Modal open={modalDep} onClose={abrirCerrarModalDep}>
+                  {bodyDep}
+                </Modal>
               </div>
               {errors.dependencia && touched.dependencia && (
                 <p className="error">{errors.dependencia}</p>
@@ -418,7 +621,7 @@ const Gestion = () => {
 
             <div className="groupInput">
               <label htmlFor="registra">REGISTRA</label>
-              <div className="selectDoble">
+              <div className="selectDoble2">
                 <Select
                   onBlur={handleBlur}
                   onChange={onDropdownChangeReg}
@@ -471,26 +674,6 @@ const Gestion = () => {
             </div>
 
             <div className="groupInput">
-              <label htmlFor="folio_interno">FOLIO INTERNO</label>
-              <input
-                value={values.folio_interno}
-                onChange={handleChange}
-                id="folio_interno"
-                type="number"
-                placeholder="folio_interno"
-                onBlur={handleBlur}
-                className={
-                  errors.folio_interno && touched.folio_interno
-                    ? "input-error"
-                    : ""
-                }
-              />
-              {errors.folio_interno && touched.folio_interno && (
-                <p className="error">{errors.folio_interno}</p>
-              )}
-            </div>
-
-            <div className="groupInput">
               <label htmlFor="cant_benef">NO. BENEFICIADOS</label>
               <input
                 value={values.cant_benef}
@@ -510,16 +693,30 @@ const Gestion = () => {
 
             <div className="groupInput">
               <label htmlFor="evento">EVENTO</label>
-              <div className="selectDoble">
-                <Select
-                  onBlur={handleBlur}
-                  onChange={onDropdownChangeEv}
-                  styles={customStyles}
-                  options={evento.map((mun) => ({
-                    label: mun.nombre,
-                    value: mun.nombre,
-                  }))}
-                ></Select>
+              <div className="selectBotones">
+                <div className="selectDoble">
+                  <Select
+                    onBlur={handleBlur}
+                    onChange={onDropdownChangeEv}
+                    styles={customStyles}
+                    options={evento.map((mun) => ({
+                      label: mun.nombre,
+                      value: mun.nombre,
+                    }))}
+                  ></Select>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    abrirCerrarModalEv();
+                  }}
+                  className="addCatalogo"
+                >
+                  <IoIcons.IoIosAddCircleOutline />
+                </button>
+                <Modal open={modalEv} onClose={abrirCerrarModalEv}>
+                  {bodyEv}
+                </Modal>
               </div>
               {errors.evento && touched.evento && (
                 <p className="error">{errors.evento}</p>
@@ -562,7 +759,7 @@ const Gestion = () => {
 
             <div className="groupInput">
               <label htmlFor="notas">NOTAS</label>
-              <input
+              <textarea
                 value={values.notas}
                 onChange={handleChange}
                 id="notas"
@@ -574,6 +771,28 @@ const Gestion = () => {
               {errors.notas && touched.notas && (
                 <p className="error">{errors.notas}</p>
               )}
+            </div>
+
+            <div className="groupInput">
+              <label htmlFor="ARCHIVO">ARCHIVO</label>
+              <input
+                onChange={(event) => {
+                  const fileList = event.target.files;
+                  let data = new FormData();
+                  const ext = fileList[0].name.split(".").pop();
+                  data.append(
+                    "archivo",
+                    fileList[0],
+                    values.folio_interno + "." + ext
+                  );
+                  setFileAr(data);
+                  values.archivo = values.folio_interno + "." + ext;
+                }}
+                id="archivo"
+                type="file"
+                name="archivo"
+                onBlur={handleBlur}
+              />
             </div>
 
             <div className="btnGE">

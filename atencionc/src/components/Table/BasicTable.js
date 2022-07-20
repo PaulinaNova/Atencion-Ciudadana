@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useEffect } from "react";
-import { useTable, useGlobalFilter } from "react-table";
+import { useTable, useGlobalFilter, usePagination } from "react-table";
 import { COLUMNS } from "./Columns";
 import "./Table.css";
 import * as IoIcons from "react-icons/io";
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const validate = (values) => {
+/*const validate = (values) => {
   let errores = {};
 
   //VALIDAR CURP
@@ -48,7 +48,7 @@ const validate = (values) => {
   //VALIDAR NOMBRE
   if (!values.nombre) {
     errores.nombre = "CAMPO VACIO";
-  } 
+  }
 
   //VALIDAR APELLIDO PATERNO
   if (!values.apellidoPaterno) {
@@ -58,7 +58,7 @@ const validate = (values) => {
   //VALIDAR APELLIDO MATERNO
   if (!values.apellidoMaterno) {
     errores.apellidoMaterno = "CAMPO VACIO";
-  } 
+  }
 
   //VALIDAR FECHA
   if (!values.fechaNacimiento) {
@@ -98,7 +98,7 @@ const validate = (values) => {
   //VALIDAR LOCALIDAD
   if (!values.localidad) {
     errores.localidad = "CAMPO VACIO";
-  } 
+  }
 
   //VALIDAR COLONIA
   if (!values.colonia) {
@@ -116,7 +116,7 @@ const validate = (values) => {
   }
 
   return errores;
-};
+};*/
 
 const BasicTable = () => {
   const navigate = useNavigate();
@@ -125,6 +125,18 @@ const BasicTable = () => {
   const [ciudadano, setCiudadano] = useState([]);
   const [campos, setCampos] = useState([]);
   const data = ciudadano;
+  const [localidad, setLocalidad] = useState([]);
+  const [municipios, setMunicipio] = useState([]);
+  const [selectedMun, setSelectedMun] = useState([]);
+  const [selectedLoc, setSelectedLoc] = useState([]);
+  var loc = localidad;
+
+  const onDropdownChangeMun = ({ value }) => {
+    setSelectedMun(value);
+  };
+  const onDropdownChangeLoc = ({ value }) => {
+    setSelectedLoc(value);
+  };
 
   const getData = async () => {
     const res = await axios.get("/api/ciudadano");
@@ -163,23 +175,9 @@ const BasicTable = () => {
     getData();
   }
 
-  const [localidad, setLocalidad] = useState([]);
-  const [municipios, setMunicipio] = useState([]);
-
   useEffect(() => {
     getData();
   }, []);
-
-  const [selectedMun, setSelectedMun] = useState([]);
-  const [selectedLoc, setSelectedLoc] = useState([]);
-  var loc = localidad;
-
-  const onDropdownChangeMun = ({ value }) => {
-    setSelectedMun(value);
-  };
-  const onDropdownChangeLoc = ({ value }) => {
-    setSelectedLoc(value);
-  };
 
   if (selectedMun === "ACAPONETA") {
     loc = loc.filter((entry) => entry.clave.startsWith("180010"));
@@ -427,11 +425,11 @@ const BasicTable = () => {
             placeholder="Ingresa código postal"
             onBlur={handleBlur}
             className={
-              errors.codigo_Postal && touched.codigo_Postal ? "input-error" : ""
+              errors.codigoPostal && touched.codigoPostal ? "input-error" : ""
             }
           />
-          {errors.codigo_Postal && touched.codigo_Postal && (
-            <p className="error">{errors.codigo_Postal}</p>
+          {errors.codigoPostal && touched.codigoPostal && (
+            <p className="error">{errors.codigoPostal}</p>
           )}
         </div>
 
@@ -442,6 +440,7 @@ const BasicTable = () => {
               onBlur={handleBlur}
               onChange={onDropdownChangeMun}
               styles={customStyles}
+              defaultInputValue={campos.municipio}
               options={municipios.map((mun) => ({
                 label: mun.nombre,
                 value: mun.nombre,
@@ -460,6 +459,7 @@ const BasicTable = () => {
               onBlur={handleBlur}
               onChange={onDropdownChangeLoc}
               styles={customStyles}
+              defaultInputValue={campos.localidad}
               options={loc.map((mun) => ({
                 label: mun.nombre,
                 value: mun.nombre,
@@ -539,7 +539,12 @@ const BasicTable = () => {
     getTableProps,
     getTableBodyProps,
     headerGroups,
-    rows,
+    page,
+    nextPage,
+    previousPage,
+    canNextPage,
+    canPreviousPage,
+    pageOptions,
     prepareRow,
     state,
     setGlobalFilter,
@@ -547,11 +552,13 @@ const BasicTable = () => {
     {
       columns,
       data,
+      initialState: { pageSize: 6 },
     },
-    useGlobalFilter
+    useGlobalFilter,
+    usePagination
   );
 
-  const { globalFilter } = state;
+  const { globalFilter, pageIndex } = state;
 
   function handleClick(camposR) {
     setCampos(camposR);
@@ -575,7 +582,7 @@ const BasicTable = () => {
             ))}
           </thead>
           <tbody {...getTableBodyProps()}>
-            {rows.map((row) => {
+            {page.map((row) => {
               prepareRow(row);
               return (
                 <tr {...row.getRowProps()}>
@@ -630,6 +637,28 @@ const BasicTable = () => {
             })}
           </tbody>
         </table>
+      </div>
+      <div className="pag">
+        <p className="spanPag">
+          Pág.{" "}
+          <strong>
+            {pageIndex + 1} de {pageOptions.length}
+          </strong>{" "}
+        </p>
+        <button
+          className="btnPag"
+          onClick={() => previousPage()}
+          disabled={!canPreviousPage}
+        >
+          <IoIcons.IoMdArrowBack />
+        </button>
+        <button
+          className="btnPag"
+          onClick={() => nextPage()}
+          disabled={!canNextPage}
+        >
+          <IoIcons.IoMdArrowForward />
+        </button>
       </div>
     </>
   );

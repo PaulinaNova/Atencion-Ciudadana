@@ -27,7 +27,7 @@ export const addGestor = asyncHandler(async (req, res) => {
   // Hash password before saving to database
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(req.body.password, salt);
-  req.body.password = hashedPassword
+  req.body.password = hashedPassword;
   const gestor = await Gestor.create(req.body);
 
   //if user id match param id send gestor else throw error
@@ -41,4 +41,29 @@ export const addGestor = asyncHandler(async (req, res) => {
       res.json(err);
       console.log("reg err");
     });
+});
+
+// To Update Gestor
+export const updtGestor = asyncHandler(async (req, res) => {
+  const gestor = await Gestor.findByIdAndUpdate(req.params.id, req.body);
+  //if user id match param id send Gestor else throw error
+  gestor
+    .save()
+    .then(() => {
+      res.json("Gestor actualizado");
+    })
+    .catch((err) => {
+      console.log(err);
+      res.json(err);
+      console.log("reg err");
+    });
+});
+
+// To Delete Gestor
+export const dltGestor = asyncHandler(async (req, res) => {
+  await Gestor.deleteOne({ _id: req.params.id }).then(function(err, docs) {
+    if (err) {
+      console.log(err);
+    }
+  });
 });

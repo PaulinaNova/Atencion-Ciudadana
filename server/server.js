@@ -11,12 +11,10 @@ import localidadRoutes from "../server/routes/localidadRoute.js";
 import coloniaRoutes from "../server/routes/coloniaRoute.js";
 import eventoRoutes from "../server/routes/eventoRoute.js";
 import sendEmail from "./config/mailer.js";
-//import Gestor from "./models/gestorModel.js";
 import express from "express";
 import bodyParser from "body-parser";
-/*import jwt from "jsonwebtoken";
-import bcrypt from "bcryptjs";*/
 import autentificacion from "../server/routes/auth.js";
+import fileUpload from "express-fileupload";
 
 connectDB();
 dotenv.config();
@@ -25,30 +23,18 @@ const app = express();
 // create application/json parser
 app.use(bodyParser.json());
 
-//Creating API for login
-app.use("/api/gestions/login", gestionRoutes);
 //Creating API for gestion
 app.use("/api/gestions", gestionRoutes);
-app.use("/api/gestions/:id", gestionRoutes);
-app.use("/api/gestions/curp/:curp", gestionRoutes);
-app.use("/api/gestions/gestor/:gestor", gestionRoutes);
-app.use("/api/gestions/updtGestion/:id", gestionRoutes);
-app.use("/api/gestions/addGestion", gestionRoutes);
 //Creating API for ciudadano
 app.use("/api/ciudadano", ciudadanoRoutes);
-app.use("/api/ciudadano/addCiudadano", ciudadanoRoutes);
-app.use("/api/ciudadano/updtCiudadano/:curp", ciudadanoRoutes);
 //Creating API for gestor
 app.use("/api/gestor", gestorRoutes);
-app.use("/api/gestor/addGestor", gestorRoutes);
 //Creating API for dependencia
 app.use("/api/dependencia", dependenciaRoutes);
 //Creating API for procedencia
 app.use("/api/procedencia", procedenciaRoutes);
 //Creating API for seguimiento
 app.use("/api/seguimiento", seguimientoRoutes);
-app.use("/api/seguimiento/:id", seguimientoRoutes);
-app.use("/api/seguimiento/addSeguimiento", seguimientoRoutes);
 //Creating API for municipio
 app.use("/api/municipio", municipioRoutes);
 //Creating API for localidad
@@ -63,6 +49,23 @@ app.post("/api/sendEmail", (req, res) => {
 });
 //Autentificación
 app.use("/api/auth", autentificacion);
+//Upload file
+app.use(fileUpload());
+app.post("/api/uploadFiles", function(req, res) {
+  const archivo = req.files.archivo;
+  archivo.mv("uploads//" + archivo.name, async (err) => {
+    if (err) throw err;
+    res.status(200).json({ status: "File upload" });
+  });
+});
+//DownloadFile
+app.get("/api/downloadFile/:archivo", function(req, res) {
+  res.download("uploads//" + req.params.archivo, function(err) {
+    if (err) {
+      console.log(err);
+    }
+  });
+});
 
 const PORT = process.env.PORT || 5000;
 

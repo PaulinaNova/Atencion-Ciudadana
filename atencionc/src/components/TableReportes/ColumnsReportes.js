@@ -41,4 +41,19 @@ export const COLUMNS = [
     accessor: "dependencia",
     Filter: ColumnFilter,
   },
+  {
+    Header: "Evento",
+    accessor: "evento",
+    Filter: ColumnFilter,
+  },
+  {
+    Header: "Presupuesto",
+    accessor: "presupuesto",
+    Filter: ColumnFilter,
+  },
+  {
+    Header: "Personas beneficiadas",
+    accessor: "cant_benef",
+    Filter: ColumnFilter,
+  },
 ];

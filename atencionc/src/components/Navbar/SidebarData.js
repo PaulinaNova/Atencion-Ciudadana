@@ -4,7 +4,7 @@ import * as AiIcons from "react-icons/ai";
 
 export const SidebarData = [
   {
-    title: "Pendientes",
+    title: "Notificaciones",
     path: "/pendientes",
     icon: <AiIcons.AiFillAlert />,
     cName: "nav-text",
@@ -38,6 +38,12 @@ export const SidebarData = [
     title: "Gestores",
     path: "/gestores",
     icon: <IoIcons.IoIosPeople />,
+    cName: "nav-text",
+  },
+  {
+    title: "Catálogo",
+    path: "/catalogo",
+    icon: <AiIcons.AiFillTags/>,
     cName: "nav-text",
   },
 ];

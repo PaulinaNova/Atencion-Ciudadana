@@ -1,0 +1,67 @@
+.CCatalogo {
+  display: grid;
+  grid-template-columns: repeat(3, 30%);
+  grid-gap: 3rem;
+  margin-top: 5vh;
+}
+
+.ctitulo{
+    background-color: #63040465;
+    padding: 2%;
+    border-radius: 10px;
+    color: white;
+    font-size: 1.4rem;
+}
+
+.CatalogosContainer {
+  max-height: 24rem;
+  overflow: auto;
+  margin-top: 3vh;
+}
+
+.tblCatalogos {
+  width: 100%;
+  font-size: 1rem;
+  border: 1px solid;
+  border-collapse: collapse;
+  border-color: rgb(112, 108, 108);
+  color: rgb(92, 88, 88);
+  background-color: rgba(128, 128, 128, 0.315);
+}
+
+.tblCatalogos th {
+  padding: 10px 10px 10px 10px;
+  border: 1px solid;
+  border-color: rgb(112, 108, 108);
+}
+
+.tblCatalogos td {
+  width: 60%;
+  border: 1px solid;
+  border-color: rgb(112, 108, 108);
+}
+
+#dependencia, #procedencia, #evento {
+  width: 100%;
+  position: relative;
+  height: 45px;
+  padding: 10px;
+  font-size: 1.2rem;
+  border-radius: 10px;
+  border: 2px solid #630404;
+  color: #630404;
+  background-color: white;
+  margin-top: 2vh;
+}
+
+label {
+  color: #630404;
+  font-weight: bold;
+  font-size: 20px;
+  display: inline-flex;
+}
+
+.formularioModDep .btn{
+  width: 100%;
+  margin-top: 11%;
+}

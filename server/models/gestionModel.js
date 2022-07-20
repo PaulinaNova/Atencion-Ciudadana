@@ -67,6 +67,9 @@ const gestionSchema = mongoose.Schema(
         type: String,
       },
     },
+    archivo: {
+      type: String,
+    },
   },
   {
     timestamps: false,

@@ -4,8 +4,8 @@ export const COLUMNS = [
         accessor:'folio_interno'
     },
     {
-        Header: 'Captura',
-        accessor:'fecha'
+        Header: 'Vencimiento',
+        accessor:'vencimiento'
     },
     {
         Header: 'Descripcion',

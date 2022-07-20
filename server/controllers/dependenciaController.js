@@ -20,3 +20,44 @@ export const getDependenciaById = asyncHandler(async (req, res) => {
     throw new Error("Dependencia no encontrada");
   }
 });
+
+// To Add New Dependencia
+export const addDependencia = asyncHandler(async (req, res) => {
+  const dependencia = await Dependencia.create(req.body);
+  //if user id match param id send dependencia else throw error
+  dependencia
+    .save()
+    .then(() => {
+      res.json("Dependencia añadida");
+    })
+    .catch((err) => {
+      console.log(err);
+      res.json(err);
+      console.log("reg err");
+    });
+});
+
+// To Update Dependencia
+export const updtDependencia = asyncHandler(async (req, res) => {
+  const dependencia = await Dependencia.findByIdAndUpdate(req.params.id, req.body);
+  //if user id match param id send Gestor else throw error
+  dependencia
+    .save()
+    .then(() => {
+      res.json("Dependencia actualizada");
+    })
+    .catch((err) => {
+      console.log(err);
+      res.json(err);
+      console.log("reg err");
+    });
+});
+
+// To Delete Dependencia
+export const dltDependencia = asyncHandler(async (req, res) => {
+  await Dependencia.deleteOne({ _id: req.params.id }).then(function(err, docs) {
+    if (err) {
+      console.log(err);
+    }
+  });
+});

@@ -1,5 +1,5 @@
-import React from "react";
-import "./Gestores.css";
+import React, { useState, useEffect } from "react";
+import "../TableGestores/TableGestores.css";
 import axios from "axios";
 import "react-notifications/lib/notifications.css";
 import {
@@ -9,8 +9,9 @@ import {
 import { useFormik } from "formik";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Select from "react-select";
 
-const validate = (values) => {
+/*const validate = (values) => {
   let errores = {};
 
   //VALIDAR FOLIO
@@ -117,7 +118,7 @@ const validate = (values) => {
   }
 
   return errores;
-};
+};*/
 
 const onSubmit = async (values, actions) => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -125,12 +126,57 @@ const onSubmit = async (values, actions) => {
 };
 
 const GestionGestor = () => {
+  const [dependencia, setDependencia] = useState([]);
+  const [registra, setRegistra] = useState([]);
+  const [evento, setEvento] = useState([]);
+  const [procedencia, setProcedencia] = useState([]);
+  const [selectedDep, setSelectedDep] = useState([]);
+  const [selectedReg, setSelectedReg] = useState([]);
+  const [selectedEv, setSelectedEv] = useState([]);
+  const [selectedProc, setSelectedProc] = useState([]);
+
+  const onDropdownChangeDep = ({ value }) => {
+    setSelectedDep(value);
+  };
+  const onDropdownChangeReg = ({ value }) => {
+    setSelectedReg(value);
+  };
+  const onDropdownChangeEv = ({ value }) => {
+    setSelectedEv(value);
+  };
+  const onDropdownChangeProc = ({ value }) => {
+    setSelectedProc(value);
+  };
+
+  const getData = async () => {
+    const resR = await axios.get("/api/gestor");
+    setRegistra(resR.data);
+    const resD = await axios.get("/api/dependencia/");
+    setDependencia(resD.data);
+    const respE = await axios.get("/api/evento/");
+    setEvento(respE.data);
+    const respP = await axios.get("/api/procedencia/");
+    setProcedencia(respP.data);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  //------------COMBOBOX----------------------------
+  const customStyles = {
+    control: (base) => ({
+      ...base,
+      height: 42,
+      borderRadius: 10,
+    }),
+  };
+
   const datosC = useParams();
   const navigate = useNavigate();
   function createPost() {
     axios
       .post("/api/gestions/addGestion", {
-        folio: values.folio,
         nombre_ciudadano:
           datosC.nombre +
           " " +
@@ -140,17 +186,17 @@ const GestionGestor = () => {
         curp: datosC.curp,
         descripcion: values.descripcion,
         fecha: values.fecha,
-        procedencia: values.procedencia,
+        procedencia: selectedProc,
         periodo: values.periodo,
         prioridad: values.prioridad,
         tipo: values.tipo,
-        dependencia: values.dependencia,
-        registra: values.registra,
+        dependencia: selectedDep,
+        registra: selectedReg,
         vencimiento: values.vencimiento,
         periodico: values.periodico,
         folio_interno: values.folio_interno,
         cant_benef: values.cant_benef,
-        evento: values.evento,
+        evento: selectedEv,
         estado: values.estado,
         presupuesto: values.presupuesto,
         notas: values.notas,
@@ -180,7 +226,6 @@ const GestionGestor = () => {
     handleSubmit,
   } = useFormik({
     initialValues: {
-      folio: "",
       nombre_ciudadano: "",
       curp: "",
       descripcion: "",
@@ -203,8 +248,6 @@ const GestionGestor = () => {
     onSubmit,
   });
 
-  console.log(errors);
-
   return (
     <div className="gestores">
       <div className="CGestor">
@@ -215,18 +258,22 @@ const GestionGestor = () => {
             className="formulario"
           >
             <div className="groupInput">
-              <label htmlFor="folio">FOLIO</label>
+              <label htmlFor="folio_interno">FOLIO INTERNO</label>
               <input
-                value={values.folio}
+                value={values.folio_interno}
                 onChange={handleChange}
-                id="folio"
-                type="text"
-                placeholder="Ingresa folio"
+                id="folio_interno"
+                type="number"
+                placeholder="Ingresa folio interno"
                 onBlur={handleBlur}
-                className={errors.folio && touched.folio ? "input-error" : ""}
+                className={
+                  errors.folio_interno && touched.folio_interno
+                    ? "input-error"
+                    : ""
+                }
               />
-              {errors.folio && touched.folio && (
-                <p className="error">{errors.folio}</p>
+              {errors.folio_interno && touched.folio_interno && (
+                <p className="error">{errors.folio_interno}</p>
               )}
             </div>
 
@@ -310,16 +357,17 @@ const GestionGestor = () => {
 
             <div className="groupInput">
               <label htmlFor="procedencia">PROCEDENCIA</label>
-
-              <select
-                id="procedencia"
-                className="slcG"
-                onBlur={handleBlur}
-                onChange={handleChange}
-              >
-                <option value="1">Ingresa Procedencia</option>
-                <option value="2">REDES SOCIALES</option>
-              </select>
+              <div className="selectDoble">
+                <Select
+                  onBlur={handleBlur}
+                  onChange={onDropdownChangeProc}
+                  styles={customStyles}
+                  options={procedencia.map((mun) => ({
+                    label: mun.nombre_procedencia,
+                    value: mun.nombre_procedencia,
+                  }))}
+                ></Select>
+              </div>
               {errors.procedencia && touched.procedencia && (
                 <p className="error">{errors.procedencia}</p>
               )}
@@ -377,17 +425,17 @@ const GestionGestor = () => {
 
             <div className="groupInput">
               <label htmlFor="dependencia">DEPENDENCIA</label>
-              <select
-                id="dependencia"
-                className="slcG"
-                onBlur={handleBlur}
-                onChange={handleChange}
-              >
-                <option value="SEP">SEP</option>
-                <option value="1">SECRETARIA DE SALUD</option>
-                <option value="3">Secretaria de Desarrollo Rural</option>
-                <option value="4">Secretaria de Desarrollo Económico</option>
-              </select>
+              <div className="selectDoble">
+                <Select
+                  onBlur={handleBlur}
+                  onChange={onDropdownChangeDep}
+                  styles={customStyles}
+                  options={dependencia.map((mun) => ({
+                    label: mun.nombre_dependencia,
+                    value: mun.nombre_dependencia,
+                  }))}
+                ></Select>
+              </div>
               {errors.dependencia && touched.dependencia && (
                 <p className="error">{errors.dependencia}</p>
               )}
@@ -395,17 +443,17 @@ const GestionGestor = () => {
 
             <div className="groupInput">
               <label htmlFor="registra">REGISTRA</label>
-              <input
-                value={values.registra}
-                onChange={handleChange}
-                id="registra"
-                type="text"
-                placeholder="Ingresa quien registra"
-                onBlur={handleBlur}
-                className={
-                  errors.registra && touched.registra ? "input-error" : ""
-                }
-              />
+              <div className="selectDoble2">
+                <Select
+                  onBlur={handleBlur}
+                  onChange={onDropdownChangeReg}
+                  styles={customStyles}
+                  options={registra.map((mun) => ({
+                    label: mun.nombre,
+                    value: mun.nombre,
+                  }))}
+                ></Select>
+              </div>
               {errors.registra && touched.registra && (
                 <p className="error">{errors.registra}</p>
               )}
@@ -448,26 +496,6 @@ const GestionGestor = () => {
             </div>
 
             <div className="groupInput">
-              <label htmlFor="folio_interno">FOLIO INTERNO</label>
-              <input
-                value={values.folio_interno}
-                onChange={handleChange}
-                id="folio_interno"
-                type="number"
-                placeholder="folio_interno"
-                onBlur={handleBlur}
-                className={
-                  errors.folio_interno && touched.folio_interno
-                    ? "input-error"
-                    : ""
-                }
-              />
-              {errors.folio_interno && touched.folio_interno && (
-                <p className="error">{errors.folio_interno}</p>
-              )}
-            </div>
-
-            <div className="groupInput">
               <label htmlFor="cant_benef">NO. BENEFICIADOS</label>
               <input
                 value={values.cant_benef}
@@ -487,15 +515,17 @@ const GestionGestor = () => {
 
             <div className="groupInput">
               <label htmlFor="evento">EVENTO</label>
-              <input
-                value={values.evento}
-                onChange={handleChange}
-                id="evento"
-                type="text"
-                placeholder="Ingresa evento"
-                onBlur={handleBlur}
-                className={errors.evento && touched.evento ? "input-error" : ""}
-              />
+              <div className="selectDoble">
+                <Select
+                  onBlur={handleBlur}
+                  onChange={onDropdownChangeEv}
+                  styles={customStyles}
+                  options={evento.map((mun) => ({
+                    label: mun.nombre,
+                    value: mun.nombre,
+                  }))}
+                ></Select>
+              </div>
               {errors.evento && touched.evento && (
                 <p className="error">{errors.evento}</p>
               )}
@@ -510,9 +540,7 @@ const GestionGestor = () => {
                 onChange={handleChange}
               >
                 <option>Ingresa Estado</option>
-                <option>SEGUIMIENTO</option>
-                <option>CONCLUIDA</option>
-                <option>CANCELADA</option>
+                <option>ACEPTADA</option>
               </select>
               {errors.estado && touched.estado && (
                 <p className="error">{errors.estado}</p>
@@ -539,7 +567,7 @@ const GestionGestor = () => {
 
             <div className="groupInput">
               <label htmlFor="notas">NOTAS</label>
-              <input
+              <textarea
                 value={values.notas}
                 onChange={handleChange}
                 id="notas"

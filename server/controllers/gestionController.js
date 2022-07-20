@@ -67,8 +67,8 @@ export const addGestion = asyncHandler(async (req, res) => {
 
 // To Update New Gestion
 export const updtGestion = asyncHandler(async (req, res) => {
-  const id = req.params._id;
-  const gestion = await Gestion.findOneAndUpdate({ _id: id }, req.body);
+  const folio = req.params.folio;
+  const gestion = await Gestion.findByIdAndUpdate({ _id: folio }, req.body);
   //if user id match param id send gestion else throw error
   gestion
     .save()

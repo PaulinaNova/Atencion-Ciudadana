@@ -13,6 +13,10 @@ export const Navbar = () => {
   const showSidebar = () => setSidebar(!sidebar);
   const [currentisAdmin, setCurrentisAdmin] = useState();
 
+  function cerrarSesion(){
+    localStorage.removeItem("gestor");
+  }
+
   useEffect(() => {
     const isAdmin = AuthService.getCurrentisAdmin();
     if (isAdmin) {
@@ -58,11 +62,10 @@ export const Navbar = () => {
                   );
                 })}
             <li className="nav-text">
-              <Link to={"/login"} reloadDocument>
+              <Link to={"/login"} reloadDocument onClick={()=>{cerrarSesion();}}>
                 <IoIcons.IoIosLogOut />
                 <span>Cerrar sesión</span>
               </Link>
-              {localStorage.setItem("gestor","nuevo")}
             </li>
           </ul>
         </nav>

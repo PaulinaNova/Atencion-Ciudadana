@@ -1,10 +1,16 @@
 import React, { useMemo, useState } from "react";
-import { useTable, useGlobalFilter, useFilters } from "react-table";
+import {
+  useTable,
+  useGlobalFilter,
+  useFilters,
+  usePagination,
+} from "react-table";
 import { COLUMNS } from "./ColumnsReportes";
 import "./TableReportes.css";
 import Select, { components } from "react-select";
 import { GlobalFilter } from "./GlobalFilter";
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
+import * as IoIcons from "react-icons/io";
 
 export const TableReportes = (props) => {
   const { gestion } = props;
@@ -17,6 +23,9 @@ export const TableReportes = (props) => {
     { value: "tipo", label: "Tipo" },
     { value: "dependencia", label: "Dependencia" },
     { value: "estado", label: "Estado" },
+    { value: "evento", label: "Evento" },
+    { value: "cant_benef", label: "Personas beneficiadas" },
+    { value: "presupuesto", label: "Presupuesto" },
   ];
   const initialState = {
     hiddenColumns: [
@@ -25,13 +34,23 @@ export const TableReportes = (props) => {
       "tipo",
       "dependencia",
       "estado",
+      "evento",
+      "cant_benef",
+      "presupuesto",
     ],
+    pageSize: 7,
   };
   const {
     getTableProps,
     getTableBodyProps,
     headerGroups,
-    rows,
+    page,
+    nextPage,
+    previousPage,
+    canNextPage,
+    canPreviousPage,
+    pageOptions,
+    setPageSize,
     prepareRow,
     state,
     setGlobalFilter,
@@ -43,11 +62,13 @@ export const TableReportes = (props) => {
       initialState,
     },
     useFilters,
-    useGlobalFilter
+    useGlobalFilter,
+    usePagination
   );
 
   //toggleHideColumn("procedencia", true);
   const { globalFilter } = state;
+  const { pageIndex } = state;
 
   const customStyles = {
     control: (base) => ({
@@ -104,14 +125,17 @@ export const TableReportes = (props) => {
                 {headerGroup.headers.map((column) => (
                   <th {...column.getHeaderProps()}>
                     {column.render("Header")}
-                    <div> {column.canFilter ? column.render('Filter'): null} </div>
+                    <div>
+                      {" "}
+                      {column.canFilter ? column.render("Filter") : null}{" "}
+                    </div>
                   </th>
                 ))}
               </tr>
             ))}
           </thead>
           <tbody {...getTableBodyProps()}>
-            {rows.map((row) => {
+            {page.map((row) => {
               prepareRow(row);
               return (
                 <tr {...row.getRowProps()}>
@@ -125,6 +149,41 @@ export const TableReportes = (props) => {
             })}
           </tbody>
         </table>
+      </div>
+      <div className="pagR">
+        <p className="spanPagR">
+          Pág.{" "}
+          <strong>
+            {pageIndex + 1} de {pageOptions.length}
+          </strong>{" "}
+        </p>
+        <button
+          className="btnPagR"
+          onClick={() => previousPage()}
+          disabled={!canPreviousPage}
+        >
+          <IoIcons.IoMdArrowBack />
+        </button>
+        <button
+          className="btnPagR"
+          onClick={() => nextPage()}
+          disabled={!canNextPage}
+        >
+          <IoIcons.IoMdArrowForward />
+        </button>
+        <span className="spanPagR">
+          Mostrar{" "}
+          <input
+            type={"number"}
+            className={"inpMostrar"}
+            defaultValue={7}
+            onChange={(e) => {
+              const pageNumber = e.target.value ? Number(e.target.value) : 7;
+              setPageSize(pageNumber);
+            }}
+            style={{ width: "50px" }}
+          />
+        </span>
       </div>
       <div className="btnReportes">
         <ReactHTMLTableToExcel

@@ -13,14 +13,8 @@ const login = async (userName, password) => {
   return response.data;
 };
 
-/*const logout = () => {
-  localStorage.removeItem("gestor");
-  localStorage.removeItem("userName");
-  localStorage.removeItem("isAdmin");
-};*/
-
 const getCurrentUser = () => {
-  return JSON.parse(localStorage.getItem("gestor"));
+  return localStorage.getItem("gestor");
 };
 const getCurrentUserName = () => {
   return JSON.parse(localStorage.getItem("userName"));
@@ -31,7 +25,6 @@ const getCurrentisAdmin = () => {
 
 const AuthService = {
   login,
-  //logout,
   getCurrentUser,
   getCurrentUserName,
   getCurrentisAdmin,

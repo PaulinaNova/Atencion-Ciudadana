@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const validate = (values) => {
+/*const validate = (values) => {
   let errores = {};
 
   //VALIDAR CURP
@@ -115,7 +115,7 @@ const validate = (values) => {
   }
 
   return errores;
-};
+};*/
 
 const BasicTableBuscar = () => {
   const navigate = useNavigate();
@@ -420,11 +420,11 @@ const BasicTableBuscar = () => {
             placeholder="Ingresa código postal"
             onBlur={handleBlur}
             className={
-              errors.codigo_Postal && touched.codigo_Postal ? "input-error" : ""
+              errors.codigoPostal && touched.codigoPostal ? "input-error" : ""
             }
           />
-          {errors.codigo_Postal && touched.codigo_Postal && (
-            <p className="error">{errors.codigo_Postal}</p>
+          {errors.codigoPostal && touched.codigoPostal && (
+            <p className="error">{errors.codigoPostal}</p>
           )}
         </div>
 
@@ -435,6 +435,7 @@ const BasicTableBuscar = () => {
               onBlur={handleBlur}
               onChange={onDropdownChangeMun}
               styles={customStyles}
+              defaultInputValue={campos.municipio}
               options={municipios.map((mun) => ({
                 label: mun.nombre,
                 value: mun.nombre,
@@ -453,6 +454,7 @@ const BasicTableBuscar = () => {
               onBlur={handleBlur}
               onChange={onDropdownChangeLoc}
               styles={customStyles}
+              defaultInputValue={campos.localidad}
               options={loc.map((mun) => ({
                 label: mun.nombre,
                 value: mun.nombre,
