@@ -52,6 +52,103 @@ const useStylesDlt = makeStyles((theme) => ({
   },
 }));
 
+const validate = (values) => {
+  let errores = {};
+
+  //VALIDAR RFC
+  if (!values.rfc) {
+    errores.rfc = "CAMPO VALIO";
+  } else if (!/^([A-Z]{4})([0-9]{6})(([A-Z]|[0-9]){3})$/.test(values.rfc)) {
+    errores.rfc = "INGRESA CORRECTAMENTE";
+  }
+
+  //VALIDAR DEPENDENCIA
+  if (!values.dependencia) {
+    errores.dependencia = "CAMPO VACIO";
+  }
+
+  //VALIDAR ESTADO
+  if (!values.estado) {
+    errores.estado = "CAMPO VACIO";
+  }
+
+  //VALIDAR NOMBRE
+  if (!values.nombre) {
+    errores.nombre = "CAMPO VACIO";
+  }
+
+  //VALIDAR APELLIDO PATERNO
+  if (!values.apellidoPaterno) {
+    errores.apellidoPaterno = "CAMPO VACIO";
+  }
+
+  //VALIDAR APELLIDO MATERNO
+  if (!values.apellidoMaterno) {
+    errores.apellidoMaterno = "CAMPO VACIO";
+  }
+  //VALIDAR TELEFONO
+  if (!values.telefono) {
+    errores.telefono = "CAMPO VACIO";
+  } else if (!/^([0-9]{10})$/.test(values.telefono)) {
+    errores.telefono = "INGRESA CORRECTAMENTE";
+  }
+
+  //VALIDAR MUNICIPIO
+  if (!values.municipio) {
+    errores.municipio = "CAMPO VACIO";
+  }
+
+  //VALIDAR LOCALIDAD
+  if (!values.localidad) {
+    errores.localidad = "CAMPO VACIO";
+  }
+
+  //VALIDAR CODIGO POSTAL
+  if (!values.codigoPostal) {
+    errores.codigoPostal = "CAMPO VACIO";
+  } else if (!/^([0-9]{5})$/.test(values.codigoPostal)) {
+    errores.codigoPostal = "INGRESA CORRECTAMENTE";
+  }
+
+  //VALIDAR COLONIA
+  if (!values.colonia) {
+    errores.colonia = "CAMPO VACIO";
+  }
+
+  //VALIDAR CALLE
+  if (!values.calle) {
+    errores.calle = "CAMPO VACIO";
+  }
+
+  //VALIDAR EMAIL
+  if (!values.email) {
+    errores.email = "CAMPO VACIO";
+  } else if (
+    !/^[a-zA-Z0-9.!#$%&'+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)$/.test(
+      values.email
+    )
+  ) {
+    errores.email = "INGRESA CORRECTAMENTE";
+  }
+
+  //VALIDAR USUARIO
+  if (!values.userName) {
+    errores.userName = "CAMPO VACIO";
+  }
+
+  //VALIDAR CONTRASEÑA
+  if (!values.password) {
+    errores.password = "CAMPO VACIO";
+  }
+
+  //VALIDAR CONTRASEÑA
+  if (!values.isAdmin) {
+    errores.isAdmin = "CAMPO VACIO";
+  }
+
+  return errores;
+};
+
 const TableGestores = () => {
   const styles = useStyles();
   const stylesDlt = useStylesDlt();
@@ -62,20 +159,23 @@ const TableGestores = () => {
   const [localidad, setLocalidad] = useState([]);
   const [municipios, setMunicipio] = useState([]);
   const [dependencia, setDependencia] = useState([]);
-  const [selectedDep, setSelectedDep] = useState([]);
-  const [selectedMun, setSelectedMun] = useState([]);
-  const [selectedLoc, setSelectedLoc] = useState([]);
+  const [selectedDep, setSelectedDep] = useState(null);
+  const [selectedMun, setSelectedMun] = useState(null);
+  const [selectedLoc, setSelectedLoc] = useState(null);
   var loc = localidad;
   var admin;
 
   const onDropdownChangeMun = ({ value }) => {
     setSelectedMun(value);
+    values.municipio = selectedMun
   };
   const onDropdownChangeLoc = ({ value }) => {
     setSelectedLoc(value);
+    values.localidad = selectedLoc;
   };
   const onDropdownChangeDep = ({ value }) => {
     setSelectedDep(value);
+    values.dependencia = selectedDep;
   };
 
   const getData = async () => {
@@ -93,14 +193,14 @@ const TableGestores = () => {
     axios
       .put("/api/gestor/updtGestor/" + campos._id, {
         rfc: values.rfc,
-        dependencia: selectedDep,
+        dependencia: selectedDep !== null ? selectedDep : values.dependencia ,
         estado: values.estado,
         nombre: values.nombre,
         apellidoPaterno: values.apellidoPaterno,
         apellidoMaterno: values.apellidoMaterno,
         telefono: values.telefono,
-        municipio: selectedMun,
-        localidad: selectedLoc,
+        municipio: selectedMun !== null ? selectedMun : values.municipio,
+        localidad: selectedLoc !== null ? selectedLoc : values.localidad,
         codigoPostal: values.codigoPostal,
         colonia: values.colonia,
         calle: values.calle,
@@ -193,8 +293,8 @@ const TableGestores = () => {
   };
 
   const onSubmit = async (values, actions) => {
-    updtPut();
     await new Promise((resolve) => setTimeout(resolve, 1000));
+    updtPut();
     actions.resetForm();
   };
 
@@ -227,8 +327,9 @@ const TableGestores = () => {
       password: campos.password,
       isAdmin: "",
     },
-    enableReinitialize: true,
     onSubmit,
+    validate,
+    enableReinitialize: true,
   });
 
   if (values.isAdmin === "SI") {

@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-/*const validate = (values) => {
+const validate = (values) => {
   let errores = {};
 
   //VALIDAR CURP
@@ -42,23 +42,23 @@ const useStyles = makeStyles((theme) => ({
   }
 
   //VALIDAR NOMBRE
-  if(!values.nombre){
-    errores.nombre = "CAMPO VACIO"
-  } 
+  if (!values.nombre) {
+    errores.nombre = "CAMPO VACIO";
+  }
 
   //VALIDAR APELLIDO PATERNO
-  if(!values.apellidoPaterno){
-    errores.apellidoPaterno = "CAMPO VACIO"
-  } 
+  if (!values.apellidoPaterno) {
+    errores.apellidoPaterno = "CAMPO VACIO";
+  }
 
   //VALIDAR APELLIDO MATERNO
-  if(!values.apellidoMaterno){
-    errores.apellidoMaterno = "CAMPO VACIO"
+  if (!values.apellidoMaterno) {
+    errores.apellidoMaterno = "CAMPO VACIO";
   }
-   //VALIDAR FECHA
-   if(!values.fechaNacimiento){
-    errores.fechaNacimiento = "CAMPO VACIO"
-  } 
+  //VALIDAR FECHA
+  if (!values.fechaNacimiento) {
+    errores.fechaNacimiento = "CAMPO VACIO";
+  }
 
   //VALIDAR TELEFONO
   if (!values.telefono) {
@@ -86,23 +86,23 @@ const useStyles = makeStyles((theme) => ({
   }
 
   //VALIDAR MUNICIPIO
-  if(!values.municipio){
-    errores.municipio = "CAMPO VACIO"
+  if (!values.municipio) {
+    errores.municipio = "CAMPO VACIO";
   }
 
   //VALIDAR LOCALIDAD
-  if(!values.localidad){
-    errores.localidad = "CAMPO VACIO"
+  if (!values.localidad) {
+    errores.localidad = "CAMPO VACIO";
   }
 
   //VALIDAR COLONIA
-  if(!values.colonia){
-    errores.colonia = "CAMPO VACIO"
+  if (!values.colonia) {
+    errores.colonia = "CAMPO VACIO";
   }
 
   //VALIDAR CALLE
-  if(!values.calle){
-    errores.calle = "CAMPO VACIO"
+  if (!values.calle) {
+    errores.calle = "CAMPO VACIO";
   }
 
   //VALIDAR CARACTERISTICA
@@ -111,12 +111,6 @@ const useStyles = makeStyles((theme) => ({
   }
 
   return errores;
-};*/
-
-const onSubmit = async (values, actions) => {
-  //METER LO DE LA BD
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  actions.resetForm();
 };
 
 const Buscar = () => {
@@ -128,9 +122,11 @@ const Buscar = () => {
 
   const onDropdownChangeMun = ({ value }) => {
     setSelectedMun(value);
+    values.municipio = selectedMun;
   };
   const onDropdownChangeLoc = ({ value }) => {
     setSelectedLoc(value);
+    values.localidad = selectedLoc;
   };
 
   const getData = async () => {
@@ -219,11 +215,18 @@ const Buscar = () => {
           "El ciudadano fue agregado correctamente",
           "Exito"
         );
+        setTimeout(function() {
+          window.location.reload();
+        }, 2000);
       });
-    setTimeout(function() {
-      window.location.reload();
-    }, 3000);
   }
+
+  const onSubmit = async (values, actions) => {
+    //METER LO DE LA BD
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    createPost();
+    actions.resetForm();
+  };
 
   const {
     setValues,
@@ -251,6 +254,7 @@ const Buscar = () => {
       caracteristica: "",
     },
     onSubmit,
+    validate,
   });
 
   /*----------CREAR FORMULARIO----------- */
@@ -416,7 +420,7 @@ const Buscar = () => {
 
         <div className="groupInput">
           <label htmlFor="municipio">MUNICIPIO</label>
-          <div className="selectDoble">
+          <div className="selectDoble2">
             <Select
               onBlur={handleBlur}
               onChange={onDropdownChangeMun}
@@ -435,7 +439,7 @@ const Buscar = () => {
         <div className="groupInput">
           <label htmlFor="localidad">LOCALIDAD</label>
 
-          <div className="selectDoble">
+          <div className="selectDoble2">
             <Select
               onBlur={handleBlur}
               onChange={onDropdownChangeLoc}
@@ -504,12 +508,7 @@ const Buscar = () => {
         </div>
 
         <div className="btnB">
-          <button
-            onClick={createPost}
-            disabled={isSubmitting}
-            className="btn"
-            type="submit"
-          >
+          <button disabled={isSubmitting} className="btn" type="submit">
             Agregar ciudadano
           </button>
           <NotificationContainer />

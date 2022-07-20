@@ -29,13 +29,38 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const onSubmit = async (values, actions) => {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  actions.resetForm();
+const validate = (values) => {
+  let errores = {};
+
+  //VALIDAR FECHA_SEGUIMIENTO
+  if (!values.fecha_seguimientoS) {
+    errores.fecha_seguimientoS = "CAMPO VACIO";
+  }
+
+  //VALIDAR ESTADO
+  if (!values.estadoS) {
+    errores.estadoS = "CAMPO VACIO";
+  }
+
+  //VALIDAR DESCRIPCION
+  if (!values.descripcion_seguimiento) {
+    errores.descripcion_seguimiento = "CAMPO VACIO";
+  }
+
+  //VALIDAR PRESUPUESTO
+  if (!values.presupuestoS) {
+    errores.presupuestoS = "CAMPO VACIO";
+  }
+  //VALIDAR GESTOR
+  if (!values.gestorS) {
+    errores.gestorS = "CAMPO VACIO";
+  }
+
+  return errores;
 };
 
 export const SlideSeguimiento = (props) => {
-  const [selectedValue, setSelectedValue] = useState([]);
+  const [selectedValue, setSelectedValue] = useState(null);
   const { abierto, gestion } = props;
   const [gestores, setGestor] = useState([]);
   const [seguimientos, setSeguimiento] = useState([]);
@@ -50,32 +75,11 @@ export const SlideSeguimiento = (props) => {
   };
 
   emails = emails.filter((entry) => entry.estado === "ACTIVO");
-
   datos = datos.filter((entry) => entry.folio === gestion._id);
 
   useEffect(() => {
     getData();
   }, []);
-
-  const {
-    setValues,
-    values,
-    errors,
-    touched,
-    isSubmitting,
-    handleBlur,
-    handleChange,
-    handleSubmit,
-  } = useFormik({
-    initialValues: {
-      fecha_seguimientoS: "",
-      descripcion_seguimiento: "",
-      gestorS: "",
-      estadoS: "",
-      presupuestoS: "",
-    },
-    onSubmit,
-  });
 
   function updatePut() {
     axios
@@ -134,6 +138,33 @@ export const SlideSeguimiento = (props) => {
     getData();
   }
 
+  const onSubmit = async (values, actions) => {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    createPost();
+    actions.resetForm();
+  };
+
+  const {
+    setValues,
+    values,
+    errors,
+    touched,
+    isSubmitting,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+  } = useFormik({
+    initialValues: {
+      fecha_seguimientoS: "",
+      descripcion_seguimiento: "",
+      gestorS: "",
+      estadoS: "",
+      presupuestoS: "",
+    },
+    onSubmit,
+    validate,
+  });
+
   function downloadFile() {
     axios
       .get("/api/downloadFile/" + gestion.archivo, {
@@ -149,18 +180,15 @@ export const SlideSeguimiento = (props) => {
       });
   }
 
-  const styles = useStyles();
-
   /*----------CREAR FORMULARIO----------- */
-
+  const styles = useStyles();
   const [modal, setModal] = useState(false);
-
   const abrirCerrarModal = () => {
     setModal(!modal);
   };
-
   const onDropdownChange = ({ value }) => {
     setSelectedValue(value);
+    values.gestorS = selectedValue;
   };
 
   //------------COMBOBOX----------------------------
@@ -243,7 +271,7 @@ export const SlideSeguimiento = (props) => {
                     }))}
                   ></Select>
                 </div>
-                {errors.gestorS && touched.gestor && (
+                {errors.gestorS && touched.gestorS && (
                   <p className="error">{errors.gestorS}</p>
                 )}
               </div>
@@ -293,12 +321,7 @@ export const SlideSeguimiento = (props) => {
               </div>
 
               <div className="btnBu">
-                <button
-                  onClick={createPost}
-                  disabled={isSubmitting}
-                  className="btn"
-                  type="submit"
-                >
+                <button disabled={isSubmitting} className="btn" type="submit">
                   Agregar seguimiento
                 </button>
                 <NotificationContainer />
@@ -356,7 +379,7 @@ export const SlideSeguimiento = (props) => {
             Descargar
           </button>
         ) : (
-          <></>
+          <p className="pSeguimiento">Sin archivo</p>
         )}
       </div>
       <table className="tseguimiento">

@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useEffect } from "react";
-import { useTable, useGlobalFilter } from "react-table";
+import { useTable, useGlobalFilter, usePagination } from "react-table";
 import { COLUMNS } from "./Columns";
 import "./TableBuscar.css";
 import * as IoIcons from "react-icons/io";
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-/*const validate = (values) => {
+const validate = (values) => {
   let errores = {};
 
   //VALIDAR CURP
@@ -49,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
   if (!values.nombre) {
     errores.nombre = "CAMPO VACIO";
   }
+
   //VALIDAR APELLIDO PATERNO
   if (!values.apellidoPaterno) {
     errores.apellidoPaterno = "CAMPO VACIO";
@@ -115,7 +116,7 @@ const useStyles = makeStyles((theme) => ({
   }
 
   return errores;
-};*/
+};
 
 const BasicTableBuscar = () => {
   const navigate = useNavigate();
@@ -126,6 +127,9 @@ const BasicTableBuscar = () => {
   const data = ciudadano;
   const [localidad, setLocalidad] = useState([]);
   const [municipios, setMunicipio] = useState([]);
+  const [selectedMun, setSelectedMun] = useState(null);
+  const [selectedLoc, setSelectedLoc] = useState(null);
+  var loc = localidad;
 
   const getData = async () => {
     const res = await axios.get("/api/ciudadano");
@@ -135,19 +139,14 @@ const BasicTableBuscar = () => {
     const respL = await axios.get("/api/localidad/");
     setLocalidad(respL.data);
   };
-  useEffect(() => {
-    getData();
-  }, []);
-  
-  const [selectedMun, setSelectedMun] = useState([]);
-  const [selectedLoc, setSelectedLoc] = useState([]);
-  var loc = localidad;
 
   const onDropdownChangeMun = ({ value }) => {
     setSelectedMun(value);
+    values.municipio = selectedMun;
   };
   const onDropdownChangeLoc = ({ value }) => {
     setSelectedLoc(value);
+    values.localidad = selectedLoc;
   };
 
   if (selectedMun === "ACAPONETA") {
@@ -192,6 +191,10 @@ const BasicTableBuscar = () => {
     loc = loc.filter((entry) => entry.clave.startsWith("180200"));
   }
 
+  useEffect(() => {
+    getData();
+  }, []);
+
   function updtPut() {
     axios
       .put("/api/ciudadano/updtCiudadano/" + campos._id, {
@@ -203,8 +206,8 @@ const BasicTableBuscar = () => {
         telefono: values.telefono,
         email: values.email,
         codigoPostal: values.codigoPostal,
-        municipio: selectedMun,
-        localidad: selectedLoc,
+        municipio: selectedMun !== null ? selectedMun : values.municipio,
+        localidad: selectedLoc !== null ? selectedLoc : values.localidad,
         colonia: values.colonia,
         calle: values.calle,
         caracteristica: values.caracteristica,
@@ -216,8 +219,11 @@ const BasicTableBuscar = () => {
           "Exito"
         );
         setCampos(response.data);
+        getData();
+        setTimeout(function() {
+          abrirCerrarModal();
+        }, 3000);
       });
-    getData();
   }
 
   const customStyles = {
@@ -229,11 +235,11 @@ const BasicTableBuscar = () => {
   };
 
   const onSubmit = async (values, actions) => {
-    //METER LO DE LA BD
-    updtPut();
     await new Promise((resolve) => setTimeout(resolve, 1000));
+    updtPut();
     actions.resetForm();
   };
+
   /*----------DECLARAR LOS VALORES DE LOS CAMPOS----------- */
   const {
     values,
@@ -261,8 +267,9 @@ const BasicTableBuscar = () => {
       calle: campos.calle,
       caracteristica: campos.caracteristica,
     },
-    enableReinitialize: true,
     onSubmit,
+    validate,
+    enableReinitialize: true,
   });
   /*----------CONSTANTES PARA ABRIL LA PANTALLA----------- */
 
@@ -430,7 +437,7 @@ const BasicTableBuscar = () => {
 
         <div className="groupInput">
           <label htmlFor="municipio">MUNICIPIO</label>
-          <div className="selectDoble">
+          <div className="selectDoble2">
             <Select
               onBlur={handleBlur}
               onChange={onDropdownChangeMun}
@@ -449,7 +456,7 @@ const BasicTableBuscar = () => {
 
         <div className="groupInput">
           <label htmlFor="localidad">LOCALIDAD</label>
-          <div className="selectDoble">
+          <div className="selectDoble2">
             <Select
               onBlur={handleBlur}
               onChange={onDropdownChangeLoc}
@@ -534,7 +541,12 @@ const BasicTableBuscar = () => {
     getTableProps,
     getTableBodyProps,
     headerGroups,
-    rows,
+    page,
+    nextPage,
+    previousPage,
+    canNextPage,
+    canPreviousPage,
+    pageOptions,
     prepareRow,
     state,
     setGlobalFilter,
@@ -542,11 +554,13 @@ const BasicTableBuscar = () => {
     {
       columns,
       data,
+      initialState: { pageSize: 6 },
     },
-    useGlobalFilter
+    useGlobalFilter,
+    usePagination
   );
 
-  const { globalFilter } = state;
+  const { globalFilter, pageIndex } = state;
 
   function handleClick(camposR) {
     setCampos(camposR);
@@ -570,7 +584,7 @@ const BasicTableBuscar = () => {
             ))}
           </thead>
           <tbody {...getTableBodyProps()}>
-            {rows.map((row) => {
+            {page.map((row) => {
               prepareRow(row);
               return (
                 <tr {...row.getRowProps()}>
@@ -625,6 +639,28 @@ const BasicTableBuscar = () => {
             })}
           </tbody>
         </table>
+      </div>
+      <div className="pag">
+        <p className="spanPag">
+          Pág.{" "}
+          <strong>
+            {pageIndex + 1} de {pageOptions.length}
+          </strong>{" "}
+        </p>
+        <button
+          className="btnPag"
+          onClick={() => previousPage()}
+          disabled={!canPreviousPage}
+        >
+          <IoIcons.IoMdArrowBack />
+        </button>
+        <button
+          className="btnPag"
+          onClick={() => nextPage()}
+          disabled={!canNextPage}
+        >
+          <IoIcons.IoMdArrowForward />
+        </button>
       </div>
     </>
   );

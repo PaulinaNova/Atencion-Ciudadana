@@ -78,9 +78,10 @@
   width: 100%;
 }
 
-.btnbuscar{
+.btnbuscar2{
   display: flex;
   justify-content: right;
+  margin-top: -8vh;
 }
 
 .CBuscar{

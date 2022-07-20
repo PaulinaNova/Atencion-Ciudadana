@@ -30,7 +30,7 @@ export const TblPendientes = (props) => {
 
   if (cadena === "Urgentes") {
     data = data.filter(function(entry) {
-      return entry.prioridad === "ALTA";
+      return entry.prioridad === "ALTA" && entry.estado !== "CONCLUIDA";
     });
   } else if (cadena === "Vencidas") {
     data = data.filter(function(entry) {
@@ -38,7 +38,7 @@ export const TblPendientes = (props) => {
     });
   } else if (cadena === "Pendientes") {
     data = data.filter(function(entry) {
-      return entry.estado === "ACEPTADA";
+      return entry.estado === "ACEPTADA" && entry.prioridad !== "ALTA";
     });
   }
 

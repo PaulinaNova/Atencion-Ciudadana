@@ -11,15 +11,8 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 
-/*const validate = (values) => {
+const validate = (values) => {
   let errores = {};
-
-  //VALIDAR FOLIO
-  if (!values.folio) {
-    errores.folio = "CAMPO VACIO";
-  } else if (!/^([0-9])*$/.test(values.folio)) {
-    errores.folio = "INGRESA CORRECTAMENTE";
-  }
 
   //VALIDAR DESCRIPCION
   if (!values.descripcion) {
@@ -39,15 +32,11 @@ import Select from "react-select";
   //VALIDAR PERIODO
   if (!values.periodo) {
     errores.periodo = "CAMPO VACIO";
-  } else if (!/^([A-Z])*$/.test(values.periodo)) {
-    errores.periodo = "INGRESA CORRECTAMENTE";
   }
 
   //VALIDAR PRIORIDAD
   if (!values.prioridad) {
     errores.prioridad = "CAMPO VACIO";
-  } else if (!/^([A-Z])*$/.test(values.prioridad)) {
-    errores.prioridad = "INGRESA CORRECTAMENTE";
   }
 
   //VALIDAR TIPO
@@ -63,8 +52,6 @@ import Select from "react-select";
   //VALIDAR REGISTRA
   if (!values.registra) {
     errores.registra = "CAMPO VACIO";
-  } else if (!/^([A-Z])*$/.test(values.registra)) {
-    errores.registra = "INGRESA CORRECTAMENTE";
   }
 
   //VALIDAR VENCIMIENTO
@@ -80,36 +67,26 @@ import Select from "react-select";
   //VALIDAR FOLIO_INTERNO
   if (!values.folio_interno) {
     errores.folio_interno = "CAMPO VACIO";
-  } else if (!/^([0-9])*$/.test(values.folio_interno)) {
-    errores.folio_interno = "INGRESA CORRECTAMENTE";
   }
 
   //VALIDAR CANTIDAD DE BENEFICIADOS
   if (!values.cant_benef) {
     errores.cant_benef = "CAMPO VACIO";
-  } else if (!/^([0-9])*$/.test(values.cant_benef)) {
-    errores.cant_benef = "INGRESA CORRECTAMENTE";
   }
 
   //VALIDAR EVENTO
   if (!values.evento) {
     errores.evento = "CAMPO VACIO";
-  } else if (!/^([A-Z])*$/.test(values.evento)) {
-    errores.evento = "INGRESA CORRECTAMENTE";
   }
 
   //VALIDAR ESTADO
   if (!values.estado) {
     errores.estado = "CAMPO VACIO";
-  } else if (!/^(([A-Z])|([0-9]))*$/.test(values.estado)) {
-    errores.estado = "INGRESA CORRECTAMENTE";
   }
 
   //VALIDAR PRESUPUESTO
   if (!values.presupuesto) {
     errores.presupuesto = "CAMPO VACIO";
-  } else if (!/^([0-9])*$/.test(values.presupuesto)) {
-    errores.presupuesto = "INGRESA CORRECTAMENTE";
   }
 
   //VALIDAR NOTAS
@@ -118,14 +95,10 @@ import Select from "react-select";
   }
 
   return errores;
-};*/
-
-const onSubmit = async (values, actions) => {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  actions.resetForm();
 };
 
-const GestionGestor = () => {
+const GestionGestor = (props) => {
+  const { gestor } = props;
   const [dependencia, setDependencia] = useState([]);
   const [registra, setRegistra] = useState([]);
   const [evento, setEvento] = useState([]);
@@ -134,18 +107,23 @@ const GestionGestor = () => {
   const [selectedReg, setSelectedReg] = useState([]);
   const [selectedEv, setSelectedEv] = useState([]);
   const [selectedProc, setSelectedProc] = useState([]);
+  const [fileAr, setFileAr] = useState("");
 
   const onDropdownChangeDep = ({ value }) => {
     setSelectedDep(value);
+    values.dependencia = selectedDep
   };
   const onDropdownChangeReg = ({ value }) => {
     setSelectedReg(value);
+    values.registra = selectedReg;
   };
   const onDropdownChangeEv = ({ value }) => {
     setSelectedEv(value);
+    values.evento = selectedEv
   };
   const onDropdownChangeProc = ({ value }) => {
     setSelectedProc(value);
+    values.procedencia = selectedProc
   };
 
   const getData = async () => {
@@ -174,6 +152,13 @@ const GestionGestor = () => {
 
   const datosC = useParams();
   const navigate = useNavigate();
+
+  function uploadFile() {
+    axios.post("/api/uploadFiles", fileAr).then((response) => {
+      setFileAr(response.data);
+    });
+  }
+
   function createPost() {
     axios
       .post("/api/gestions/addGestion", {
@@ -197,14 +182,15 @@ const GestionGestor = () => {
         folio_interno: values.folio_interno,
         cant_benef: values.cant_benef,
         evento: selectedEv,
-        estado: values.estado,
+        estado: "ASIGNADA",
         presupuesto: values.presupuesto,
         notas: values.notas,
+        gestor: gestor,
         seguimiento: {
           fecha_seguimiento: "",
           descripcion_seguimiento: "",
-          gestor: "",
         },
+        archivo: values.archivo,
       })
       .then((response) => {
         setValues(response.data);
@@ -212,8 +198,18 @@ const GestionGestor = () => {
           "La gestión fue agregada correctamente",
           "Exito"
         );
+        setTimeout(function() {
+          window.location.reload();
+        }, 2000);
+        if (values.archivo !== "") uploadFile();
       });
   }
+
+  const onSubmit = async (values, actions) => {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    createPost();
+    actions.resetForm();
+  };
 
   const {
     setValues,
@@ -244,7 +240,9 @@ const GestionGestor = () => {
       estado: "",
       presupuesto: "",
       notas: "",
+      archivo: "",
     },
+    validate,
     onSubmit,
   });
 
@@ -263,7 +261,7 @@ const GestionGestor = () => {
                 value={values.folio_interno}
                 onChange={handleChange}
                 id="folio_interno"
-                type="number"
+                type="text"
                 placeholder="Ingresa folio interno"
                 onBlur={handleBlur}
                 className={
@@ -357,7 +355,7 @@ const GestionGestor = () => {
 
             <div className="groupInput">
               <label htmlFor="procedencia">PROCEDENCIA</label>
-              <div className="selectDoble">
+              <div className="selectDoble2">
                 <Select
                   onBlur={handleBlur}
                   onChange={onDropdownChangeProc}
@@ -399,6 +397,7 @@ const GestionGestor = () => {
                 onBlur={handleBlur}
                 onChange={handleChange}
               >
+                <option>Ingresa prioridad</option>
                 <option>ALTA</option>
                 <option>BAJA</option>
               </select>
@@ -415,8 +414,8 @@ const GestionGestor = () => {
                 onBlur={handleBlur}
                 onChange={handleChange}
               >
-                <option value="1">Ingresa tipo</option>
-                <option value="2">ORDINARIO</option>
+                <option>Ingresa tipo</option>
+                <option>ORDINARIO</option>
               </select>
               {errors.tipo && touched.tipo && (
                 <p className="error">{errors.tipo}</p>
@@ -425,7 +424,7 @@ const GestionGestor = () => {
 
             <div className="groupInput">
               <label htmlFor="dependencia">DEPENDENCIA</label>
-              <div className="selectDoble">
+              <div className="selectDoble2">
                 <Select
                   onBlur={handleBlur}
                   onChange={onDropdownChangeDep}
@@ -515,7 +514,7 @@ const GestionGestor = () => {
 
             <div className="groupInput">
               <label htmlFor="evento">EVENTO</label>
-              <div className="selectDoble">
+              <div className="selectDoble2">
                 <Select
                   onBlur={handleBlur}
                   onChange={onDropdownChangeEv}
@@ -533,15 +532,15 @@ const GestionGestor = () => {
 
             <div className="groupInput">
               <label htmlFor="estado">ESTADO</label>
-              <select
-                id="estado"
-                className="slcG"
-                onBlur={handleBlur}
+              <input
                 onChange={handleChange}
-              >
-                <option>Ingresa Estado</option>
-                <option>ACEPTADA</option>
-              </select>
+                value="ASIGNADA"
+                id="estado"
+                readOnly
+                type="text"
+                onBlur={handleBlur}
+                className={errors.estado && touched.estado ? "input-error" : ""}
+              />
               {errors.estado && touched.estado && (
                 <p className="error">{errors.estado}</p>
               )}
@@ -581,11 +580,32 @@ const GestionGestor = () => {
               )}
             </div>
 
+            <div className="groupInput">
+              <label htmlFor="ARCHIVO">ARCHIVO</label>
+              <input
+                onChange={(event) => {
+                  const fileList = event.target.files;
+                  let data = new FormData();
+                  const ext = fileList[0].name.split(".").pop();
+                  data.append(
+                    "archivo",
+                    fileList[0],
+                    values.folio_interno + "." + ext
+                  );
+                  setFileAr(data);
+                  values.archivo = values.folio_interno + "." + ext;
+                }}
+                id="archivo"
+                type="file"
+                name="archivo"
+                onBlur={handleBlur}
+              />
+            </div>
+
             <div className="btnGE">
               <button
                 className="btn"
                 disabled={isSubmitting}
-                onClick={createPost}
                 type="submit"
               >
                 Agregar gestion

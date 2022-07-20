@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-/*const validate = (values) => {
+const validate = (values) => {
   let errores = {};
 
   //VALIDAR CURP
@@ -44,22 +44,16 @@ const useStyles = makeStyles((theme) => ({
   //VALIDAR NOMBRE
   if (!values.nombre) {
     errores.nombre = "CAMPO VACIO";
-  } else if (!/^([A-Z])*$/.test(values.nombre)) {
-    errores.nombre = "INGRESA CORRECTAMENTE";
   }
 
   //VALIDAR APELLIDO PATERNO
   if (!values.apellidoPaterno) {
     errores.apellidoPaterno = "CAMPO VACIO";
-  } else if (!/^([A-Z])*$/.test(values.apellidoPaterno)) {
-    errores.apellidoPaterno = "INGRESA CORRECTAMENTE";
   }
 
   //VALIDAR APELLIDO MATERNO
   if (!values.apellidoMaterno) {
     errores.apellidoMaterno = "CAMPO VACIO";
-  } else if (!/^([A-Z])*$/.test(values.apellidoMaterno)) {
-    errores.apellidoMaterno = "INGRESA CORRECTAMENTE";
   }
 
   //VALIDAR FECHA
@@ -95,29 +89,21 @@ const useStyles = makeStyles((theme) => ({
   //VALIDAR MUNICIPIO
   if (!values.municipio) {
     errores.municipio = "CAMPO VACIO";
-  } else if (!/^(([A-Z])|([0-9]))*$/.test(values.municipio)) {
-    errores.municipio = "INGRESA CORRECTAMENTE";
   }
 
   //VALIDAR LOCALIDAD
   if (!values.localidad) {
     errores.localidad = "CAMPO VACIO";
-  } else if (!/^(([A-Z])|([0-9]))*$/.test(values.localidad)) {
-    errores.localidad = "INGRESA CORRECTAMENTE";
   }
 
   //VALIDAR COLONIA
   if (!values.colonia) {
     errores.colonia = "CAMPO VACIO";
-  } else if (!/^(([A-Z])|([0-9]))*$/.test(values.colonia)) {
-    errores.colonia = "INGRESA CORRECTAMENTE";
   }
 
   //VALIDAR CALLE
   if (!values.calle) {
     errores.calle = "CAMPO VACIO";
-  } else if (!/^(([A-Z])|([0-9]))*$/.test(values.calle)) {
-    errores.calle = "INGRESA CORRECTAMENTE";
   }
 
   //VALIDAR CARACTERISTICA
@@ -126,12 +112,6 @@ const useStyles = makeStyles((theme) => ({
   }
 
   return errores;
-};*/
-
-const onSubmit = async (values, actions) => {
-  //METER LO DE LA BD
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  actions.resetForm();
 };
 
 const BuscarGestor = () => {
@@ -164,9 +144,11 @@ const BuscarGestor = () => {
 
   const onDropdownChangeMun = ({ value }) => {
     setSelectedMun(value);
+    values.municipio = selectedMun;
   };
   const onDropdownChangeLoc = ({ value }) => {
     setSelectedLoc(value);
+    values.localidad = selectedLoc;
   };
 
   if (selectedMun === "ACAPONETA") {
@@ -234,11 +216,17 @@ const BuscarGestor = () => {
           "El ciudadano fue agregado correctamente",
           "Exito"
         );
+        setTimeout(function() {
+          window.location.reload();
+        }, 3000);
       });
-    setTimeout(function() {
-      window.location.reload();
-    }, 3000);
   }
+
+  const onSubmit = async (values, actions) => {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    createPost();
+    actions.resetForm();
+  };
 
   const {
     setValues,
@@ -265,7 +253,7 @@ const BuscarGestor = () => {
       calle: "",
       caracteristica: "",
     },
-    //validate,
+    validate,
     onSubmit,
   });
 
@@ -436,7 +424,7 @@ const BuscarGestor = () => {
 
         <div className="groupInput">
           <label htmlFor="municipio">MUNICIPIO</label>
-          <div className="selectDoble">
+          <div className="selectDoble2">
             <Select
               onBlur={handleBlur}
               onChange={onDropdownChangeMun}
@@ -455,7 +443,7 @@ const BuscarGestor = () => {
         <div className="groupInput">
           <label htmlFor="localidad">LOCALIDAD</label>
 
-          <div className="selectDoble">
+          <div className="selectDoble2">
             <Select
               onBlur={handleBlur}
               onChange={onDropdownChangeLoc}
@@ -473,16 +461,15 @@ const BuscarGestor = () => {
 
         <div className="groupInput">
           <label htmlFor="colonia">COLONIA</label>
-
-          <select
-            id="colonia"
-            className="slcG"
-            onBlur={handleBlur}
+          <input
+            value={values.colonia}
             onChange={handleChange}
-          >
-            <option value="1">Ingresa colonia</option>
-            <option value="2">REDES SOCIALES</option>
-          </select>
+            id="colonia"
+            type="text"
+            placeholder="Ingresa colonia"
+            onBlur={handleBlur}
+            className={errors.colonia && touched.colonia ? "input-error" : ""}
+          />
           {errors.colonia && touched.colonia && (
             <p className="error">{errors.colonia}</p>
           )}
@@ -525,12 +512,7 @@ const BuscarGestor = () => {
         </div>
 
         <div className="btnB">
-          <button
-            onClick={createPost}
-            disabled={isSubmitting}
-            className="btn"
-            type="submit"
-          >
+          <button disabled={isSubmitting} className="btn" type="submit">
             Agregar ciudadano
           </button>
           <NotificationContainer />
@@ -546,7 +528,7 @@ const BuscarGestor = () => {
     <div className="buscar">
       <div className="CBuscar">
         <BasicTableBuscar />
-        <div className="btnbuscar">
+        <div className="btnbuscar2">
           <button className="btn" onClick={() => abrirCerrarModal()}>
             Agregar ciudadano
           </button>

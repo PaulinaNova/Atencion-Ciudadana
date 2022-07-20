@@ -70,7 +70,7 @@ function App() {
               />
               <Route
                 path="/gestionGestor/:curp/:nombre/:apellidoPaterno/:apellidoMaterno"
-                element={<GestionGestor />}
+                element={<GestionGestor gestor={currentuserName} />}
               />
               <Route
                 path="/seguimientoGestor"

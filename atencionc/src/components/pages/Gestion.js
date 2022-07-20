@@ -14,7 +14,7 @@ import * as IoIcons from "react-icons/io";
 import { Modal } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-/*const validate = (values) => {
+const validate = (values) => {
   let errores = {};
 
   //VALIDAR DESCRIPCION
@@ -70,15 +70,11 @@ import { makeStyles } from "@material-ui/core/styles";
   //VALIDAR FOLIO_INTERNO
   if (!values.folio_interno) {
     errores.folio_interno = "CAMPO VACIO";
-  } else if (!/^([0-9])*$/.test(values.folio_interno)) {
-    errores.folio_interno = "INGRESA CORRECTAMENTE";
   }
 
   //VALIDAR CANTIDAD DE BENEFICIADOS
   if (!values.cant_benef) {
     errores.cant_benef = "CAMPO VACIO";
-  } else if (!/^([0-9])*$/.test(values.cant_benef)) {
-    errores.cant_benef = "INGRESA CORRECTAMENTE";
   }
 
   //VALIDAR EVENTO
@@ -94,8 +90,6 @@ import { makeStyles } from "@material-ui/core/styles";
   //VALIDAR PRESUPUESTO
   if (!values.presupuesto) {
     errores.presupuesto = "CAMPO VACIO";
-  } else if (!/^([0-9])*$/.test(values.presupuesto)) {
-    errores.presupuesto = "INGRESA CORRECTAMENTE";
   }
 
   //VALIDAR NOTAS
@@ -104,7 +98,7 @@ import { makeStyles } from "@material-ui/core/styles";
   }
 
   return errores;
-};*/
+};
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -132,7 +126,6 @@ const Gestion = () => {
   const [selectedReg, setSelectedReg] = useState([]);
   const [selectedEv, setSelectedEv] = useState([]);
   const [selectedProc, setSelectedProc] = useState([]);
-  //const [formData, setFormData] = useState("");
   const [fileAr, setFileAr] = useState("");
   const styles = useStyles();
   const [modal, setModal] = useState(false);
@@ -150,15 +143,19 @@ const Gestion = () => {
 
   const onDropdownChangeDep = ({ value }) => {
     setSelectedDep(value);
+    values.dependencia = selectedDep
   };
   const onDropdownChangeReg = ({ value }) => {
     setSelectedReg(value);
+    values.registra = selectedReg;
   };
   const onDropdownChangeEv = ({ value }) => {
     setSelectedEv(value);
+    values.evento = selectedEv;
   };
   const onDropdownChangeProc = ({ value }) => {
     setSelectedProc(value);
+    values.procedencia = selectedProc;
   };
 
   const getData = async () => {
@@ -220,10 +217,10 @@ const Gestion = () => {
         estado: values.estado,
         presupuesto: values.presupuesto,
         notas: values.notas,
+        gestor: "",
         seguimiento: {
           fecha_seguimiento: "",
           descripcion_seguimiento: "",
-          gestor: "",
         },
         archivo: values.archivo,
       })
@@ -235,13 +232,14 @@ const Gestion = () => {
         );
         setTimeout(function() {
           window.location.reload();
-        }, 3000);
+        }, 2000);
         if (values.archivo !== "") uploadFile();
       });
   }
 
   const onSubmit = async (values, actions) => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
+    createPost();
     actions.resetForm();
   };
 
@@ -334,6 +332,7 @@ const Gestion = () => {
       ev: "",
     },
     onSubmit,
+    validate
   });
 
   const body = (
@@ -799,7 +798,6 @@ const Gestion = () => {
               <button
                 className="btn"
                 disabled={isSubmitting}
-                onClick={createPost}
                 type="submit"
               >
                 Agregar gestion

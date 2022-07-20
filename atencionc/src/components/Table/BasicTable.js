@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-/*const validate = (values) => {
+const validate = (values) => {
   let errores = {};
 
   //VALIDAR CURP
@@ -116,7 +116,7 @@ const useStyles = makeStyles((theme) => ({
   }
 
   return errores;
-};*/
+};
 
 const BasicTable = () => {
   const navigate = useNavigate();
@@ -127,15 +127,17 @@ const BasicTable = () => {
   const data = ciudadano;
   const [localidad, setLocalidad] = useState([]);
   const [municipios, setMunicipio] = useState([]);
-  const [selectedMun, setSelectedMun] = useState([]);
-  const [selectedLoc, setSelectedLoc] = useState([]);
+  const [selectedMun, setSelectedMun] = useState(null);
+  const [selectedLoc, setSelectedLoc] = useState(null);
   var loc = localidad;
 
   const onDropdownChangeMun = ({ value }) => {
     setSelectedMun(value);
+    values.municipio = selectedMun
   };
   const onDropdownChangeLoc = ({ value }) => {
     setSelectedLoc(value);
+    values.localidad = selectedLoc
   };
 
   const getData = async () => {
@@ -158,8 +160,8 @@ const BasicTable = () => {
         telefono: values.telefono,
         email: values.email,
         codigoPostal: values.codigoPostal,
-        municipio: selectedMun,
-        localidad: selectedLoc,
+        municipio: selectedMun !== null ? selectedMun : values.municipio,
+        localidad: selectedLoc !== null ? selectedLoc : values.localidad,
         colonia: values.colonia,
         calle: values.calle,
         caracteristica: values.caracteristica,
@@ -171,6 +173,9 @@ const BasicTable = () => {
           "Exito"
         );
         setCampos(response.data);
+        setTimeout(function() {
+          abrirCerrarModal();
+        }, 3000);
       });
     getData();
   }
@@ -232,8 +237,8 @@ const BasicTable = () => {
 
   const onSubmit = async (values, actions) => {
     //METER LO DE LA BD
-    updtPut();
     await new Promise((resolve) => setTimeout(resolve, 1000));
+    updtPut();
     actions.resetForm();
   };
   /*----------DECLARAR LOS VALORES DE LOS CAMPOS----------- */
@@ -263,11 +268,12 @@ const BasicTable = () => {
       calle: campos.calle,
       caracteristica: campos.caracteristica,
     },
-    enableReinitialize: true,
     onSubmit,
+    validate,
+    enableReinitialize:true
   });
-  /*----------CONSTANTES PARA ABRIL LA PANTALLA----------- */
 
+  /*----------CONSTANTES PARA ABRIL LA PANTALLA----------- */
   const [modal, setModal] = useState(false);
 
   const abrirCerrarModal = () => {
@@ -435,7 +441,7 @@ const BasicTable = () => {
 
         <div className="groupInput">
           <label htmlFor="municipio">MUNICIPIO</label>
-          <div className="selectDoble">
+          <div className="selectDoble2">
             <Select
               onBlur={handleBlur}
               onChange={onDropdownChangeMun}
@@ -454,7 +460,7 @@ const BasicTable = () => {
 
         <div className="groupInput">
           <label htmlFor="localidad">LOCALIDAD</label>
-          <div className="selectDoble">
+          <div className="selectDoble2">
             <Select
               onBlur={handleBlur}
               onChange={onDropdownChangeLoc}

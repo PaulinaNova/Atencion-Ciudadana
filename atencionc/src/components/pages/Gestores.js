@@ -30,10 +30,101 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const onSubmit = async (values, actions) => {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+const validate = (values) => {
+  let errores = {};
 
-  actions.resetForm();
+  //VALIDAR RFC
+  if (!values.rfc) {
+    errores.rfc = "CAMPO VALIO";
+  } else if (!/^([A-Z]{4})([0-9]{6})(([A-Z]|[0-9]){3})$/.test(values.rfc)) {
+    errores.rfc = "INGRESA CORRECTAMENTE";
+  }
+
+  //VALIDAR DEPENDENCIA
+  if (!values.dependencia) {
+    errores.dependencia = "CAMPO VACIO";
+  }
+
+  //VALIDAR ESTADO
+  if (!values.estado) {
+    errores.estado = "CAMPO VACIO";
+  }
+
+  //VALIDAR NOMBRE
+  if (!values.nombre) {
+    errores.nombre = "CAMPO VACIO";
+  }
+
+  //VALIDAR APELLIDO PATERNO
+  if (!values.apellidoPaterno) {
+    errores.apellidoPaterno = "CAMPO VACIO";
+  }
+
+  //VALIDAR APELLIDO MATERNO
+  if (!values.apellidoMaterno) {
+    errores.apellidoMaterno = "CAMPO VACIO";
+  }
+  //VALIDAR TELEFONO
+  if (!values.telefono) {
+    errores.telefono = "CAMPO VACIO";
+  } else if (!/^([0-9]{10})$/.test(values.telefono)) {
+    errores.telefono = "INGRESA CORRECTAMENTE";
+  }
+
+  //VALIDAR MUNICIPIO
+  if (!values.municipio) {
+    errores.municipio = "CAMPO VACIO";
+  }
+
+  //VALIDAR LOCALIDAD
+  if (!values.localidad) {
+    errores.localidad = "CAMPO VACIO";
+  }
+
+  //VALIDAR CODIGO POSTAL
+  if (!values.codigoPostal) {
+    errores.codigoPostal = "CAMPO VACIO";
+  } else if (!/^([0-9]{5})$/.test(values.codigoPostal)) {
+    errores.codigoPostal = "INGRESA CORRECTAMENTE";
+  }
+
+  //VALIDAR COLONIA
+  if (!values.colonia) {
+    errores.colonia = "CAMPO VACIO";
+  }
+
+  //VALIDAR CALLE
+  if (!values.calle) {
+    errores.calle = "CAMPO VACIO";
+  }
+
+  //VALIDAR EMAIL
+  if (!values.email) {
+    errores.email = "CAMPO VACIO";
+  } else if (
+    !/^[a-zA-Z0-9.!#$%&'+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)$/.test(
+      values.email
+    )
+  ) {
+    errores.email = "INGRESA CORRECTAMENTE";
+  }
+
+  //VALIDAR USUARIO
+  if (!values.userName) {
+    errores.userName = "CAMPO VACIO";
+  }
+
+  //VALIDAR CONTRASEÑA
+  if (!values.password) {
+    errores.password = "CAMPO VACIO";
+  }
+
+  //VALIDAR CONTRASEÑA
+  if (!values.isAdmin) {
+    errores.isAdmin = "CAMPO VACIO";
+  }
+
+  return errores;
 };
 
 const Gestores = () => {
@@ -48,12 +139,15 @@ const Gestores = () => {
 
   const onDropdownChangeDep = ({ value }) => {
     setSelectedDep(value);
+    values.dependencia = selectedDep;
   };
   const onDropdownChangeMun = ({ value }) => {
     setSelectedMun(value);
+    values.municipio = selectedMun;
   };
   const onDropdownChangeLoc = ({ value }) => {
     setSelectedLoc(value);
+    values.localidad = selectedLoc;
   };
 
   const getData = async () => {
@@ -137,11 +231,17 @@ const Gestores = () => {
           "El gestor fue agregado correctamente",
           "Exito"
         );
+        setTimeout(function() {
+          window.location.reload();
+        }, 3000);
       });
-      setTimeout(function() {
-        window.location.reload();
-      }, 3000);
   }
+
+  const onSubmit = async (values, actions) => {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    createPost();
+    actions.resetForm();
+  };
 
   const {
     setValues,
@@ -171,6 +271,7 @@ const Gestores = () => {
       password: "",
       isAdmin: "",
     },
+    validate,
     onSubmit,
   });
 
@@ -475,14 +576,7 @@ const Gestores = () => {
             <p className="error">{errors.isAdmin}</p>
           )}
         </div>
-        <button
-          onClick={() => {
-            createPost();
-          }}
-          disabled={isSubmitting}
-          className="btn"
-          type="submit"
-        >
+        <button disabled={isSubmitting} className="btn" type="submit">
           Agregar gestor
         </button>
         <NotificationContainer />
@@ -510,99 +604,3 @@ const Gestores = () => {
   );
 };
 export default Gestores;
-
-//////////////////////////////////////////////////////////
-
-/*const validate = (values) => {
-  let errores = {};
-
-  //VALIDAR RFC
-  if (!values.rfc) {
-    errores.rfc = "CAMPO VALIO";
-  } else if (!/^([A-Z]{4})([0-9]{6})(([A-Z]|[0-9]){3})$/.test(values.rfc)) {
-    errores.rfc = "INGRESA CORRECTAMENTE";
-  }
-
-  //VALIDAR DEPENDENCIA
-  if (!values.dependencia) {
-    errores.dependencia = "CAMPO VACIO";
-  }
-
-  //VALIDAR CURP
-  if (!values.curp) {
-    errores.curp = "CAMPO VACIO";
-  } else if (!/^([A-Z]{4})([0-9]{6})([A-Z]{6})([0-9]{2})$/.test(values.curp)) {
-    errores.curp = "INGRESA CORRECTAMENTE";
-  }
-
-  //VALIDAR NOMBRE
-  if (!values.nombre) {
-    errores.nombre = "CAMPO VACIO";
-  }
-
-  //VALIDAR APELLIDO PATERNO
-  if (!values.apellidoPaterno) {
-    errores.apellidoPaterno = "CAMPO VACIO";
-  }
-
-  //VALIDAR APELLIDO MATERNO
-  if (!values.apellidoMaterno) {
-    errores.apellidoMaterno = "CAMPO VACIO";
-  }
-  //VALIDAR TELEFONO
-  if (!values.telefono) {
-    errores.telefono = "CAMPO VACIO";
-  } else if (!/^([0-9]{10})$/.test(values.telefono)) {
-    errores.telefono = "INGRESA CORRECTAMENTE";
-  }
-
-  //VALIDAR MUNICIPIO
-  if (!values.municipio) {
-    errores.municipio = "CAMPO VACIO";
-  }
-
-  //VALIDAR LOCALIDAD
-  if (!values.localidad) {
-    errores.localidad = "CAMPO VACIO";
-  }
-
-  //VALIDAR CODIGO POSTAL
-  if (!values.codigoPostal) {
-    errores.codigoPostal = "CAMPO VACIO";
-  } else if (!/^([0-9]{5})$/.test(values.codigoPostal)) {
-    errores.codigoPostal = "INGRESA CORRECTAMENTE";
-  }
-
-  //VALIDAR COLONIA
-  if (!values.colonia) {
-    errores.colonia = "CAMPO VACIO";
-  }
-
-  //VALIDAR CALLE
-  if (!values.calle) {
-    errores.calle = "CAMPO VACIO";
-  }
-
-  //VALIDAR EMAIL
-  if (!values.email) {
-    errores.email = "CAMPO VACIO";
-  } else if (
-    !/^[a-zA-Z0-9.!#$%&'+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)$/.test(
-      values.email
-    )
-  ) {
-    errores.email = "INGRESA CORRECTAMENTE";
-  }
-
-  //VALIDAR USUARIO
-  if (!values.userName) {
-    errores.userName = "CAMPO VACIO";
-  }
-
-  //VALIDAR CONTRASEÑA
-  if (!values.password) {
-    errores.password = "CAMPO VACIO";
-  }
-
-  return errores;
-};*/
