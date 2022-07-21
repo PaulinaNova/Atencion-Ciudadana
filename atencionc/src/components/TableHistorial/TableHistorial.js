@@ -1,14 +1,17 @@
 import React, { useMemo, useState, useEffect } from "react";
 import { useTable, useFilters, usePagination } from "react-table";
-import { COLUMNS } from "./ColumnsSeguimiento";
-import "./TableSeguimiento.css";
-import SlideSeguimiento from "../TableSeguimiento/SlideSeguimiento";
+import { COLUMNS } from "./ColumnsHistorial";
+import "./TableHistorial.css";
+import SlideSeguimiento from "../TableHistorial/SlideHistorial";
 import axios from "axios";
 import * as IoIcons from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 
 /*----------CREAR EL FONDO DE LA PANTALLA----------- */
 
-export const TableSeguimiento = () => {
+export const TableHistorial = (props) => {
+  const { filtro } = props;
+  const navigate = useNavigate();
   const [isShown, setIsShown] = useState(false);
   const columns = useMemo(() => COLUMNS, []);
   const [gestion, setGestion] = useState([]);
@@ -16,12 +19,14 @@ export const TableSeguimiento = () => {
 
   var data = gestion;
   const getData = async () => {
-    const res = await axios.get("/api/gestions");
-    setGestion(res.data);
+    axios.get("/api/gestions/curp/" + filtro.curp).then((res) => {
+      setGestion(res.data);
+    });
   };
 
   useEffect(() => {
     getData();
+    // eslint-disable-next-line
   }, []);
 
   const {
@@ -56,7 +61,7 @@ export const TableSeguimiento = () => {
     return isShown;
   }
 
-  const {pageIndex} = state;
+  const { pageIndex } = state;
 
   return (
     <>
@@ -71,7 +76,7 @@ export const TableSeguimiento = () => {
           readOnly
         />
       </div>
-      <div className="divSegui" style={{ width: isShown ? "75%" : "" }}>
+      <div className="divSeguiHis" style={{ width: isShown ? "75%" : "" }}>
         <table className="tseg" {...getTableProps()}>
           <thead>
             {headerGroups.map((headerGroup) => (
@@ -107,31 +112,36 @@ export const TableSeguimiento = () => {
             })}
           </tbody>
         </table>
-      </div>
-      <div className="pag">
-        <p className="spanPag">
-          Pág.{" "}
-          <strong>
-            {pageIndex + 1} de {pageOptions.length}
-          </strong>{" "}
-        </p>
-        <button
-          className="btnPag"
-          onClick={() => previousPage()}
-          disabled={!canPreviousPage}
-        >
-          <IoIcons.IoMdArrowBack />
-        </button>
-        <button
-          className="btnPag"
-          onClick={() => nextPage()}
-          disabled={!canNextPage}
-        >
-          <IoIcons.IoMdArrowForward />
-        </button>
+        <div className="pag">
+          <p className="spanPag">
+            Pág.{" "}
+            <strong>
+              {pageIndex + 1} de {pageOptions.length}
+            </strong>{" "}
+          </p>
+          <button
+            className="btnPag"
+            onClick={() => previousPage()}
+            disabled={!canPreviousPage}
+          >
+            <IoIcons.IoMdArrowBack />
+          </button>
+          <button
+            className="btnPag"
+            onClick={() => nextPage()}
+            disabled={!canNextPage}
+          >
+            <IoIcons.IoMdArrowForward />
+          </button>
+        </div>
+        <div className="btnHistorial">
+          <button className="btn" onClick={() => navigate("/buscar")}>
+            Regresar
+          </button>
+        </div>
       </div>
     </>
   );
 };
 
-export default TableSeguimiento;
+export default TableHistorial;

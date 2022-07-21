@@ -1,15 +1,15 @@
 import React from "react";
-import TableSeguimiento from "../TableSeguimiento/TableSeguimiento";
-import "../TableSeguimiento/TableSeguimiento.css";
+import TableHistorial from "../TableHistorial/TableHistorial";
+import "../TableHistorial/TableHistorial";
 import { useParams } from "react-router-dom";
 
 function Historial() {
-  const filtro  = useParams();
+  const filtro = useParams();
   return (
     <div>
       <div className="seguimientos">
         <div className="tblsegui">
-          <TableSeguimiento filtro={filtro} />
+          <TableHistorial filtro={filtro} />
         </div>
       </div>
     </div>

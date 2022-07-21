@@ -1,18 +1,17 @@
 import React from "react";
-import TableSeguimiento from "../TableSeguimiento/TableSeguimiento";
-import "../TableSeguimiento/TableSeguimiento.css";
+import TableSeguimientoGestor from "../TableSeguimientoGestor/TableSeguimientoGestor";
+import "../TableSeguimientoGestor/TableSeguimientoGestor";
 
-export const SeguimientoGestor = (props) =>{
-  const { gestor } = props;
+export const SeguimientoGestor = () => {
   return (
     <div>
       <div className="seguimientos">
         <div className="tblsegui">
-          <TableSeguimiento gestor={gestor}/>
+          <TableSeguimientoGestor />
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default SeguimientoGestor;

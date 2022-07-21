@@ -79,11 +79,6 @@ const validate = (values) => {
     errores.evento = "CAMPO VACIO";
   }
 
-  //VALIDAR ESTADO
-  if (!values.estado) {
-    errores.estado = "CAMPO VACIO";
-  }
-
   //VALIDAR PRESUPUESTO
   if (!values.presupuesto) {
     errores.presupuesto = "CAMPO VACIO";

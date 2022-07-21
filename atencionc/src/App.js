@@ -59,10 +59,7 @@ function App() {
               />
               <Route path="/catalogo" element={<Catalogo />} />
               <Route path="/historial/:curp" element={<Historial />} />
-              <Route
-                path="/asignadas"
-                element={<Asignadas gestor={currentuserName} />}
-              />
+              <Route path="/asignadas" element={<Asignadas />} />
               <Route path="/buscarGestor" element={<BuscarGestor />} />
               <Route
                 path="/historialGestor/:curp"
@@ -74,7 +71,7 @@ function App() {
               />
               <Route
                 path="/seguimientoGestor"
-                element={<SeguimientoGestor gestor={currentuserName} />}
+                element={<SeguimientoGestor />}
               />
             </Routes>
           ) : currentPath === "/login" ? null : (

@@ -1,23 +1,25 @@
 import React, { useMemo, useState, useEffect } from "react";
 import { useTable, useFilters, usePagination } from "react-table";
-import { COLUMNS } from "./ColumnsSeguimiento";
-import "./TableSeguimiento.css";
-import SlideSeguimiento from "../TableSeguimiento/SlideSeguimiento";
+import { COLUMNS } from "./ColumnsSeguimientoGestor";
+import "./TableSeguimientoGestor.css";
+import SlideSeguimiento from "../TableSeguimientoGestor/SlideSeguimientoGestor";
 import axios from "axios";
 import * as IoIcons from "react-icons/io";
+import AuthService from "../../services/auth.service";
 
 /*----------CREAR EL FONDO DE LA PANTALLA----------- */
 
-export const TableSeguimiento = () => {
+export const TableSeguimientoGestor = () => {
   const [isShown, setIsShown] = useState(false);
   const columns = useMemo(() => COLUMNS, []);
   const [gestion, setGestion] = useState([]);
   const [gestionR, setGestionR] = useState([]);
+  const data = gestion;
 
-  var data = gestion;
   const getData = async () => {
+    const userName = AuthService.getCurrentUserName();
     const res = await axios.get("/api/gestions");
-    setGestion(res.data);
+    setGestion(res.data.filter((entry) => entry.gestor === userName));
   };
 
   useEffect(() => {
@@ -56,7 +58,7 @@ export const TableSeguimiento = () => {
     return isShown;
   }
 
-  const {pageIndex} = state;
+  const { pageIndex } = state;
 
   return (
     <>
@@ -134,4 +136,4 @@ export const TableSeguimiento = () => {
   );
 };
 
-export default TableSeguimiento;
+export default TableSeguimientoGestor;

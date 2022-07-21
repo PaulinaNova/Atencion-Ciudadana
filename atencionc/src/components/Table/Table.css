@@ -128,3 +128,8 @@
 .CBuscar{
   margin-top: 7vh;
 }
+
+.CTablePendientes {
+  max-height: 14.7rem;
+  overflow: auto;
+}

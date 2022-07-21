@@ -13,7 +13,7 @@ export const Navbar = () => {
   const showSidebar = () => setSidebar(!sidebar);
   const [currentisAdmin, setCurrentisAdmin] = useState();
 
-  function cerrarSesion(){
+  function cerrarSesion() {
     localStorage.removeItem("gestor");
   }
 
@@ -62,7 +62,13 @@ export const Navbar = () => {
                   );
                 })}
             <li className="nav-text">
-              <Link to={"/login"} reloadDocument onClick={()=>{cerrarSesion();}}>
+              <Link
+                to={"/login"}
+                reloadDocument
+                onClick={() => {
+                  cerrarSesion();
+                }}
+              >
                 <IoIcons.IoIosLogOut />
                 <span>Cerrar sesión</span>
               </Link>
