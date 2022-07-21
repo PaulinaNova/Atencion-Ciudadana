@@ -337,6 +337,8 @@ export const SlideSeguimiento = (props) => {
   return (
     <Menu right customBurgerIcon={false} isOpen={abierto}>
       <div className="detallesG">
+        <p className="menu-item">CURP: </p>
+        <p className="pSeguimiento">{gestion.curp}</p>
         <p className="menu-item">Procedencia: </p>
         <p className="pSeguimiento">{gestion.procedencia}</p>
         <p className="menu-item">Periodo: </p>
