@@ -217,7 +217,7 @@ const Buscar = () => {
         );
         setTimeout(function() {
           window.location.reload();
-        }, 2000);
+        }, 3000);
       });
   }
 

@@ -133,11 +133,11 @@ const BasicTable = () => {
 
   const onDropdownChangeMun = ({ value }) => {
     setSelectedMun(value);
-    values.municipio = selectedMun
+    values.municipio = value
   };
   const onDropdownChangeLoc = ({ value }) => {
     setSelectedLoc(value);
-    values.localidad = selectedLoc
+    values.localidad = value
   };
 
   const getData = async () => {

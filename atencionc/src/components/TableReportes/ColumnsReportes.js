@@ -3,7 +3,7 @@ import { ColumnFilter } from "./ColumnFilter";
 export const COLUMNS = [
   {
     Header: "Folio",
-    accessor: "folio",
+    accessor: "folio_interno",
     Filter: ColumnFilter,
   },
   {

@@ -167,15 +167,15 @@ const TableGestores = () => {
 
   const onDropdownChangeMun = ({ value }) => {
     setSelectedMun(value);
-    values.municipio = selectedMun
+    values.municipio = value;
   };
   const onDropdownChangeLoc = ({ value }) => {
     setSelectedLoc(value);
-    values.localidad = selectedLoc;
+    values.localidad = value;
   };
   const onDropdownChangeDep = ({ value }) => {
     setSelectedDep(value);
-    values.dependencia = selectedDep;
+    values.dependencia = value;
   };
 
   const getData = async () => {
@@ -193,7 +193,7 @@ const TableGestores = () => {
     axios
       .put("/api/gestor/updtGestor/" + campos._id, {
         rfc: values.rfc,
-        dependencia: selectedDep !== null ? selectedDep : values.dependencia ,
+        dependencia: selectedDep !== null ? selectedDep : values.dependencia,
         estado: values.estado,
         nombre: values.nombre,
         apellidoPaterno: values.apellidoPaterno,
@@ -219,7 +219,7 @@ const TableGestores = () => {
       });
     setTimeout(function() {
       abrirCerrarModal();
-    }, 2000);
+    }, 3000);
     getData();
   }
 
@@ -234,7 +234,7 @@ const TableGestores = () => {
     getData();
     setTimeout(function() {
       abrirCerrarModalDlt();
-    }, 2000);
+    }, 3000);
   }
 
   useEffect(() => {

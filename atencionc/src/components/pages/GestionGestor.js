@@ -49,11 +49,6 @@ const validate = (values) => {
     errores.dependencia = "CAMPO VACIO";
   }
 
-  //VALIDAR REGISTRA
-  if (!values.registra) {
-    errores.registra = "CAMPO VACIO";
-  }
-
   //VALIDAR VENCIMIENTO
   if (!values.vencimiento) {
     errores.vencimiento = "CAMPO VACIO";
@@ -79,27 +74,15 @@ const validate = (values) => {
     errores.evento = "CAMPO VACIO";
   }
 
-  //VALIDAR PRESUPUESTO
-  if (!values.presupuesto) {
-    errores.presupuesto = "CAMPO VACIO";
-  }
-
-  //VALIDAR NOTAS
-  if (!values.notas) {
-    errores.notas = "CAMPO VACIO";
-  }
-
   return errores;
 };
 
 const GestionGestor = (props) => {
   const { gestor } = props;
   const [dependencia, setDependencia] = useState([]);
-  const [registra, setRegistra] = useState([]);
   const [evento, setEvento] = useState([]);
   const [procedencia, setProcedencia] = useState([]);
   const [selectedDep, setSelectedDep] = useState([]);
-  const [selectedReg, setSelectedReg] = useState([]);
   const [selectedEv, setSelectedEv] = useState([]);
   const [selectedProc, setSelectedProc] = useState([]);
   const [fileAr, setFileAr] = useState("");
@@ -107,10 +90,6 @@ const GestionGestor = (props) => {
   const onDropdownChangeDep = ({ value }) => {
     setSelectedDep(value);
     values.dependencia = selectedDep
-  };
-  const onDropdownChangeReg = ({ value }) => {
-    setSelectedReg(value);
-    values.registra = selectedReg;
   };
   const onDropdownChangeEv = ({ value }) => {
     setSelectedEv(value);
@@ -122,8 +101,6 @@ const GestionGestor = (props) => {
   };
 
   const getData = async () => {
-    const resR = await axios.get("/api/gestor");
-    setRegistra(resR.data);
     const resD = await axios.get("/api/dependencia/");
     setDependencia(resD.data);
     const respE = await axios.get("/api/evento/");
@@ -171,7 +148,7 @@ const GestionGestor = (props) => {
         prioridad: values.prioridad,
         tipo: values.tipo,
         dependencia: selectedDep,
-        registra: selectedReg,
+        registra: gestor,
         vencimiento: values.vencimiento,
         periodico: values.periodico,
         folio_interno: values.folio_interno,
@@ -195,7 +172,7 @@ const GestionGestor = (props) => {
         );
         setTimeout(function() {
           window.location.reload();
-        }, 2000);
+        }, 3000);
         if (values.archivo !== "") uploadFile();
       });
   }
@@ -437,20 +414,14 @@ const GestionGestor = (props) => {
 
             <div className="groupInput">
               <label htmlFor="registra">REGISTRA</label>
-              <div className="selectDoble2">
-                <Select
-                  onBlur={handleBlur}
-                  onChange={onDropdownChangeReg}
-                  styles={customStyles}
-                  options={registra.map((mun) => ({
-                    label: mun.nombre,
-                    value: mun.nombre,
-                  }))}
-                ></Select>
-              </div>
-              {errors.registra && touched.registra && (
-                <p className="error">{errors.registra}</p>
-              )}
+              <input
+                onChange={handleChange}
+                value={gestor}
+                id="registra"
+                readOnly
+                type="text"
+                onBlur={handleBlur}
+              />
             </div>
 
             <div className="groupInput">
@@ -534,11 +505,7 @@ const GestionGestor = (props) => {
                 readOnly
                 type="text"
                 onBlur={handleBlur}
-                className={errors.estado && touched.estado ? "input-error" : ""}
               />
-              {errors.estado && touched.estado && (
-                <p className="error">{errors.estado}</p>
-              )}
             </div>
 
             <div className="groupInput">
@@ -550,13 +517,7 @@ const GestionGestor = (props) => {
                 type="number"
                 placeholder="Presupuesto"
                 onBlur={handleBlur}
-                className={
-                  errors.presupuesto && touched.presupuesto ? "input-error" : ""
-                }
               />
-              {errors.presupuesto && touched.presupuesto && (
-                <p className="error">{errors.presupuesto}</p>
-              )}
             </div>
 
             <div className="groupInput">
@@ -568,11 +529,7 @@ const GestionGestor = (props) => {
                 type="text"
                 placeholder="Notas"
                 onBlur={handleBlur}
-                className={errors.notas && touched.notas ? "input-error" : ""}
               />
-              {errors.notas && touched.notas && (
-                <p className="error">{errors.notas}</p>
-              )}
             </div>
 
             <div className="groupInput">
@@ -598,11 +555,7 @@ const GestionGestor = (props) => {
             </div>
 
             <div className="btnGE">
-              <button
-                className="btn"
-                disabled={isSubmitting}
-                type="submit"
-              >
+              <button className="btn" disabled={isSubmitting} type="submit">
                 Agregar gestion
               </button>
               <NotificationContainer />

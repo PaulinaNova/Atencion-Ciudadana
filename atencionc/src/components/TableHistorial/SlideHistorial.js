@@ -47,10 +47,6 @@ const validate = (values) => {
     errores.descripcion_seguimiento = "CAMPO VACIO";
   }
 
-  //VALIDAR PRESUPUESTO
-  if (!values.presupuestoS) {
-    errores.presupuestoS = "CAMPO VACIO";
-  }
   //VALIDAR GESTOR
   if (!values.gestorS) {
     errores.gestorS = "CAMPO VACIO";
@@ -66,6 +62,11 @@ export const SlideSeguimiento = (props) => {
   const [seguimientos, setSeguimiento] = useState([]);
   var datos = seguimientos;
   var emails = gestores;
+
+  const onDropdownChange = ({ value }) => {
+    setSelectedValue(value);
+    values.gestorS = value;
+  };
 
   const getData = async () => {
     const res = await axios.get("/api/seguimiento");
@@ -100,7 +101,10 @@ export const SlideSeguimiento = (props) => {
         cant_benef: gestion.cant_benef,
         evento: gestion.evento,
         estado: values.estadoS,
-        presupuesto: values.presupuestoS,
+        presupuesto:
+          values.presupuestoS === ""
+            ? gestion.presupuesto
+            : values.presupuestoS,
         notas: gestion.notas,
         gestor: selectedValue,
         seguimiento: {
@@ -120,7 +124,10 @@ export const SlideSeguimiento = (props) => {
         fecha_seguimiento: values.fecha_seguimientoS,
         descripcion_seguimiento: values.descripcion_seguimiento,
         gestor: selectedValue,
-        presupuesto: values.presupuestoS,
+        presupuesto:
+          values.presupuestoS === ""
+            ? gestion.presupuesto
+            : values.presupuestoS,
       })
       .then((response) => {
         setValues(response.data);
@@ -185,10 +192,6 @@ export const SlideSeguimiento = (props) => {
   const [modal, setModal] = useState(false);
   const abrirCerrarModal = () => {
     setModal(!modal);
-  };
-  const onDropdownChange = ({ value }) => {
-    setSelectedValue(value);
-    values.gestorS = selectedValue;
   };
 
   //------------COMBOBOX----------------------------
@@ -287,7 +290,6 @@ export const SlideSeguimiento = (props) => {
                 >
                   <option>Ingresa Estado</option>
                   <option>ASIGNADA</option>
-                  <option>ACEPTADA</option>
                   <option>SEGUIMIENTO</option>
                   <option>CONCLUIDA</option>
                   <option>CANCELADA</option>
@@ -309,15 +311,7 @@ export const SlideSeguimiento = (props) => {
                   type="number"
                   placeholder="Ingresa Presupuesto"
                   onBlur={handleBlur}
-                  className={
-                    errors.presupuestoS && touched.presupuestoS
-                      ? "input-error"
-                      : ""
-                  }
                 />
-                {errors.presupuestoS && touched.presupuestoS && (
-                  <p className="error">{errors.presupuestoS}</p>
-                )}
               </div>
 
               <div className="btnBu">

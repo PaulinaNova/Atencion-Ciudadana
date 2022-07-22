@@ -82,21 +82,6 @@ const validate = (values) => {
     errores.evento = "CAMPO VACIO";
   }
 
-  //VALIDAR ESTADO
-  if (!values.estado) {
-    errores.estado = "CAMPO VACIO";
-  }
-
-  //VALIDAR PRESUPUESTO
-  if (!values.presupuesto) {
-    errores.presupuesto = "CAMPO VACIO";
-  }
-
-  //VALIDAR NOTAS
-  if (!values.notas) {
-    errores.notas = "CAMPO VACIO";
-  }
-
   return errores;
 };
 
@@ -214,7 +199,7 @@ const Gestion = () => {
         folio_interno: values.folio_interno,
         cant_benef: values.cant_benef,
         evento: selectedEv,
-        estado: values.estado,
+        estado: "ACEPTADA",
         presupuesto: values.presupuesto,
         notas: values.notas,
         gestor: "",
@@ -232,7 +217,7 @@ const Gestion = () => {
         );
         setTimeout(function() {
           window.location.reload();
-        }, 2000);
+        }, 3000);
         if (values.archivo !== "") uploadFile();
       });
   }
@@ -724,18 +709,14 @@ const Gestion = () => {
 
             <div className="groupInput">
               <label htmlFor="estado">ESTADO</label>
-              <select
-                id="estado"
-                className="slcG"
-                onBlur={handleBlur}
+              <input
                 onChange={handleChange}
-              >
-                <option>Ingresa Estado</option>
-                <option>ACEPTADA</option>
-              </select>
-              {errors.estado && touched.estado && (
-                <p className="error">{errors.estado}</p>
-              )}
+                value="ACEPTADA"
+                id="estado"
+                readOnly
+                type="text"
+                onBlur={handleBlur}
+              />
             </div>
 
             <div className="groupInput">
@@ -747,13 +728,7 @@ const Gestion = () => {
                 type="number"
                 placeholder="Presupuesto"
                 onBlur={handleBlur}
-                className={
-                  errors.presupuesto && touched.presupuesto ? "input-error" : ""
-                }
               />
-              {errors.presupuesto && touched.presupuesto && (
-                <p className="error">{errors.presupuesto}</p>
-              )}
             </div>
 
             <div className="groupInput">
@@ -765,11 +740,7 @@ const Gestion = () => {
                 type="text"
                 placeholder="Notas"
                 onBlur={handleBlur}
-                className={errors.notas && touched.notas ? "input-error" : ""}
               />
-              {errors.notas && touched.notas && (
-                <p className="error">{errors.notas}</p>
-              )}
             </div>
 
             <div className="groupInput">
@@ -795,11 +766,7 @@ const Gestion = () => {
             </div>
 
             <div className="btnGE">
-              <button
-                className="btn"
-                disabled={isSubmitting}
-                type="submit"
-              >
+              <button className="btn" disabled={isSubmitting} type="submit">
                 Agregar gestion
               </button>
               <NotificationContainer />
