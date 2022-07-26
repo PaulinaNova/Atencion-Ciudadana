@@ -565,6 +565,8 @@ const Gestion = () => {
               >
                 <option>Ingresa tipo</option>
                 <option>ORDINARIO</option>
+                <option>COMPROMISO</option>
+                <option>COMPROMISO PÚBLICO</option>
               </select>
               {errors.tipo && touched.tipo && (
                 <p className="error">{errors.tipo}</p>
